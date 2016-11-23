@@ -1,0 +1,19 @@
+Team rules
+	- quotation marks are single
+	
+TODO
+- Passport + create login/register pages - Stoyan
+- Scrap cars from http://www.cars-data.com/en/car-brands-cars-logos.html - Miro
+- Cloud deploy
+- Create Schemas/Models - Galin
+- DataLayer - Stoyo
+- Index Constoller - George
+- Create pages:
+	- Home page - George
+	- Car Details page 
+	- Car Search page - George
+	- User page
+	- User Messages page
+	- Send Message To User page,
+	- Booking page
+	- Submit Car For Rent page

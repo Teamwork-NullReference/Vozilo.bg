@@ -1,0 +1,33 @@
+Original web app (the one we steal from :)) - www.gomore.dk
+
+dynamic pages all users
+- home
+	- a form where to choose city, start and end date
+	- top rented cars/users
+	- some statistics
+	- buttons
+		- login and register
+		- create a car for rent
+		- search cars button
+- login/register
+- car search (with filters)
+	- filters by car details
+	- listing cars (with pagination/scrolling)
+	- (Extras)map with where cars are available and for what price
+- car details
+	- car details
+	- car owner details
+	- buttons
+		- rent a car button (only for authenticated users)
+		- send message to car owner button(only for authenticated users)
+- car owner user page(same for all users)
+
+only authenticated users
+- user profile page (not authenticated can see only other users pages, but not theirs)
+	- details
+	- buttons
+		- messages
+- user messages page
+- booking page (filling form)(when rent a car button is clicked)
+- create a car for rent (when button create a car for rent is clicked)
+- send message to car owner user
