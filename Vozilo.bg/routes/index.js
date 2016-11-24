@@ -1,11 +1,13 @@
-/* globals require __dirname*/
+/* globals require module __dirname*/
 'use strict';
 
-let fs = require('fs'),
-    path = require('path');
+const fs = require('fs');
+const path = require('path');
 
-module.exports = function(app, upload) {
-    fs.readdirSync(__dirname)
-        .filter(file => file.indexOf('-router') >= 0)
-        .forEach(file => require(path.join(__dirname, file))(app));
+module.exports = function(app, data) {
+    fs.readdirSync('./routers')
+        .filter(x => x.includes('-router'))
+        .forEach(file => {
+            require(path.join(__dirname, file))(app, data);
+        });
 };

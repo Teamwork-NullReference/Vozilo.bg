@@ -1,9 +1,20 @@
-/* globals require*/
+/* globals require __dirname*/
 'use strict';
 
-let fs = require('fs'),
-    path = require('path');
+const fs = require('fs');
+const path = require('path');
 
-fs.readdirSync(__dirname)
-    .filter(file => file.indexOf('-model') >= 0)
-    .forEach(file => require(path.join(__dirname, file)));
+let models = {};
+
+module.exports = function() {
+    fs.readdirSync('./models')
+        .filter(x => x.includes('-model'))
+        .forEach(file => {
+            let ModelModule =
+                require(path.join(__dirname, file));
+
+            models[file.substring(0, file.indexOf('-'))] = ModelModule;
+        });
+
+    return models;
+};

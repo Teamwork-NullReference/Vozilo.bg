@@ -73,7 +73,6 @@ module.exports = {
             "declaration"
         ],
         "generator-star-spacing": "error",
-        "global-require": "error",
         "guard-for-in": "error",
         "handle-callback-err": "error",
         "id-blacklist": "error",
@@ -87,7 +86,7 @@ module.exports = {
         "line-comment-position": "error",
         "linebreak-style": [
             "error",
-            "unix"
+            "windows"
         ],
         "lines-around-comment": "error",
         "lines-around-directive": "off",
@@ -124,7 +123,7 @@ module.exports = {
         "no-extra-parens": "error",
         "no-floating-decimal": "error",
         "no-implicit-coercion": "error",
-        "no-implicit-globals": "error",
+        "no-implicit-globals": "off",
         "no-implied-eval": "error",
         "no-inline-comments": "error",
         "no-invalid-this": "error",
@@ -225,7 +224,7 @@ module.exports = {
         "quote-props": "off",
         "quotes": [
             "error",
-            "double"
+            "single"
         ],
         "radix": "error",
         "require-jsdoc": "off",
