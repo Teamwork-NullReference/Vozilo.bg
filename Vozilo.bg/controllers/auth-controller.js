@@ -4,12 +4,12 @@ module.exports = function(data) {
     return {
         signUp(req, res) {
             let { username, password } = req.body;
-            console.log(username+" "+password);
             data.createUser(username, password)
-                .then(user => {
-                    res.send({ success: true, message: 'You have been registered', user });
-                    // res.redirect('/auth/sign-in');
-                });
+                .then(
+                    user => {
+                        res.send({ success: true, message: 'You have been registered', user });
+        //             // res.redirect('/auth/sign-in');
+                    });
         },
         signOut(req, res) {
             req.logout();
@@ -17,7 +17,7 @@ module.exports = function(data) {
             //redirect('/');
         },
         getSignUpForm(req, res) {
-            res.send()
+            res.send();
             // res.render('authentication/sign-up');
         },
         getSignInForm(req, res) {

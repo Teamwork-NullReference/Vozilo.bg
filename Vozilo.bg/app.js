@@ -3,7 +3,7 @@
 
 const config = require('./config');
 
-const data = require('./data')(config);
+let data = require('./data')(config);
 
 const app = require('./config/application')(data);
 

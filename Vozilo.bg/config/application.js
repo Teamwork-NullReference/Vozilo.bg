@@ -4,8 +4,7 @@
 const express = require('express'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
-    session = require('express-session'),
-    passport= require('passport');
+    session = require('express-session');
 
 module.exports = function(data) {
 
@@ -18,12 +17,9 @@ module.exports = function(data) {
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
     app.use(cookieParser());
-
     app.use(session({ secret: 'totally random' }));
-    app.use(passport.initialize());
-    app.use(passport.session());
 
-    // require('./passport')(app, data);
+    require('./passport')(app, data);
 
     return app;
 };

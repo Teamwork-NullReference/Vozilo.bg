@@ -1,12 +1,10 @@
 /* globals module require Promise */
 
 module.exports = function(models) {
-    let {
-        User
-    } = models;
-    console.log(User);
+    let { User } = models;
     return {
         createUser(username, password) {
+            //tuk gurmi!!!
             let user = new User({ username, password });
             return new Promise((resolve, reject) => {
                 user.save(err => {

@@ -4,9 +4,9 @@
 const passport= require('passport'),
     LocalStratey= require('passport-local');
 
-module.exports= function ({ app, data }) {
+module.exports= function (app, data) {
     app.use(passport.initialize());
-    app.use(passport.seesion());
+    app.use(passport.session());
 
     const Strategy = new LocalStratey((username, password, done) => {
         data.findUserByCredentials(username, password)

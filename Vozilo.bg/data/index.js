@@ -10,12 +10,12 @@ module.exports = function(config) {
     mongoose.connect(config.connectionString);
 
     let models = require('./../models');
-
     let data = {};
 
     fs.readdirSync('./data')
         .filter(x => x.includes('-data'))
         .forEach(file => {
+            console.log(file);
             let dataModule =
                 require(path.join(__dirname, file))(models);
 
