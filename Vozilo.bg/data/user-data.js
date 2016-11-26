@@ -3,12 +3,12 @@
 
 
 module.exports = function(models) {
-    let { user } = models;
+    let { User } = models;
 
     return {
         getAllUsers() {
             let promise = new Promise((resolve, reject) => {
-                user.find({}, (err, res) => {
+                User.find({}, (err, res) => {
                     if (err) {
                         reject(err);
                     }
@@ -21,7 +21,7 @@ module.exports = function(models) {
         },
         getFilteredUsers(options) {
             let promise = new Promise((resolve, reject) => {
-                user.find({ options }, (err, res) => {
+                User.find({ options }, (err, res) => {
                     if (err) {
                         reject(err);
                     }
@@ -34,7 +34,7 @@ module.exports = function(models) {
         },
         getUserById(id) {
             let promise = new Promise((resolve, reject) => {
-                user.findOne({ id }, (err, res) => {
+                User.findOne({ id }, (err, res) => {
                     if (err) {
                         reject(err);
                     }
@@ -46,15 +46,17 @@ module.exports = function(models) {
             return promise;
         },
         createUser(username, password) {
+            
+            console.log(username, password);
             //tuk gurmi!!!
-            let newUser = new user({ username, password });
+            let newUser = new User({ username, password });
             return new Promise((resolve, reject) => {
                 newUser.save(err => {
                     if (err) {
                         return reject(err);
                     }
 
-                    return resolve(user);
+                    return resolve(newUser);
                 });
             });
          },
@@ -62,7 +64,7 @@ module.exports = function(models) {
         /* TODO find out what kind of Credentials we use and add it to be more clear. */
         getUserByCredentials(options) {
             let promise = new Promise((resolve, reject) => {
-                user.findOne({ options }, (err, res) => {
+                User.findOne({ options }, (err, res) => {
                     if (err) {
                         reject(err);
                     }
