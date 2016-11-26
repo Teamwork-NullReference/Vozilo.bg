@@ -5,7 +5,8 @@ const express = require('express');
 // const passport = require('passport');
 
 module.exports = function ({ app, data }) {
-    let controller = require('../controllers/user-controller')(data);
+    // Leave Commented until controllers/user-controller implemented!
+    // let controller = require('../controllers/user-controller')(data);
 
     let router = new express.Router();
 

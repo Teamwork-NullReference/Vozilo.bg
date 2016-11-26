@@ -7,12 +7,12 @@ const path = require('path');
 let models = {};
 
 module.exports = function() {
-    fs.readdirSync('./models')
+    fs.readdirSync('./..models')
         .filter(x => x.includes('-model'))
         .forEach(file => {
             let ModelModule =
                 require(path.join(__dirname, file));
-
+                console.log(__dirname);
             models[file.substring(0, file.indexOf('-'))] = ModelModule;
         });
 

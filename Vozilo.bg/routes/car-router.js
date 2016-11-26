@@ -8,7 +8,8 @@ module.exports = function ({
     app,
     data
 }) {
-    let controller = require('../controllers/car-controller')(data);
+    // Leave Commented until controllers/car-controller implemented!
+    // let controller = require('../controllers/car-controller')(data);
 
     let router = new express.Router();
 

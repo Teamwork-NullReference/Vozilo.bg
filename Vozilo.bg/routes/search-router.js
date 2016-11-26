@@ -5,7 +5,9 @@ const express = require('express');
 // const passport = require('passport');
 
 module.exports = function ({ app, data }) {
-    let controller = require('../controllers/search-controller')(data);
+
+    // Leave Commented until controllers/search-controller implemented!
+    // let controller = require('../controllers/search-controller')(data);
 
     let router = new express.Router();
 
