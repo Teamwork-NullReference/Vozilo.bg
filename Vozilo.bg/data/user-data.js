@@ -56,7 +56,7 @@ module.exports = function(models) {
                 phoneNumber: user.phoneNumber,
                 password: user.password
                   });
-            newUser.address.city=user.City;
+            newUser.address.city=user.city;
             newUser.address.street=user.street;
             return new Promise((resolve, reject) => {
                 newUser.save(err => {

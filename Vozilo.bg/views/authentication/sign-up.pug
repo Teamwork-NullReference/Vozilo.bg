@@ -1,7 +1,10 @@
 extends ../_layout
 
+
 block body-content
+
         div.container
+            link(rel="stylesheet", href="/static/styles/sign-up.css")
             h2 Registration Form
             form.form-horizontal(action="/auth/sign-up" method="post")
                 div.form-group
