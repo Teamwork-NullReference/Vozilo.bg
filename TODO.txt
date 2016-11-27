@@ -5,12 +5,13 @@ TODO
 - Passport + create login/register pages - Stoyan
 - Scrap cars from http://www.cars-data.com/en/car-brands-cars-logos.html - Miro
 - Cloud deploy
-- Create Schemas/Models - Galin
+- Create Schemas/Models - Galin - DONE
 - DataLayer - Stoyo
 - Index Constoller - George
 - Create pages:
 	- Home page - George
-	- Car Details page 
+	- Car Details page  - Galin
+	- Create car Form - Galin
 	- Car Search page - George
 	- User page
 	- User Messages page
