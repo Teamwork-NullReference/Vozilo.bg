@@ -74,6 +74,11 @@ module.exports = function(models) {
             });
 
             return promise;
+        },
+        /*TODO IMPLEMENT ME */
+        findTopRated(n) {
+            return Promise.resolve()
+                .then(() => []);
         }
     };
 };
