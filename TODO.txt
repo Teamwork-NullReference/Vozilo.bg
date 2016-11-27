@@ -10,7 +10,7 @@ TODO
 - Index Constoller - George
 - Create pages:
 	- Home page - George
-	- Car Details page 
+	- Car Details page - Galin
 	- Car Search page - George
 	- User page
 	- User Messages page
