@@ -152,8 +152,13 @@ form {
     border-radius: 10px;
 }
 
-#create-car-container{
+#create-car-container {
     color: darkolivegreen;
+}
+
+.header-create-car-form {
+    width: 500px;
+    margin-left: 75px;
 }
 
 /* Profile */
