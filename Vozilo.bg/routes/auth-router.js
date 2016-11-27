@@ -28,10 +28,9 @@ module.exports = function ({ app, data }) {
         // .get('/logout', (req, res) => {
         //     res.send('It works!');
         // });
-        
 
 
-         .get('/sign-up', controller.getSignUpForm)
+        .get('/sign-up', controller.getSignUpForm)
         .get('/sign-in', controller.getSignInForm)
         .post('/sign-up', controller.signUp)
         .post('/sign-in',
