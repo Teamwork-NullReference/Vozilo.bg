@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+html(lang="en")
+head
+    meta(charset="UTF-8")
+    title Vozilo
+    link(rel="stylesheet", href="/static/bower_components/bootstrap/dist/css/bootstrap.css")
+    link(rel="stylesheet", href="/static/styles/main.css")
+    script(src="static/bower_components/bootstrap/dist/js/bootstrap.js")
+    block head-content
+body
+    nav.navbar.navbar-default
+        div.container-fluid
+            div.navbar-header
+                button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false")
+                    span.sr-only Toggle navigation
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand Vozilo
+            div.collapse.navbar-collapse(id="bs-example-navbar-collapse-1")
+                ul.nav.navbar-nav
+                    if result.user
+                        li
+                            a(href=`/user/${result.user._id}`) Profile
+                        li
+                            a(href='/CreateCar') CreateCar
+                    else
+                        li
+                            a(href='/auth/sign-in') Login
+                        li
+                            a(href='/auth/sign-up') Register
+
+
+    block body-content
+    

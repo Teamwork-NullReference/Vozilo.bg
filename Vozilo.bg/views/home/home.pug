@@ -1,0 +1,29 @@
+extends ../_layout
+
+block body-content
+    form(class="centered" method="GET", action="carsearch")
+        input(class="form-control", type="text", valye="City" name="city")
+        div.form-inline
+            input(class="form-control" type="date" value="Start Date" name="startDate")
+            input(class="form-control" type="date" value="End Date" name="endDate")
+            button(type="submit" class="btn btn-primary") Search cars
+
+    div.container.centered
+            div.row
+                each user in result.topRatedUsers
+                    div.col-lg4.col-md-4.col-sm-12
+                        a(href=`/user/${user._id}`)
+                            div.card.hovercard
+                                div.card-background
+                                    img(class="card-bkimg" alt="" src=`${user.picture}`)
+                                div.useravatar
+                                    img(alt="" src=`${user.picture}`)
+                                div.card-info
+                                    span.card-title= user.firstName + " " + user.lastName
+                        div.rating
+                            - for(let i=0; i < user.userRating; i += 1) {
+                                if ((user.userRating - i) < 1)
+                                    span.glyphicon.glyphicon-star.half
+                                else
+                                    span.glyphicon.glyphicon-star
+                            - }
