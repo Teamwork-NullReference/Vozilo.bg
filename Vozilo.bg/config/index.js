@@ -3,5 +3,5 @@
 
 module.exports = {
     port: 3001,
-    connectionString: 'mongodb://localhost/superheroes'
+    connectionString: 'mongodb://localhost/voziloDb'
 };

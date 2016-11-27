@@ -3,10 +3,10 @@
 
 const config = require('./config');
 
-const data = require('./data')(config);
+let data = require('./data')(config);
 
 const app = require('./config/application')(data);
 
-require('./routes')(app, data);
+require('./routes')({ app, data });
 
 app.listen(config.port, () => console.log(`it works on port: ${config.port}`));

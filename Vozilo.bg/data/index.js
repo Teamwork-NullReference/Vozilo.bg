@@ -9,13 +9,16 @@ module.exports = function (config) {
     mongoose.Promise = global.Promise;
     mongoose.connect(config.connectionString);
 
-    let models = require('./../models');
+    // let models = require('./../models'); // not working
+    let User = require('../models/user-model');
+    let Car = require('../models/car-model');
+    let Review = require('../models/review-model');
 
-    let data = {};
-    data.findTopRated = function (n) {
-        return Promise.resolve()
-            .then(() => {
-                return [{
+    let models = {
+        User,
+        Car,
+        Review
+    };
                     picture: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRLF5OpEb0Ao98MRh3z5KJlISsLpJJuze0S7q4jwOTBfITlMUEbbA',
                     firstName: 'John',
                     lastName: 'Smith',
@@ -39,12 +42,12 @@ module.exports = function (config) {
             });
     };
 
+    let data = {};
     fs.readdirSync('./data')
         .filter(x => x.includes('-data'))
         .forEach(file => {
             let dataModule =
                 require(path.join(__dirname, file))(models);
-
             Object.keys(dataModule)
                 .forEach(key => {
                     data[key] = dataModule[key];

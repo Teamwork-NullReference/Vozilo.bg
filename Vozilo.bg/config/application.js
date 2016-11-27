@@ -17,10 +17,9 @@ module.exports = function(data) {
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
     app.use(cookieParser());
-
     app.use(session({ secret: 'totally random' }));
 
-    require('./auth')(app, data);
+    require('./passport')(app, data);
 
     return app;
 };
