@@ -1,27 +1,40 @@
 /* globals module */
-
 module.exports = function(data) {
     return {
         signUp(req, res) {
-            let { username, password } = req.body;
-            data.createUser(username, password)
+            let newUser={};
+            let propoerties=['username', 'firstName', 'lastName', 'email', 'password', 'picture', 'phoneNumber', 'experience', 'city', 'street'];
+            propoerties.forEach(property => {
+                if (!property||property.length<0) {
+                    res.status(411).json(`Missing ${property}`);
+                }
+                newUser[property] = req.body[property];
+            });
+
+            data.createUser(newUser)
                 .then(
-                    user => {
-                        res.send({ success: true, message: 'You have been registered', user });
-        //             // res.redirect('/auth/sign-in');
-                    });
+                    () => {
+                        res.redirect('/auth/sign-in');
+                    })
+                .catch(error => {
+                    console.log(error);
+                    res.status(500).json(error);
+                });
         },
         signOut(req, res) {
             req.logout();
-            res.send({ success: true, message: 'You have been logout', user: req.body.user });
-            //redirect('/');
+            res.redirect('/');
         },
         getSignUpForm(req, res) {
-            res.send();
-            // res.render('authentication/sign-up');
+            return res.render('authentication/sign-up', {
+                result: { user: req.user }
+            });
         },
         getSignInForm(req, res) {
-            return res.render('authentication/sign-in');
+            return res.render('authentication/sign-in', {
+                result: { user: req.user }
+            });
         }
     };
 };
+

@@ -27,7 +27,7 @@ body
                     ul.nav.navbar-nav
                         if result.user
                             li
-                                a(href=`/user/${result.user._id}`) Profile
+                                //- a(href=`/user/${result.user._id}`) Profile
                             li
                                 a(href='/car/create') CreateCar
                         else
@@ -37,7 +37,6 @@ body
                                 a(href='/auth/sign-in') Login
                             li
                                 a(href='/auth/sign-up') Register
-
 
     block body-content
     
