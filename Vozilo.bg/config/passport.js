@@ -2,7 +2,8 @@
 /* use strict */
 
 const passport= require('passport'),
-    LocalStratey= require('passport-local');
+    LocalStratey= require('passport-local'),
+    googleStrategy= require('./strategies/google-strategy');
 
 module.exports= function (app, data) {
     app.use(passport.initialize());
