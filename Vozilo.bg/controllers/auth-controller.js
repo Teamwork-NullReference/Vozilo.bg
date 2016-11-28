@@ -20,9 +20,6 @@ module.exports = function(data) {
                    .update(req.body.password)
                    .digest('hex');
             newUser.password=hash;
-            console.log(hash);
-            console.log(newUser);
-            console.log('test');
             data.createUser(newUser)
                 .then(
                     () => {
