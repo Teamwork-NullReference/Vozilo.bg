@@ -155,10 +155,9 @@ form {
     color: darkolivegreen;
 }
 
-/*.header-create-car-form {
-    width: 500px;
-    margin-left: 75px;
-}*/
+.font-size-09 {
+    font-size: 0.9em;
+}
 
 /* Profile */
 

@@ -29,6 +29,7 @@ module.exports= function (app, data) {
         data.findUserById(id)
             .then(user => {
                 if (user) {
+                    console.log(user);
                     return done(null, user);
                 }
                 return done(null, false);
