@@ -1,4 +1,5 @@
 /* globals module */
+// const passport = require('passport');
 module.exports = function(data) {
     return {
         signUp(req, res) {
@@ -35,6 +36,33 @@ module.exports = function(data) {
                 result: { user: req.user }
             });
         }
+        // ,
+        // loginGoogle(req, res, next) {
+        //     const auth = passport.authenticate('google', { scope: 'https://www.googleapis.com/auth/plus.login' } (error, user) => {
+        //         if (error) {
+        //             next(error);
+        //             return;
+        //         }
+
+        //         if (!user) {
+        //             res.json({
+        //                 success: false,
+        //                 message: 'Invalid name or password!'
+        //             });
+        //         }
+
+        //         req.login(user, error1 => {
+        //             if (error1) {
+        //                 next(error1);
+        //                 return;
+        //             }
+
+        //             res.redirect('/');
+        //         });
+        //     });
+
+        //     auth(req, res, next);
+        // }
     };
 };
 

@@ -17,6 +17,11 @@ let mockedUser = {
     isDeleted: false
 };
 
+let mockedReview = {
+    content: 'trololololo',
+    fromUser: 'Na Pesho brat mu'
+};
+
 let mockedCar = {
     brand: 'brand',
     model: 'model',
@@ -33,6 +38,7 @@ let mockedCar = {
 
 for (let i = 0; i < 10; i += 1) {
     mockedUser.cars.push(mockedCar);
+    mockedUser.receivedReviews.push(mockedReview);
 }
 
 module.exports = function(data) {
@@ -43,9 +49,20 @@ module.exports = function(data) {
                 .then(user => {
                     // TODO Remove mock before production
                     if (id === '1') {
+                        mockedUser.id = 1;
                         return res.render('user-details', {
                             result: {
                                 user: req.user,
+                                userDetails: mockedUser
+                            }
+                        });
+                    }
+
+                    if (id === '2') {
+                        mockedUser.id = 2;
+                        return res.render('user-details', {
+                            result: {
+                                user: 'Pesho',
                                 userDetails: mockedUser
                             }
                         });

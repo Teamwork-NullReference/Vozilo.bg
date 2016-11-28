@@ -159,7 +159,6 @@ button.btn.btn-primary {
 
 #form-create-car {
     background-color: rgba(14, 188, 65, 0.4);
-    width: 660px;
     padding: 50px;
     border-radius: 10px;
 }
@@ -168,12 +167,18 @@ button.btn.btn-primary {
     color: darkolivegreen;
 }
 
-.header-create-car-form {
-    width: 500px;
-    margin-left: 75px;
+.font-size-09 {
+    font-size: 0.9em;
 }
 
+
 /* Profile */
+
+#profile-tabs {
+    margin-left: 25%;
+    margin-right: 25%;
+    clear: both
+}
 
 #profile-wrapper {
     padding: 0px 20px 0px 20px;

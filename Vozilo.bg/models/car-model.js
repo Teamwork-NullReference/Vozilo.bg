@@ -35,7 +35,6 @@ module.exports = modelRegistrator.register('Car', {
     shortInfo: String,
     price: {
         perDay: Number,
-        perHour: Number,
         perWeek: Number
     },
     availability: {
@@ -56,10 +55,7 @@ module.exports = modelRegistrator.register('Car', {
         drivingExpirience: Number,
         smokingAllowed: Boolean,
         animalsAllowed: Boolean,
-        minimumRentalPeriod: {
-            type: String,
-            default: '1 hour'
-        }
+        minimumRentalPeriod: String
     },
     equipment: {
         aircondition: Boolean,
@@ -74,5 +70,9 @@ module.exports = modelRegistrator.register('Car', {
         renterUsername: String,
         givenRating: Number
     }],
+    user: {
+        username: String,
+        imageUrl: String
+    },
     isDeleted: Boolean
 });

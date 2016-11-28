@@ -13,11 +13,12 @@ module.exports = function (config) {
     let User = require('../models/user-model');
     let Car = require('../models/car-model');
     let Review = require('../models/review-model');
-
+    let CarBrandDetail = require('../models/car-brand-model')
     let models = {
         User,
         Car,
-        Review
+        Review,
+        CarBrandDetail
     };
 
     let data = {};
