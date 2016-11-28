@@ -1,6 +1,7 @@
 
 # Ignore file with connection strings for DB
 /Vozilo.bg/cars-scraper/config/connection-strings.js
+/Vozilo.bg/config/index.js
 
 # Logs
 logs
