@@ -1,17 +1,28 @@
 /* globals module */
 // const passport = require('passport');
+
+const crypto = require('crypto');
+const secret = require('./../config').cryptoSecret;
+
+
 module.exports = function(data) {
     return {
         signUp(req, res) {
             let newUser={};
-            let propoerties=['username', 'firstName', 'lastName', 'email', 'password', 'picture', 'phoneNumber', 'experience', 'city', 'street'];
+            let propoerties=['username', 'firstName', 'lastName', 'email', 'picture', 'phoneNumber', 'experience', 'city', 'street'];
             propoerties.forEach(property => {
                 if (!property||property.length<0) {
                     res.status(411).json(`Missing ${property}`);
                 }
                 newUser[property] = req.body[property];
             });
-
+            const hash = crypto.createHmac('sha256', secret)
+                   .update(req.body.password)
+                   .digest('hex');
+            newUser.password=hash;
+            console.log(hash);
+            console.log(newUser);
+            console.log('test');
             data.createUser(newUser)
                 .then(
                     () => {

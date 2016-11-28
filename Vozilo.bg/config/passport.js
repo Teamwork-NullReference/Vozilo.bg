@@ -2,15 +2,22 @@
 /* use strict */
 
 const passport= require('passport'),
-    LocalStratey= require('passport-local');
+    LocalStratey= require('passport-local'),
+    crypto = require('crypto'),
+    secret = require('./../config').cryptoSecret;
     // googleStrategy= require('./strategies/google-strategy');
-
+function hash(password) {
+    return crypto.createHmac('sha256', secret)
+                   .update(password)
+                   .digest('hex');
+}
 module.exports= function (app, data) {
     app.use(passport.initialize());
     app.use(passport.session());
 
     const Strategy = new LocalStratey((username, password, done) => {
-        data.findUserByCredentials(username, password)
+
+        data.findUserByCredentials(username, hash(password))
             .then(user => {
                 if (user) {
                     return done(null, user);

@@ -34,7 +34,7 @@ module.exports = function(models) {
         },
         getUserById(id) {
             let promise = new Promise((resolve, reject) => {
-                User.findOne({ id }, (err, res) => {
+                User.findOne({ _id: id }, (err, res) => {
                     if (err) {
                         reject(err);
                     }

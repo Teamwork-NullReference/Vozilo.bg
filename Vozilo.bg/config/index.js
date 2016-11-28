@@ -3,5 +3,6 @@
 
 module.exports = {
     connectionString: 'mongodb://localhost/voziloDb',
-    port: 3001
+    port: 3001,
+    cryptoSecret: '@nullreference_2016&'
 };

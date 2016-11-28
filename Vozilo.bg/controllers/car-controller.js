@@ -18,7 +18,6 @@ module.exports = function (data) {
         craeteCar(req, res) {
             let user = req.user;
             res.send(user);
-            console.log(req.user);
             //  data.CreateNewCar()
         }
 
