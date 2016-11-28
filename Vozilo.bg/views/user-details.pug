@@ -3,11 +3,14 @@ extends _layout
 block body-content
     ul(class="nav nav-tabs" id="profile-tabs")
         li(id="first-tab")
-            a(href="#home" data-toggle="tab") Profile
+            a(href="#" data-toggle="tab") Profile
         li(id="second-tab")
-            a(href="#home" data-toggle="tab") Cars
+            a(href="#" data-toggle="tab") Cars
         li(id="third-tab")
-            a(href="#home" data-toggle="tab") Received Reviews
+            a(href="#" data-toggle="tab") Received Reviews
+        if result.user
+           li(id="forth-tab")
+                a(href="/user/" + result.userDetails.id + "/update") Update Profile
         
 
     div(id="profile-wrapper")
@@ -28,15 +31,17 @@ block body-content
                     | Фамилия: 
                 != result.userDetails.lastName
                 br
-                strong
-                    | E-mail: 
-                em
-                    a(href="mailto:" + result.userDetails.email + "\"") #{result.userDetails.email}
-                br
-                strong
-                    | Телефон: 
-                != result.userDetails.phoneNumber
-                br
+                if result.user
+                    strong
+                        | E-mail: 
+                    em
+                        a(href="mailto:" + result.userDetails.email + "\"") #{result.userDetails.email}
+                    br
+                    strong
+                        | Телефон: 
+                    != result.userDetails.phoneNumber
+                    br
+                
                 strong 
                     | Адрес: 
                 != result.userDetails.address
@@ -50,18 +55,21 @@ block body-content
                     img(class="car-pic-preview img-rounded" src=car.picture)
                     div(class="car-info")
                         strong
-                            | Brand: 
+                            | Марка: 
                         != car.brand 
                         br
                         strong
-                            | Model: 
+                            | Модел: 
                         != car.model 
                         br
                         strong
-                            | Year: 
+                            | Година: 
                         != car.year
                         br
-                        a(href="/car/" + car.id) Повече информация
+                        br
+                        a(href="/car/" + car.id class="btn btn-primary") Повече информация                        
+                        if result.user
+                            a(href="/car/" + car.id + "/update/" class="btn btn-danger") Промени                          
         div(id="user-reviews" class="profile-tab hidden")
             each review in result.userDetails.receivedReviews
                 h1

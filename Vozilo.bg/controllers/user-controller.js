@@ -49,9 +49,20 @@ module.exports = function(data) {
                 .then(user => {
                     // TODO Remove mock before production
                     if (id === '1') {
+                        mockedUser.id = 1;
                         return res.render('user-details', {
                             result: {
                                 user: req.user,
+                                userDetails: mockedUser
+                            }
+                        });
+                    }
+
+                    if (id === '2') {
+                        mockedUser.id = 2;
+                        return res.render('user-details', {
+                            result: {
+                                user: 'Pesho',
                                 userDetails: mockedUser
                             }
                         });
