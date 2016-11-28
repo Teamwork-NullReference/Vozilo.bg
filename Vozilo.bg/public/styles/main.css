@@ -21,7 +21,18 @@ button.btn.btn-primary {
     height: 500px;
     background-size: cover;
 }
-
+.navbar-collapse {
+    background: #575b5b;
+}
+.navbar-collapse a {
+    color: white;
+}
+.container {
+    margin-bottom: 3.5em;
+}
+.navbar-collapse ul li a:hover {
+    color: black;
+}
 
 /* TOP RATED USERS FORMS */
 
