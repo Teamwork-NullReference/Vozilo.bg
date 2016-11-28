@@ -8,7 +8,15 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceRoot}\\app.js",
+            
+            // Workspace relative or absolute path to the program.
+            "program": "${workspaceRoot}/app.js",
+
+            // Use this if you want to debug cars-scraper application
+            // "program": "${workspaceRoot}/cars-scraper/app.js",
+
+            // Workspace relative or absolute path to the working directory of 
+            // the program being debugged. Default is the current workspace.
             "cwd": "${workspaceRoot}"
         },
         {
