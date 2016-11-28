@@ -3,6 +3,7 @@
 
 const passport= require('passport'),
     LocalStratey= require('passport-local');
+    // googleStrategy= require('./strategies/google-strategy');
 
 module.exports= function (app, data) {
     app.use(passport.initialize());
@@ -29,6 +30,7 @@ module.exports= function (app, data) {
         data.findUserById(id)
             .then(user => {
                 if (user) {
+                    console.log(user);
                     return done(null, user);
                 }
                 return done(null, false);

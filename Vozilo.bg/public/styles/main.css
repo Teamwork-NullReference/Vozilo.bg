@@ -147,7 +147,6 @@ form {
 
 #form-create-car {
     background-color: rgba(14, 188, 65, 0.4);
-    width: 660px;
     padding: 50px;
     border-radius: 10px;
 }
@@ -156,9 +155,8 @@ form {
     color: darkolivegreen;
 }
 
-.header-create-car-form {
-    width: 500px;
-    margin-left: 75px;
+.font-size-09 {
+    font-size: 0.9em;
 }
 
 

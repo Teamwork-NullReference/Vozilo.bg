@@ -1,0 +1,17 @@
+extends ../_layout
+
+block body-content
+
+
+    div.container
+    link(rel="stylesheet", href="/static/styles/sign-in.css")
+    //- <script src="/static/bower_components/jquery/dist/jquery/jquery.js"></script>
+    //- <script src="/static/js/sign-in.js"></script>
+    div.wrapper
+            form(action="" method="post" name="Login_Form" class="form-signin")
+                h3(class="form-signin-heading") Welcome Back! Please Sign In
+                hr.colorgraph
+                br      
+                input(type="text" class="form-control" name="username" placeholder="Потребителско Име" required="" autofocus="")
+                input(type="password" class="form-control" name="password" placeholder="Парола" required="")
+                button.btn.btn-lg.btn-primary.btn-block(name="submit" value="Login" type="Потвърди") Login  			

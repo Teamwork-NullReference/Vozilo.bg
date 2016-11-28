@@ -3,18 +3,28 @@ Team rules
 	
 TODO
 - Passport + create login/register pages - Stoyan
-- Scrap cars from http://www.cars-data.com/en/car-brands-cars-logos.html - Miro - DONE
+- Scrap cars from http://www.cars-data.com/en/car-brands-cars-logos.html - Miro DONE
 - Cloud deploy
-- Create Schemas/Models - Galin - DONE
+- Create Schemas/Models - Galin - Under Construction
 - DataLayer - Stoyo
 - Index Constoller - George
 - Create pages:
 	- Home page - George
-	- Car Details page  - Galin
+	- Car Details page  - TODO
+		if own car -> update car details
+	- Update car form/page - TODO
 	- Create car Form - Galin
 	- Car Search page - George
 	- User page - 100yo
-	- User Messages page
-	- Send Message To User page,
-	- Booking page
-	- Submit Car For Rent page
+		if own page -> update profile button
+	- Update profile form/page - TODO
+	- User Messages page/box (Button in navigation menu) all users last msg- Miro 
+	- User Messages page - All messages with user - Miro
+	- Send Message To User page - Pop up in Car Details and User Details - TODO
+	
+	- Booking page - Stoyan
+	- Admin page - ? 
+		*delete users
+
+
+	
