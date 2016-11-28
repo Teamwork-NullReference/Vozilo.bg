@@ -14,29 +14,29 @@ head
     block head-content
 body
     .container
-            div.container-fluid
-                div.navbar-header
-                    button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false")
-                        span.sr-only Toggle navigation
-                        span.icon-bar
-                        span.icon-bar
-                        span.icon-bar
-                    a.navbar-brand(href='/') Начало
+        nav.navbar.navbar-default
+            div.navbar-header
+                button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false")
+                    span.sr-only Toggle navigation
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand(href='/') Начало
             div.collapse.navbar-collapse(id='bs-example-navbar-collapse-1')
-                    ul.nav.navbar-nav
-                        if result.user
-                            li
-                            	a(href=`/user/${result.user._id}`) Моят профил
-                            li
-                            	a(href='/car/create') Добави кола
-                        else
-                            li
-                            	a(href='/auth/sign-in') Вход
-                            li
-                            	a(href='/auth/sign-up') Регистрация
-                ul.nav.navbar-nav.navbar-right
-                    if result.user                
+                ul.nav.navbar-nav
+                    if result.user
                         li
-                            a(href='#' id='sign-out') Изход
+                            a(href=`/user/${result.user._id}`) Моят профил
+                        li
+                            a(href='/car/create') Добави кола
+                    else
+                        li
+                            a(href='/auth/sign-in') Вход
+                        li
+                            a(href='/auth/sign-up') Регистрация
+            ul.nav.navbar-nav.navbar-right
+                if result.user
+                    li
+                        a(href='#' id='sign-out') Изход
     block body-content
     

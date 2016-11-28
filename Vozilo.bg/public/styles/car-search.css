@@ -1,0 +1,45 @@
+body {
+    background-color: #eeeeee;
+}
+#car-search {
+    float: left;
+}
+#map {
+    float: right;
+}
+.car {
+    background-color: white;
+    width: 50em;
+    height: 15em;
+    border-radius: 0.5em;
+    margin: 3em;
+}
+.car-img {
+    float: left;
+    height: 100%;
+    width: 45%;
+    border-bottom-left-radius: 0.5em;
+    border-top-left-radius: 0.5em;
+}
+.car span.brand {
+    float: right;
+    margin-top: 3%; 
+    margin-right: 45%;
+    font-size: 1.3em;
+}
+.car span.description {
+    float: right;
+    margin-top: 2%; 
+    margin-right: 46%;
+    margin-bottom: 8%;
+    color: grey;    
+}
+.img-circle {
+    width: 3em;
+    height: 3em;
+    margin: 1em;
+}
+.car table {
+    /*border-top: 1px solid grey;
+    border-right: 1px solid grey;*/
+}
