@@ -55,5 +55,12 @@ module.exports = modelRegistrator.register('User', {
         required: true,
         match: passwordRegex
     },
+    // messages: [{
+    //     senderUsername: String,
+    //     senderImage: String,
+
+    //     messagesId: String
+    // }],
+    role: [String],
     isDeleted: Boolean
 });
