@@ -28,8 +28,14 @@ module.exports = modelRegistrator.register('User', {
         required: true
     },
     address: {
-        type: String,
-        required: true
+        city: {
+            type: String,
+            required: true
+        },
+        street: {
+            type: String,
+            required: true
+        }
     },
     email: {
         type: String,

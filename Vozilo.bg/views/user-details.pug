@@ -1,0 +1,56 @@
+extends _layout
+
+block body-content
+    div(id="profile-wrapper")
+        h2(class="text-center")
+            != result.userDetails.username 
+        h3(class="text-center")
+            | Rating: 
+            != result.userDetails.userRating            
+        div(id="profile-pic-container")
+            img(class="profile-pic-big", src= result.userDetails.picture)
+        div(id="personal-info")
+            strong 
+               | Име: 
+            != result.userDetails.firstName
+            br
+            strong
+                | Фамилия: 
+            != result.userDetails.lastName
+            br
+            strong
+                | E-mail: 
+            em
+                a(href="mailto:" + result.userDetails.email + "\"") #{result.userDetails.email}
+            br
+            strong
+                | Телефон: 
+            != result.userDetails.phoneNumber
+            br
+            strong 
+                | Адрес: 
+            != result.userDetails.address
+            br
+            strong
+                | Шофиорски опит: 
+            != result.userDetails.drivingExpInYears
+        div(id="user-cars")
+            each car in result.userDetails.cars
+                div(class="car-preview")
+                    img(class="car-pic-preview" src=car.picture)
+                    div(class="car-info")
+                        strong
+                            | Brand: 
+                        != car.brand 
+                        br
+                        strong
+                            | Model: 
+                        != car.model 
+                        br
+                        strong
+                            | Year: 
+                        != car.Year
+                        br
+                        a(href="/car/" + car.id) Повече информация
+                    
+                

@@ -45,11 +45,19 @@ module.exports = function(models) {
 
             return promise;
         },
-        createUser(username, password) {
-            
-            console.log(username, password);
-            //tuk gurmi!!!
-            let newUser = new User({ username, password });
+        createUser(user) {
+            let newUser = new User({ 
+                firstName: user.firstName,
+                lastName: user.lastName,
+                username: user.username,
+                picture: user.picture,
+                drivingExpInYears: user.experience,
+                email: user.email,
+                phoneNumber: user.phoneNumber,
+                password: user.password
+                  });
+            newUser.address.city=user.city;
+            newUser.address.street=user.street;
             return new Promise((resolve, reject) => {
                 newUser.save(err => {
                     if (err) {
@@ -74,6 +82,11 @@ module.exports = function(models) {
             });
 
             return promise;
+        },
+        /*TODO IMPLEMENT ME */
+        findTopRated(n) {
+            return Promise.resolve()
+                .then(() => []);
         }
     };
 };
