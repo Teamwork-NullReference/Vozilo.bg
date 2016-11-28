@@ -14,7 +14,7 @@ head
     block head-content
 body
     .container
-        nav.navbar.navbar-default
+        nav.navbar.navbar-fixed-top.navbar-collapse
             div.navbar-header
                 button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false")
                     span.sr-only Toggle navigation
@@ -34,9 +34,9 @@ body
                             a(href='/auth/sign-in') Вход
                         li
                             a(href='/auth/sign-up') Регистрация
-            ul.nav.navbar-nav.navbar-right
-                if result.user
-                    li
-                        a(href='#' id='sign-out') Изход
+                ul.nav.navbar-nav.navbar-right
+                    if result.user
+                        li
+                            a(href='#' id='sign-out') Изход
     block body-content
     

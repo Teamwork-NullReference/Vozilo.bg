@@ -40,6 +40,20 @@ body {
     margin: 1em;
 }
 .car table {
-    /*border-top: 1px solid grey;
-    border-right: 1px solid grey;*/
+    width: 55%;
+}
+.car table td {
+    border-top: 0.5px solid #eeeeee;
+    border-right: 0.5px solid #eeeeee;
+}
+.price {
+    padding: 1em;
+}
+.price strong {
+    font-size: 1.5em;
+    display: block;
+}
+.unit {
+    font-size: 1em;
+    color: grey;
 }
