@@ -3,12 +3,12 @@ extends ../_layout
 block body-content
 
     div.img-after-menu
-        form.centered.form(method="GET", action="search")
+        form.centered.form(method="GET", action="/search/car")
             input.form-control(type="text" name="city")
             div.form-inline
                 input.form-control(type="date" name="startDate")
                 input.form-control(type="date" name="endDate")
-                button.btn.btn-primary(type="submit") Намери коли
+                button.btn.btn-primary(type="submit") Намери кола
 
     div.container.centered
             div.row

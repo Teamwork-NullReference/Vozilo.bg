@@ -3,12 +3,12 @@
 
 
 module.exports = function(models) {
-    let { car } = models;
+    let { Car } = models;
 
     return {
         getAllCars() {
             let promise = new Promise((resolve, reject) => {
-                car.find({}, (err, res) => {
+                Car.find({}, (err, res) => {
                     if (err) {
                         reject(err);
                     }
@@ -21,7 +21,7 @@ module.exports = function(models) {
         },
         getFilteredCars(options) {
             let promise = new Promise((resolve, reject) => {
-                car.find({ options }, (err, res) => {
+                Car.find({ options }, (err, res) => {
                     if (err) {
                         reject(err);
                     }
@@ -34,7 +34,7 @@ module.exports = function(models) {
         },
         getCarById(id) {
             let promise = new Promise((resolve, reject) => {
-                car.findOne({ id }, (err, res) => {
+                Car.findOne({ id }, (err, res) => {
                     if (err) {
                         reject(err);
                     }
