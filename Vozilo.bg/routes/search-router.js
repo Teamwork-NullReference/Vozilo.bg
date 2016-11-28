@@ -5,18 +5,14 @@ const express = require('express');
 // const passport = require('passport');
 
 module.exports = function ({ app, data }) {
-
-    // Leave Commented until controllers/search-controller implemented!
-    // let controller = require('../controllers/search-controller')(data);
+    let searchController = require('../controllers/search-controller')(data);
 
     let router = new express.Router();
 
     router
-        .get('/search', (req, res) => {
-            res.send('It works!');
-        });
+        .get('/car', searchController.getCarSearch);
 
-    app.use('/', router);
+    app.use('/search', router);
 
     return router;
 };

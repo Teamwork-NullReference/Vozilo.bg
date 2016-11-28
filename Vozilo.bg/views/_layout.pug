@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-html(lang="en")
+html(lang='en')
 head
-    meta(charset="UTF-8")
-    title Vozilo
-    link(rel="stylesheet", href="/static/bower_components/bootstrap/dist/css/bootstrap.css")
-    link(rel="stylesheet", href="/static/styles/main.css")
+    meta(charset='UTF-8')
+    title Возило.бг
+    link(rel='stylesheet', href='/static/bower_components/bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', href='/static/styles/main.css')
     block custom-styles
 
     script(src="/static/bower_components/jquery/dist/jquery.js")
@@ -14,29 +14,29 @@ head
     block head-content
 body
     .container
-        nav.navbar.navbar-default
-            div.container-fluid
-                div.navbar-header
-                    button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false")
-                        span.sr-only Toggle navigation
-                        span.icon-bar
-                        span.icon-bar
-                        span.icon-bar
-                    a.navbar-brand(href='/') Vozilo
-                div.collapse.navbar-collapse(id="bs-example-navbar-collapse-1")
-                    ul.nav.navbar-nav
-                        if result.user
-                            li
-                                //- a(href=`/user/${result.user._id}`) Profile
-                            li
-                                a(href='/car/create') CreateCar
-                        else
-                            li
-                                a(href='/car/create') Add your car
-                            li
-                                a(href='/auth/sign-in') Login
-                            li
-                                a(href='/auth/sign-up') Register
-
+        nav.navbar.navbar-fixed-top.navbar-collapse
+            div.navbar-header
+                button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false")
+                    span.sr-only Toggle navigation
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand(href='/') Начало
+            div.collapse.navbar-collapse(id='bs-example-navbar-collapse-1')
+                ul.nav.navbar-nav
+                    if result.user
+                        li
+                            a(href=`/user/${result.user._id}`) Моят профил
+                        li
+                            a(href='/car/create') Добави кола
+                    else
+                        li
+                            a(href='/auth/sign-in') Вход
+                        li
+                            a(href='/auth/sign-up') Регистрация
+                ul.nav.navbar-nav.navbar-right
+                    if result.user
+                        li
+                            a(href='#' id='sign-out') Изход
     block body-content
     

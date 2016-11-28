@@ -1,12 +1,14 @@
 extends ../_layout
 
 block body-content
-    form(class="centered" method="GET", action="carsearch")
-        input(class="form-control", type="text", valye="City" name="city")
-        div.form-inline
-            input(class="form-control" type="date" value="Start Date" name="startDate")
-            input(class="form-control" type="date" value="End Date" name="endDate")
-            button(type="submit" class="btn btn-primary") Search cars
+
+    div.img-after-menu
+        form.centered.form(method="GET", action="/search/car")
+            input.form-control(type="text" name="city")
+            div.form-inline
+                input.form-control(type="date" name="startDate")
+                input.form-control(type="date" name="endDate")
+                button.btn.btn-primary(type="submit") Намери кола
 
     div.container.centered
             div.row
@@ -15,7 +17,7 @@ block body-content
                         a(href=`/user/${user._id}`)
                             div.card.hovercard
                                 div.card-background
-                                    img(class="card-bkimg" alt="" src=`${user.picture}`)
+                                    img.card-bkimg(alt="" src=`${user.picture}`)
                                 div.useravatar
                                     img(alt="" src=`${user.picture}`)
                                 div.card-info
@@ -23,7 +25,7 @@ block body-content
                         div.rating
                             - for(let i=0; i < user.userRating; i += 1) {
                                 if ((user.userRating - i) < 1)
-                                    span.glyphicon.glyphicon-star.half
-                                else
                                     span.glyphicon.glyphicon-star
+                                else
+                                    span.glyphicon.glyphicon-star.half
                             - }

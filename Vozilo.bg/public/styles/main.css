@@ -1,5 +1,12 @@
 form {
     width: 40em;
+    padding-top: 1em;
+}
+.form-control {
+    margin-bottom: 1em;
+}
+button.btn.btn-primary {
+    margin-top: -1em;
 }
 
 .centered {
@@ -9,7 +16,23 @@ form {
 .form-inline input {
     margin-right: 1em;
 }
-
+.img-after-menu {
+    background-image: url("http://www.twitrcovers.com/wp-content/uploads/2012/11/Sun-Cars-l.jpg");
+    height: 500px;
+    background-size: cover;
+}
+.navbar-collapse {
+    background: #575b5b;
+}
+.navbar-collapse a {
+    color: white;
+}
+.container {
+    margin-bottom: 3.5em;
+}
+.navbar-collapse ul li a:hover {
+    color: black;
+}
 
 /* TOP RATED USERS FORMS */
 
@@ -159,7 +182,14 @@ form {
     font-size: 0.9em;
 }
 
+
 /* Profile */
+
+#profile-tabs {
+    margin-left: 25%;
+    margin-right: 25%;
+    clear: both
+}
 
 #profile-wrapper {
     padding: 0px 20px 0px 20px;

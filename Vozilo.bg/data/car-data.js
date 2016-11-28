@@ -2,10 +2,15 @@
 'use strict';
 
 
+<<<<<<< HEAD
 module.exports = function (models) {
     let {
         Car
     } = models;
+=======
+module.exports = function(models) {
+    let { Car } = models;
+>>>>>>> 3ad725ee0051826f9adad941a1f127249940adb7
 
     return {
         getAllCars() {
@@ -23,9 +28,13 @@ module.exports = function (models) {
         },
         getFilteredCars(options) {
             let promise = new Promise((resolve, reject) => {
+<<<<<<< HEAD
                 Car.find({
                     options
                 }, (err, res) => {
+=======
+                Car.find({ options }, (err, res) => {
+>>>>>>> 3ad725ee0051826f9adad941a1f127249940adb7
                     if (err) {
                         reject(err);
                     }
@@ -38,9 +47,13 @@ module.exports = function (models) {
         },
         getCarById(id) {
             let promise = new Promise((resolve, reject) => {
+<<<<<<< HEAD
                 Car.findOne({
                     _id: id
                 }, (err, res) => {
+=======
+                Car.findOne({ id }, (err, res) => {
+>>>>>>> 3ad725ee0051826f9adad941a1f127249940adb7
                     if (err) {
                         reject(err);
                     }
