@@ -161,7 +161,14 @@ form {
     margin-left: 75px;
 }
 
+
 /* Profile */
+
+#profile-tabs {
+    margin-left: 25%;
+    margin-right: 25%;
+    clear: both
+}
 
 #profile-wrapper {
     padding: 0px 20px 0px 20px;

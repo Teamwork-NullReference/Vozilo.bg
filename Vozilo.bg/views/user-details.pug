@@ -1,43 +1,53 @@
 extends _layout
 
 block body-content
+    ul(class="nav nav-tabs" id="profile-tabs")
+        li(id="first-tab")
+            a(href="#home" data-toggle="tab") Profile
+        li(id="second-tab")
+            a(href="#home" data-toggle="tab") Cars
+        li(id="third-tab")
+            a(href="#home" data-toggle="tab") Received Reviews
+        
+
     div(id="profile-wrapper")
-        h2(class="text-center")
-            != result.userDetails.username 
-        h3(class="text-center")
-            | Rating: 
-            != result.userDetails.userRating            
-        div(id="profile-pic-container")
-            img(class="profile-pic-big", src= result.userDetails.picture)
-        div(id="personal-info")
-            strong 
-               | Име: 
-            != result.userDetails.firstName
-            br
-            strong
-                | Фамилия: 
-            != result.userDetails.lastName
-            br
-            strong
-                | E-mail: 
-            em
-                a(href="mailto:" + result.userDetails.email + "\"") #{result.userDetails.email}
-            br
-            strong
-                | Телефон: 
-            != result.userDetails.phoneNumber
-            br
-            strong 
-                | Адрес: 
-            != result.userDetails.address
-            br
-            strong
-                | Шофиорски опит: 
-            != result.userDetails.drivingExpInYears
-        div(id="user-cars")
+        div(id="prfile-info" class="profile-tab")
+            h2(class="text-center")
+                != result.userDetails.username 
+            h3(class="text-center")
+                | Rating: 
+                != result.userDetails.userRating            
+            div(id="profile-pic-container")
+                img(class="profile-pic-big img-rounded", src= result.userDetails.picture)
+            div(id="personal-info")
+                strong 
+                    | Име: 
+                != result.userDetails.firstName
+                br
+                strong
+                    | Фамилия: 
+                != result.userDetails.lastName
+                br
+                strong
+                    | E-mail: 
+                em
+                    a(href="mailto:" + result.userDetails.email + "\"") #{result.userDetails.email}
+                br
+                strong
+                    | Телефон: 
+                != result.userDetails.phoneNumber
+                br
+                strong 
+                    | Адрес: 
+                != result.userDetails.address
+                br
+                strong
+                    | Шофиорски опит: 
+                != result.userDetails.drivingExpInYears
+        div(id="user-cars" class="profile-tab hidden")
             each car in result.userDetails.cars
                 div(class="car-preview")
-                    img(class="car-pic-preview" src=car.picture)
+                    img(class="car-pic-preview img-rounded" src=car.picture)
                     div(class="car-info")
                         strong
                             | Brand: 
@@ -49,8 +59,17 @@ block body-content
                         br
                         strong
                             | Year: 
-                        != car.Year
+                        != car.year
                         br
                         a(href="/car/" + car.id) Повече информация
-                    
+        div(id="user-reviews" class="profile-tab hidden")
+            each review in result.userDetails.receivedReviews
+                h1
+                    | Here!         
+    
+    script
+        | $('#first-tab a').click(function (e) {  e.preventDefault(); $('.profile-tab').addClass('hidden'); $('#prfile-info').removeClass('hidden');})
+        | $('#second-tab a').click(function (e) {  e.preventDefault(); $('.profile-tab').addClass('hidden'); $('#user-cars').removeClass('hidden');})
+        | $('#third-tab a').click(function (e) {  e.preventDefault(); $('.profile-tab').addClass('hidden'); $('#user-reviews').removeClass('hidden');})
+                      
                 
