@@ -1,31 +1,37 @@
 extends ../_layout
 
+block custom-styles
+    link(rel='stylesheet', href='/static/styles/home.css')
+
 block body-content
 
     div.img-after-menu
-        form.centered.form(method="GET", action="/search/car")
+        form.search-form.centered.form(method="GET", action="/search/car")
             input.form-control(type="text" name="city")
             div.form-inline
                 input.form-control(type="date" name="startDate")
                 input.form-control(type="date" name="endDate")
                 button.btn.btn-primary(type="submit") Намери кола
 
+    div.info.centered
+        strong Хората с Vozilo имат добри преживявания
+
     div.container.centered
-            div.row
-                each user in result.topRatedUsers
-                    div.col-lg4.col-md-4.col-sm-12
-                        a(href=`/user/${user._id}`)
-                            div.card.hovercard
-                                div.card-background
-                                    img.card-bkimg(alt="" src=`${user.picture}`)
-                                div.useravatar
-                                    img(alt="" src=`${user.picture}`)
-                                div.card-info
-                                    span.card-title= user.firstName + " " + user.lastName
-                        div.rating
-                            - for(let i=0; i < user.userRating; i += 1) {
-                                if ((user.userRating - i) < 1)
-                                    span.glyphicon.glyphicon-star
-                                else
-                                    span.glyphicon.glyphicon-star.half
-                            - }
+        div.row
+            each user in result.topRatedUsers
+                div.col-lg4.col-md-4.col-sm-12
+                    a(href=`/user/${user._id}`)
+                        div.card.hovercard
+                            div.card-background
+                                img.card-bkimg(alt="" src=`${user.picture}`)
+                            div.useravatar
+                                img(alt="" src=`${user.picture}`)
+                            div.card-info
+                                span.card-title= user.firstName + " " + user.lastName
+                    div.rating
+                        - for(let i=0; i < user.userRating; i += 1) {
+                            if ((user.userRating - i) < 1)
+                                span.glyphicon.glyphicon-star.half
+                            else
+                                span.glyphicon.glyphicon-star
+                        - }
