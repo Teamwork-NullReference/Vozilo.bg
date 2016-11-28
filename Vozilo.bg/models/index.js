@@ -6,7 +6,6 @@
 // let models = {};
 
 // module.exports = function() {
-//     console.log('hui');
 //     fs.readdirSync('../models')
 //         .filter(x => x.includes('-model'))
 //         .forEach(file => {

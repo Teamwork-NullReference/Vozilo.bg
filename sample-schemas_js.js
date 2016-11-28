@@ -146,6 +146,8 @@ user{
 
 PredifinedCarsToChooseFrom{[
 	brand: Ford,
-	model: Focus,
-	picture: "someUrl"
+	models: [{
+		model: Focus,
+		picture: "someUrl"
+	}]
 ]}

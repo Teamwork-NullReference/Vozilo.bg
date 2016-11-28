@@ -1,0 +1,20 @@
+{
+  "name": "cars-scraper-vozilo.bg",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Team NullReference",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "mongodb": "2.1.18",
+    "mongoose": "4.5.10",
+    "request": "^2.79.0"
+  },
+  "devDependencies": {
+    "eslint": "3.10.2"
+  }
+}
