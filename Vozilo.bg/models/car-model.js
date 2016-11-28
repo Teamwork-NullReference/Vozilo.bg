@@ -12,7 +12,7 @@ module.exports = modelRegistrator.register('Car', {
         required: true
     },
     year: {
-        type: Date,
+        type: Number,
         required: true
     },
     picture: String,
@@ -24,7 +24,7 @@ module.exports = modelRegistrator.register('Car', {
     fuelType: {
         type: String,
         required: true,
-        enum: ['Diesel', 'Benzin', 'Electric', 'LPG']
+        enum: ['Дизел', 'Бензин', 'Електричество', 'Газ']
     },
     fuelConsumption: String,
     seats: {
@@ -34,28 +34,25 @@ module.exports = modelRegistrator.register('Car', {
     distancePassed: Number,
     shortInfo: String,
     price: {
-        perDay: Number,
-        perWeek: Number
-    },
-    availability: {
-        startDate: {
-            type: Date,
+        perDay: {
+            type: Number,
             required: true
         },
-        endDate: {
-            type: Date,
-            required: true
-        }
+        perWeek: Number
     },
+    availability: [{
+        date: Date,
+        isAvailable: Boolean
+    }],
     usageRequirements: {
         leastAge: {
             type: Number,
             default: 18
         },
-        drivingExpirience: Number,
+        drivingExperience: Number,
         smokingAllowed: Boolean,
         animalsAllowed: Boolean,
-        minimumRentalPeriod: String
+        minimumRentalPeriod: Number
     },
     equipment: {
         aircondition: Boolean,
@@ -70,9 +67,10 @@ module.exports = modelRegistrator.register('Car', {
         renterUsername: String,
         givenRating: Number
     }],
-    user: {
+    owner: {
         username: String,
-        imageUrl: String
+        imageUrl: String,
+        userId: String
     },
     isDeleted: Boolean
 });
