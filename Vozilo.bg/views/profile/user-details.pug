@@ -1,4 +1,4 @@
-extends _layout
+extends ../_layout
 
 block body-content
     ul(class="nav nav-tabs" id="profile-tabs")
@@ -10,7 +10,7 @@ block body-content
             a(href="#" data-toggle="tab") Received Reviews
         if result.user
            li(id="forth-tab")
-                a(href="/user/" + result.userDetails.id + "/update") Update Profile
+                a(href="/user/" + result.userDetails.username + "/update") Update Profile
         
 
     div(id="profile-wrapper")
@@ -43,8 +43,12 @@ block body-content
                     br
                 
                 strong 
+                    | Град: 
+                != result.userDetails.address.city
+                br
+                strong 
                     | Адрес: 
-                != result.userDetails.address
+                != result.userDetails.address.street
                 br
                 strong
                     | Шофиорски опит: 
@@ -72,8 +76,13 @@ block body-content
                             a(href="/car/" + car.id + "/update/" class="btn btn-danger") Промени                          
         div(id="user-reviews" class="profile-tab hidden")
             each review in result.userDetails.receivedReviews
-                h1
-                    | Here!         
+                div(class="panel panel-primary review-tab")
+                    div(class="panel-heading")
+                        h3(class="panel-title")
+                           != review.fromUser
+                    div(class="panel-body")
+                        span
+                           != review.content       
     
     script
         | $('#first-tab a').click(function (e) {  e.preventDefault(); $('.profile-tab').addClass('hidden'); $('#prfile-info').removeClass('hidden');})

@@ -14,8 +14,8 @@ module.exports = function({ app, data }) {
         .get('/', (req, res) => { // get all users with paging.
             res.send('It works!');
         })
-        .get('/:id', controller.getDetailedUser)
-        .get('/:id/update', (req, res) => { // get update view.
+        .get('/:username', controller.getDetailedUser)
+        .get('/:username/update', (req, res) => { // get update view.
             res.send('It works!');
         })
         .put('/:id/update', (req, res) => {

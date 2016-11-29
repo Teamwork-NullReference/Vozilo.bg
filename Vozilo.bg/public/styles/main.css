@@ -5,9 +5,15 @@ form {
     width: 40em;
     padding-top: 1em;
 }
+
+.search-form {
+    width: 36.5em;
+}
+
 .form-control {
     margin-bottom: 1em;
 }
+
 button.btn.btn-primary {
     margin-top: -1em;
 }
@@ -19,123 +25,21 @@ button.btn.btn-primary {
 .form-inline input {
     margin-right: 1em;
 }
-.img-after-menu {
-    background-image: url("http://www.twitrcovers.com/wp-content/uploads/2012/11/Sun-Cars-l.jpg");
-    height: 500px;
-    background-size: cover;
-}
+
 .navbar-collapse {
     background: #575b5b;
 }
+
 .navbar-collapse a {
     color: white;
 }
+
 .container {
     margin-bottom: 3.5em;
 }
+
 .navbar-collapse ul li a:hover {
     color: black;
-}
-
-/* TOP RATED USERS FORMS */
-
-.card {
-    margin-top: 20px;
-    padding: 30px;
-    width: 25em;
-    background-color: rgba(214, 224, 226, 0.2);
-    -webkit-border-top-left-radius: 5px;
-    -moz-border-top-left-radius: 5px;
-    border-top-left-radius: 5px;
-    -webkit-border-top-right-radius: 5px;
-    -moz-border-top-right-radius: 5px;
-    border-top-right-radius: 5px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
-.card.hovercard {
-    position: relative;
-    padding-top: 0;
-    overflow: hidden;
-    text-align: center;
-    background-color: #fff;
-    background-color: rgba(255, 255, 255, 1);
-}
-
-.card.hovercard .card-background {
-    height: 130px;
-}
-
-.card-background img {
-    -webkit-filter: blur(25px);
-    -moz-filter: blur(25px);
-    -o-filter: blur(25px);
-    -ms-filter: blur(25px);
-    filter: blur(25px);
-    min-width: 130%;
-}
-
-.card.hovercard .useravatar {
-    position: absolute;
-    top: 15px;
-    left: 0;
-    right: 0;
-}
-
-.card.hovercard .useravatar img {
-    width: 100px;
-    height: 100px;
-    max-width: 100px;
-    max-height: 100px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-    border: 5px solid rgba(255, 255, 255, 0.5);
-}
-
-.card.hovercard .card-info {
-    position: absolute;
-    bottom: 14px;
-    left: 0;
-    right: 0;
-}
-
-.card.hovercard .card-info .card-title {
-    padding: 0 5px;
-    font-size: 20px;
-    line-height: 1;
-    color: #262626;
-    background-color: rgba(255, 255, 255, 0.1);
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-}
-
-.card.hovercard .card-info {
-    overflow: hidden;
-    font-size: 12px;
-    line-height: 20px;
-    color: #737373;
-    text-overflow: ellipsis;
-}
-
-.card.hovercard .bottom {
-    padding: 0 20px;
-    margin-bottom: 17px;
-}
-
-.rating {
-    width: 350px;
-    height: 30px;
-    max-width: 350px;
-    max-height: 30px;
-    padding-top: 5px;
-    background: #e0dede;
-    text-align: center;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
 }
 
 .glyphicon-star {
@@ -185,6 +89,26 @@ button.btn.btn-primary {
     font-size: 0.9em;
 }
 
+/* Car details */
+#car-details{
+    font-family: Arial, Helvetica, sans-serif
+}
+
+.car-image {
+    width: 700px
+}
+
+.color-secondary{
+    color: olive;
+}
+
+.color-success{
+    color: olive;
+}
+
+.color-negative {
+    color: orangered
+}
 
 /* Profile */
 
@@ -241,5 +165,12 @@ button.btn.btn-primary {
 
 #profile-wrapper #user-cars .car-preview .car-info {
     margin: 10px;
+    float: left;
+}
+
+#profile-wrapper .review-tab {
+    width: 75%;
+    margin: 10px 15%;
+    min-width: 200px;
     float: left;
 }

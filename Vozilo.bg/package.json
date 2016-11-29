@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "node_modules/.bin/bower install"
   },
@@ -24,5 +25,18 @@
   },
   "devDependencies": {
     "eslint": "3.10.2"
-  }
+  },
+  "engines": {
+    "node": "6.9.1",
+    "npm": "3.10.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Team-NullReference/Vozilo.bg"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ]
 }
