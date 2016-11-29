@@ -90,7 +90,8 @@ module.exports = function (models) {
                     u.cars.push({
                         brand: car.brand,
                         model: car.model,
-                        carId: car._id
+                        carId: car._id,
+                        year: car.year
                     });
 
                     return dataUtils.update(u);
