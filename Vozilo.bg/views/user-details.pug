@@ -43,8 +43,12 @@ block body-content
                     br
                 
                 strong 
+                    | Град: 
+                != result.userDetails.address.city
+                br
+                strong 
                     | Адрес: 
-                != result.userDetails.address
+                != result.userDetails.address.street
                 br
                 strong
                     | Шофиорски опит: 

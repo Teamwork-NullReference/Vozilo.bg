@@ -2,7 +2,7 @@
 'use strict';
 
 
-module.exports = function (models) {
+module.exports = function(models) {
     let { User } = models;
 
     return {
@@ -34,7 +34,20 @@ module.exports = function (models) {
         },
         getUserById(id) {
             let promise = new Promise((resolve, reject) => {
-                User.findOne({ id }, (err, res) => {
+                User.findOne({ _id: id }, (err, res) => {
+                    if (err) {
+                        reject(err);
+                    }
+
+                    resolve(res);
+                });
+            });
+
+            return promise;
+        },
+        getUserByUsername(username) {
+            let promise = new Promise((resolve, reject) => {
+                User.findOne({ username }, (err, res) => {
                     if (err) {
                         reject(err);
                     }

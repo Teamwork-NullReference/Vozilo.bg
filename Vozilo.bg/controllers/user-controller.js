@@ -44,30 +44,30 @@ for (let i = 0; i < 10; i += 1) {
 module.exports = function(data) {
     return {
         getDetailedUser(req, res) {
-            let id = req.params.id;
-            data.getUserById(id)
+            let username = req.params.username;
+            data.getUserByUsername(username)
                 .then(user => {
-                    // TODO Remove mock before production
-                    if (id === '1') {
-                        mockedUser.id = 1;
-                        return res.render('user-details', {
-                            result: {
-                                user: req.user,
-                                userDetails: mockedUser
-                            }
-                        });
-                    }
+                    // // TODO Remove mock before production
+                    // if (id === '1') {
+                    //     mockedUser.id = 1;
+                    //     return res.render('user-details', {
+                    //         result: {
+                    //             user: req.user,
+                    //             userDetails: mockedUser
+                    //         }
+                    //     });
+                    // }
 
-                    if (id === '2') {
-                        mockedUser.id = 2;
-                        return res.render('user-details', {
-                            result: {
-                                user: 'Pesho',
-                                userDetails: mockedUser
-                            }
-                        });
-                    }
-                    // Remove To here
+                    // if (id === '2') {
+                    //     mockedUser.id = 2;
+                    //     return res.render('user-details', {
+                    //         result: {
+                    //             user: 'Pesho',
+                    //             userDetails: mockedUser
+                    //         }
+                    //     });
+                    // }
+                    // // Remove To here
 
                     if (user === null) {
                         return res.render('user-not-found', {

@@ -20,7 +20,7 @@ block body-content
         div.row
             each user in result.topRatedUsers
                 div.col-lg4.col-md-4.col-sm-12
-                    a(href=`/user/${user._id}`)
+                    a(href=`/user/${user.username}`)
                         div.card.hovercard
                             div.card-background
                                 img.card-bkimg(alt="" src=`${user.picture}`)
