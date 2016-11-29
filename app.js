@@ -1,5 +1,4 @@
 /* globals require */
-/* eslint-disable no-process-env */
 'use strict';
 
 const config = require('./config');
