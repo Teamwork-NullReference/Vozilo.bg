@@ -1,4 +1,5 @@
 /* globals console require Promise */
+/* eslint-disable no-process-env */
 'use strict';
 
 // comment this when deploy application
@@ -14,7 +15,7 @@ const startTime = Date.now();
 
 Promise.resolve()
     .then(() => {
-        if(process.env.mode === 'DEVELOPMENT') {
+        if (process.env.mode === 'DEVELOPMENT') {
             process.env.MONGOLAB_URI = connectionStrings.uri;
         }
 
