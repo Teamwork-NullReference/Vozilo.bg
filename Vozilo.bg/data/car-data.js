@@ -96,9 +96,10 @@ module.exports = function (models) {
                 username: user.username,
                 imageUrl: user.picture,
                 userId: user._id,
-                city: user.address.city
+                city: user.address.city,
+                firstName: user.firstName,
+                lastName: user.lastName
             };
-
 
             let promise = new Promise((resolve, reject) => {
                 let newCar = new Car({
