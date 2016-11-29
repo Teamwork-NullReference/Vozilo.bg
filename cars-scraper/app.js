@@ -2,7 +2,7 @@
 'use strict';
 
 // comment this when deploy application
-process.env.mode = 'TESTING';
+process.env.mode = 'DEVELOPMENT';
 
 const db = require('./config/mongoose'),
     connectionStrings = require('./config/connection-strings'),
@@ -14,7 +14,7 @@ const startTime = Date.now();
 
 Promise.resolve()
     .then(() => {
-        if(process.env.mode === 'TESTING') {
+        if(process.env.mode === 'DEVELOPMENT') {
             process.env.MONGOLAB_URI = connectionStrings.uri;
         }
 
