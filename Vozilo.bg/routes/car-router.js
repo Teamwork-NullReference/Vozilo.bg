@@ -2,7 +2,7 @@
 'use strict';
 
 const express = require('express');
-// const passport = require('passport');
+const passport = require('passport');
 
 module.exports = function ({
     app,
@@ -19,9 +19,7 @@ module.exports = function ({
         })
         .post('/create', controller.craeteCar)
         .get('/create', controller.loadCreateCarForm)
-        .get('/:id', (req, res) => { // load car details
-            res.send('It asdadasd!');
-        })
+        .get('/:id', controller.loadCarDetails)
         .get('/:id/update', (req, res) => { // load car-update view with current car data - not urgent 
         })
         .put('/:id/update', (req, res) => {
