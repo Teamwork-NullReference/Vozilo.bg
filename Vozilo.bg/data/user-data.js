@@ -1,9 +1,11 @@
 /* globals module */
 'use strict';
-
+let dataUtils = require('./utils/data-utils');
 
 module.exports = function (models) {
-    let { User } = models;
+    let {
+        User
+    } = models;
 
     return {
         getAllUsers() {
@@ -21,7 +23,9 @@ module.exports = function (models) {
         },
         getFilteredUsers(options) {
             let promise = new Promise((resolve, reject) => {
-                User.find({ options }, (err, res) => {
+                User.find({
+                    options
+                }, (err, res) => {
                     if (err) {
                         reject(err);
                     }
@@ -34,11 +38,23 @@ module.exports = function (models) {
         },
         getUserById(id) {
             let promise = new Promise((resolve, reject) => {
-                User.findOne({ id }, (err, res) => {
+                User.findOne({ _id: id }, (err, res) => {
                     if (err) {
                         reject(err);
                     }
 
+                    resolve(res);
+                });
+            });
+
+            return promise;
+        },
+        getUserByUsername(username) {
+            let promise = new Promise((resolve, reject) => {
+                User.findOne({ username }, (err, res) => {
+                    if (err) {
+                        reject(err);
+                    }
                     resolve(res);
                 });
             });
@@ -68,11 +84,25 @@ module.exports = function (models) {
                 });
             });
         },
+        addCarToUser(user, car) {
+            return this.getUserById(user._id)
+                .then(u => {
+                    u.cars.push({
+                        brand: car.brand,
+                        model: car.model,
+                        carId: car._id,
+                        year: car.year
+                    });
 
+                    return dataUtils.update(u);
+                });
+        },
         /* TODO find out what kind of Credentials we use and add it to be more clear. */
         getUserByCredentials(options) {
             let promise = new Promise((resolve, reject) => {
-                User.findOne({ options }, (err, res) => {
+                User.findOne({
+                    options
+                }, (err, res) => {
                     if (err) {
                         reject(err);
                     }

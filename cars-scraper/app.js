@@ -1,6 +1,9 @@
 /* globals console require Promise */
 'use strict';
 
+// comment this when deploy application
+process.env.mode = 'DEVELOPMENT';
+
 const db = require('./config/mongoose'),
     connectionStrings = require('./config/connection-strings'),
     carBrands = require('./scrapers/car-brands-scraper'),
@@ -11,7 +14,11 @@ const startTime = Date.now();
 
 Promise.resolve()
     .then(() => {
-        return db.open(connectionStrings.uri);
+        if(process.env.mode === 'DEVELOPMENT') {
+            process.env.MONGOLAB_URI = connectionStrings.uri;
+        }
+
+        return db.open(process.env.MONGOLAB_URI);
     })
     .then(() => {
         console.log(`\r\n${new Date().toLocaleString()}`);
