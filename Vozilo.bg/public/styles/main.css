@@ -2,12 +2,15 @@ form {
     width: 40em;
     padding-top: 1em;
 }
+
 .search-form {
     width: 36.5em;
 }
+
 .form-control {
     margin-bottom: 1em;
 }
+
 button.btn.btn-primary {
     margin-top: -1em;
 }
@@ -23,12 +26,15 @@ button.btn.btn-primary {
 .navbar-collapse {
     background: #575b5b;
 }
+
 .navbar-collapse a {
     color: white;
 }
+
 .container {
     margin-bottom: 3.5em;
 }
+
 .navbar-collapse ul li a:hover {
     color: black;
 }
@@ -136,5 +142,12 @@ button.btn.btn-primary {
 
 #profile-wrapper #user-cars .car-preview .car-info {
     margin: 10px;
+    float: left;
+}
+
+#profile-wrapper .review-tab {
+    width: 75%;
+    margin: 10px 15%;
+    min-width: 200px;
     float: left;
 }

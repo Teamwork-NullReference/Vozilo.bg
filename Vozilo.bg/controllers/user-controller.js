@@ -7,7 +7,10 @@ let mockedUser = {
     username: '5ko',
     picture: 'http://sd.keepcalm-o-matic.co.uk/i/keep-calm-and-love-pesho-3.png',
     drivingExpInYears: '0',
-    address: 'Somewhere else',
+    address: {
+        city: 'Sofiq',
+        street: 'Somewhere else'
+    },
     email: 'PeshoPetkov@abv.bg',
     phoneNumber: '0888 123 123 88',
     cars: [],
@@ -47,27 +50,27 @@ module.exports = function(data) {
             let username = req.params.username;
             data.getUserByUsername(username)
                 .then(user => {
-                    // // TODO Remove mock before production
-                    // if (id === '1') {
-                    //     mockedUser.id = 1;
-                    //     return res.render('user-details', {
-                    //         result: {
-                    //             user: req.user,
-                    //             userDetails: mockedUser
-                    //         }
-                    //     });
-                    // }
+                    // TODO Remove mock before production
+                    if (username === 'someoneElse') {
+                        mockedUser.username = 'someoneElse';
+                        return res.render('user-details', {
+                            result: {
+                                user: req.user,
+                                userDetails: mockedUser
+                            }
+                        });
+                    }
 
-                    // if (id === '2') {
-                    //     mockedUser.id = 2;
-                    //     return res.render('user-details', {
-                    //         result: {
-                    //             user: 'Pesho',
-                    //             userDetails: mockedUser
-                    //         }
-                    //     });
-                    // }
-                    // // Remove To here
+                    if (username === '5ko') {
+                        mockedUser.username = 'pesho';
+                        return res.render('user-details', {
+                            result: {
+                                user: 'Pesho',
+                                userDetails: mockedUser
+                            }
+                        });
+                    }
+                    // Remove To here
 
                     if (user === null) {
                         return res.render('user-not-found', {
