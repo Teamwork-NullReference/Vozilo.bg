@@ -1,4 +1,5 @@
 /* globals require */
+/* eslint-disable no-process-env */
 'use strict';
 
 const config = require('./config');
@@ -9,8 +10,5 @@ const app = require('./config/application')(data);
 
 require('./routes')({ app, data });
 
-if (config.envMode === 'DEVELOPMENT') {
-    app.listen(config.port, () => console.log(`it works on port: ${config.port}`));
-} else {
-    app.listen();
-}
+const port = process.env.PORT || config.port;
+app.listen(port, () => console.log(`it works on port: ${port}`));
