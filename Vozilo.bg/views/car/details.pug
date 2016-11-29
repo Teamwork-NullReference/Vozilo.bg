@@ -1,0 +1,74 @@
+extends ../_layout
+
+block custom-styles
+     link(rel='stylesheet', href='/static/bower_components/font-awesome/css/font-awesome.css')
+
+
+block body-content
+    .container#car-details
+        .row
+            .col-md-8
+                h2
+                    span 
+                        = result.carDetails.brand
+                    span 
+                        = result.carDetails.model
+                  
+                    small 
+                        = result.carDetails.year
+                p   
+                    span Собственик: 
+                    a(href='/user/' + result.carDetails.owner.userId)
+                        = result.carDetails.owner.username 
+                    span  град: 
+                        = result.carDetails.owner.city
+
+                img.car-image(src=''+ result.carDetails.picture)
+
+                .row
+                    .col-md-6
+                        h4.color-secondary Кратко описание
+                        p
+                            = result.carDetails.shortInfo
+                    .col-md-6
+                        h4.color-secondary Изисквания към наематели
+                        ul.list-unstyled
+                            li
+                                i.fa.fa-check-circle-o.fa-lg.color-success
+                                span  Минимална възраст: 
+                                    = result.carDetails.usageRequirements.leastAge
+                            li
+                                i.fa.fa-check-circle-o.fa-lg.color-success
+                                span  Минимален шофьорски опит: 
+                                if result.carDetails.usageRequirements.drivingExperience
+                                    = result.carDetails.usageRequirements.drivingExperience
+                                else
+                                    | 0
+                            li
+                                i.fa.fa-check-circle-o.fa-lg.color-success
+                                span  Минимален прериод на наемане: 
+                                    = result.carDetails.usageRequirements.minimumRentalPeriod
+                            li
+                                if result.carDetails.usageRequirements.smokingAllowed
+                                    i.fa.fa-check-circle-o.fa-lg.color-success
+                                    span  Пушенето позволено: Да
+                                else
+                                    i.fa.fa-ban.fa-lg.color-negative
+                                    span  Пушенето позволено: Не 
+                            
+                            li
+                                if result.carDetails.usageRequirements.animalsAllowed
+                                    i.fa.fa-check-circle-o.fa-lg.color-success
+                                    span  Животни позволени: Да
+                                else
+                                    i.fa.fa-ban.fa-lg.color-negative
+                                    span  Животни позволени: Не
+                hr
+                .row
+                    .col-mid-6
+                        h4.color-success Информация за колата
+                               
+
+                                    
+            .col-md-4
+                    

@@ -28,7 +28,7 @@ module.exports = modelRegistrator.register('Car', {
     },
     fuelConsumption: String,
     seats: {
-        type: Number,
+        type: String,
         required: true
     },
     distancePassed: Number,
@@ -70,7 +70,8 @@ module.exports = modelRegistrator.register('Car', {
     owner: {
         username: String,
         imageUrl: String,
-        userId: String
+        userId: String,
+        city: String
     },
     isDeleted: Boolean
 });

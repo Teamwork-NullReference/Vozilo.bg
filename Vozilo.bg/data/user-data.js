@@ -1,9 +1,11 @@
 /* globals module */
 'use strict';
+let dataUtils = require('./utils/data-utils');
 
-
-module.exports = function(models) {
-    let { User } = models;
+module.exports = function (models) {
+    let {
+        User
+    } = models;
 
     return {
         getAllUsers() {
@@ -21,7 +23,9 @@ module.exports = function(models) {
         },
         getFilteredUsers(options) {
             let promise = new Promise((resolve, reject) => {
-                User.find({ options }, (err, res) => {
+                User.find({
+                    options
+                }, (err, res) => {
                     if (err) {
                         reject(err);
                     }
@@ -34,11 +38,12 @@ module.exports = function(models) {
         },
         getUserById(id) {
             let promise = new Promise((resolve, reject) => {
-                User.findOne({ id }, (err, res) => {
+                User.findOne({
+                    _id: id
+                }, (err, res) => {
                     if (err) {
                         reject(err);
                     }
-
                     resolve(res);
                 });
             });
@@ -46,7 +51,7 @@ module.exports = function(models) {
             return promise;
         },
         createUser(user) {
-            let newUser = new User({ 
+            let newUser = new User({
                 firstName: user.firstName,
                 lastName: user.lastName,
                 username: user.username,
@@ -55,9 +60,9 @@ module.exports = function(models) {
                 email: user.email,
                 phoneNumber: user.phoneNumber,
                 password: user.password
-                  });
-            newUser.address.city=user.city;
-            newUser.address.street=user.street;
+            });
+            newUser.address.city = user.city;
+            newUser.address.street = user.street;
             return new Promise((resolve, reject) => {
                 newUser.save(err => {
                     if (err) {
@@ -67,12 +72,25 @@ module.exports = function(models) {
                     return resolve(newUser);
                 });
             });
-         },
+        },
+        addCarToUser(user, car) {
+            return this.getUserById(user._id)
+                .then(u => {
+                    u.cars.push({
+                        brand: car.brand,
+                        model: car.model,
+                        carId: car._id
+                    });
 
+                    return dataUtils.update(u);
+                });
+        },
         /* TODO find out what kind of Credentials we use and add it to be more clear. */
         getUserByCredentials(options) {
             let promise = new Promise((resolve, reject) => {
-                User.findOne({ options }, (err, res) => {
+                User.findOne({
+                    options
+                }, (err, res) => {
                     if (err) {
                         reject(err);
                     }
