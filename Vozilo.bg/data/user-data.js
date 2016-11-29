@@ -38,9 +38,20 @@ module.exports = function (models) {
         },
         getUserById(id) {
             let promise = new Promise((resolve, reject) => {
-                User.findOne({
-                    _id: id
-                }, (err, res) => {
+                User.findOne({ _id: id }, (err, res) => {
+                    if (err) {
+                        reject(err);
+                    }
+
+                    resolve(res);
+                });
+            });
+
+            return promise;
+        },
+        getUserByUsername(username) {
+            let promise = new Promise((resolve, reject) => {
+                User.findOne({ username }, (err, res) => {
                     if (err) {
                         reject(err);
                     }
@@ -101,10 +112,19 @@ module.exports = function (models) {
 
             return promise;
         },
-        /*TODO IMPLEMENT ME */
         findTopRated(n) {
-            return Promise.resolve()
-                .then(() => []);
+            return new Promise((resolve, reject) => {
+                User.find()
+                    .sort({ userRating: -1 })
+                    .limit(n)
+                    .exec((err, users) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve(users);
+                    });
+            });
         }
     };
 };

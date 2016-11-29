@@ -71,7 +71,9 @@ module.exports = modelRegistrator.register('Car', {
         username: String,
         imageUrl: String,
         userId: String,
-        city: String
+        city: String,
+        firstName: String,
+        lastName: String
     },
     isDeleted: Boolean
 });
