@@ -9,4 +9,8 @@ const app = require('./config/application')(data);
 
 require('./routes')({ app, data });
 
-app.listen(config.port, () => console.log(`it works on port: ${config.port}`));
+if (config.envMode === 'DEVELOPMENT') {
+    app.listen(config.port, () => console.log(`it works on port: ${config.port}`));
+} else {
+    app.listen();
+}
