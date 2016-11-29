@@ -22,15 +22,36 @@ module.exports = function (models) {
         },
         getFilteredCars(options) {
             let promise = new Promise((resolve, reject) => {
-                Car.find({
-                    options
-                }, (err, res) => {
+                let city = options.city;
+                let dates = [];
+                let filter;
+                if (city) {
+                    filter = { 'owner.city': options.city };
+                } else {
+                    filter = {};
+                }
+                Car.find(filter, (err, res) => {
                     if (err) {
-                        reject(err);
+                        return reject(err);
                     }
 
-                    resolve(res);
+                    return resolve(res);
                 });
+                    // .then(cars => {
+                    //     let { startDate, endDate } = options;
+                    //     console.log(startDate);
+                    //     if (startDate && endDate) {
+                    //         // let availableCars = [];
+                    //         // for (let i = 0; i < cars.length; i += 1) {
+                    //         //     let car = cars[i];
+                    //         //     for (let j = 0;)
+                    //         // }
+
+                    //         return resolve(availableCars);
+                    //     }
+
+                    //     return resolve(cars);
+                    // });
             });
 
             return promise;
