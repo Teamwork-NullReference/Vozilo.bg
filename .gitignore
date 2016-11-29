@@ -1,8 +1,12 @@
 
 # Ignore file with connection strings for DB
+
 /Vozilo.bg/config/index.js
 /cars-scraper/config/connection-strings.js
 /config/index.js
+
+#Google Oauth configuration strings
+/Vozilo.bg/config/config.js
 
 # Logs
 logs
