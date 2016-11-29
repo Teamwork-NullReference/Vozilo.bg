@@ -1,4 +1,4 @@
-extends _layout
+extends ../_layout
 
 block body-content
     ul(class="nav nav-tabs" id="profile-tabs")
@@ -76,8 +76,13 @@ block body-content
                             a(href="/car/" + car.id + "/update/" class="btn btn-danger") Промени                          
         div(id="user-reviews" class="profile-tab hidden")
             each review in result.userDetails.receivedReviews
-                h1
-                    | Here!         
+                div(class="panel panel-primary review-tab")
+                    div(class="panel-heading")
+                        h3(class="panel-title")
+                           != review.fromUser
+                    div(class="panel-body")
+                        span
+                           != review.content       
     
     script
         | $('#first-tab a').click(function (e) {  e.preventDefault(); $('.profile-tab').addClass('hidden'); $('#prfile-info').removeClass('hidden');})
