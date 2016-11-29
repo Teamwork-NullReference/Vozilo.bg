@@ -7,6 +7,7 @@
 
 #Google Oauth configuration strings
 /Vozilo.bg/config/config.js
+/Vozilo.bg/config/configurationStrings.js
 
 # Logs
 logs
