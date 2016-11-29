@@ -6,7 +6,6 @@ const passport= require('passport'),
     googleStrategy= require('./strategies/google-strategy'),
     crypto = require('crypto'),
     secret = require('./../config').cryptoSecret;
-    console.log(secret);
 function hash(password) {
     return crypto.createHmac('sha256', secret)
                    .update(password)
