@@ -57,6 +57,7 @@ module.exports = function (models) {
                 registrationNumber = carInfo.registrationNumber,
                 hp = parseInt(carInfo.hp, 10) || 0,
                 fuelType = carInfo.fuelType,
+                picture = carInfo.picture,
                 fuelConsumption = carInfo.fuelConsumption,
                 seats = carInfo.seats,
                 distancePassed = parseInt(carInfo.distancePassed, 10) || 0,
@@ -68,16 +69,16 @@ module.exports = function (models) {
                 usageRequirements = {
                     leastAge: parseInt(carInfo.leastAge, 10) || 18,
                     drivingExpirience: parseInt(carInfo.drivingExperience, 10) || 0,
-                    smokingAllowed: carInfo.smokingAllowed,
-                    animalsAllowed: carInfo.animalsAllowed,
+                    smokingAllowed: carInfo.smokingAllowed || false,
+                    animalsAllowed: carInfo.animalsAllowed || false,
                     minimumRentalPeriod: parseInt(carInfo.miniumRentalPeriod, 10) || 1
                 },
                 equipment = {
-                    aircondition: carInfo.airCondition,
-                    GPS: carInfo.GPS,
-                    winterTiers: carInfo.winterTiers,
-                    mp3Player: carInfo.mp3Player,
-                    electricWindows: carInfo.electricWindows
+                    aircondition: carInfo.airCondition || false,
+                    GPS: carInfo.GPS || false,
+                    winterTiers: carInfo.winterTiers || false,
+                    mp3Player: carInfo.mp3Player || false,
+                    electricWindows: carInfo.electricWindows || false
                 };
 
             let startDate = new Date(carInfo.startDate),
@@ -94,7 +95,8 @@ module.exports = function (models) {
             let owner = {
                 username: user.username,
                 imageUrl: user.picture,
-                userId: user._id
+                userId: user._id,
+                city: user.address.city
             };
 
 
@@ -106,6 +108,7 @@ module.exports = function (models) {
                     registrationNumber,
                     hp,
                     fuelType,
+                    picture,
                     fuelConsumption,
                     seats,
                     distancePassed,

@@ -34,10 +34,19 @@ block body-content
                                                         = model.model
                             .form-group
                                 label.label-create-car(for='year') Година
-                                input.form-control(type='text' name='year' required='')
+                                select.form-control#car-model-choice(name='year')
+                                    - for (var i = result.startDate; i <= result.endDate; ++i) {
+                                        option(class='model-option' name='year')
+                                            = i
+                                            
+                                    - }
+
                             .form-group
                                 label.label-create-car(for='registrationNumber') Регистрационен номер
                                 input.form-control(type='text'  name='registrationNumber' required='')
+                            .form-group
+                                label.label-create-car(for='picture') Снимка
+                                input.form-control(type='text' name='picture')
                             .form-group
                                 label.label-create-car(for='hp') Мощност (к.с.)
                                 input.form-control(type='text' name='hp')
@@ -123,7 +132,7 @@ block body-content
                                  label.label-create-car Екстри
                                  .text-center.font-size-09
                                     label.checkbox-inline
-                                        input(type='checkbox' value='true' name='aircondition')  
+                                        input(type='checkbox' value='true' name='airCondition')  
                                         | климатик
                                     label.checkbox-inline
                                         input(type='checkbox' value='true' name='GPS')  

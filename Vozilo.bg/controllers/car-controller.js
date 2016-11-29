@@ -1,6 +1,8 @@
 /* globals module */
 'use strict';
 
+const START_YEAR = 1980;
+
 module.exports = function (data) {
     return {
         loadCreateCarForm(req, res) {
@@ -11,7 +13,9 @@ module.exports = function (data) {
                         .render('car/create-form', {
                             result: {
                                 user: req.user,
-                                predefinedCars
+                                predefinedCars,
+                                endDate: new Date().getFullYear(),
+                                startDate: START_YEAR
                             }
                         });
                 })
@@ -24,6 +28,9 @@ module.exports = function (data) {
             let user = req.user;
             let carInfo = req.body;
             return data.addCar(user, carInfo)
+                .then(car => {
+                    return data.addCarToUser(user, car);
+                })
                 .then(() => {
                     return res.status(201)
                         .redirect('/');
@@ -36,11 +43,10 @@ module.exports = function (data) {
         loadCarDetails(req, res) {
             return data.getCarById(req.params.id)
                 .then(carDetails => {
-                    // console.log(car);
                     if (!carDetails) {
                         return res.status(404).send('There is not such car');
                     }
-
+                    console.log(carDetails);
                     return res.status(200).render('car/details', {
                         result: {
                             user: req.user,
