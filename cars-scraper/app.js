@@ -1,11 +1,8 @@
 /* globals console require Promise */
-/* eslint-disable no-process-env */
 'use strict';
 
-// comment this when deploy application
-process.env.mode = 'DEVELOPMENT';
-
-const db = require('./config/mongoose'),
+const config = require('./config'),
+    db = require('./config/mongoose'),
     connectionStrings = require('./config/connection-strings'),
     carBrands = require('./scrapers/car-brands-scraper'),
     carBrandsDetails = require('./scrapers/car-brands-details-scraper'),
@@ -15,7 +12,7 @@ const startTime = Date.now();
 
 Promise.resolve()
     .then(() => {
-        if (process.env.mode === 'DEVELOPMENT') {
+        if (config.envMode === 'DEVELOPMENT') {
             process.env.MONGOLAB_URI = connectionStrings.uri;
         }
 
