@@ -1,4 +1,5 @@
-/* globals module require global __dirname */
+/* globals module require global __dirname process */
+/* eslint-disable no-process-env */
 'use strict';
 
 const mongoose = require('mongoose');
@@ -7,13 +8,18 @@ const path = require('path');
 
 module.exports = function (config) {
     mongoose.Promise = global.Promise;
-    mongoose.connect(config.connectionString);
+
+    if (config.envMode === 'DEVELOPMENT') {
+        process.env.MONGOLAB_URI = config.uri;
+    }
+
+    mongoose.connect(process.env.MONGOLAB_URI);
 
     // let models = require('./../models'); // not working
     let User = require('../models/user-model');
     let Car = require('../models/car-model');
     let Review = require('../models/review-model');
-    let CarBrandDetail = require('../models/car-brand-model')
+    let CarBrandDetail = require('../models/car-brand-model');
     let models = {
         User,
         Car,
