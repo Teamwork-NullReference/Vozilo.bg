@@ -53,7 +53,7 @@ module.exports = function(data) {
                     // TODO Remove mock before production
                     if (username === 'someoneElse') {
                         mockedUser.username = 'someoneElse';
-                        return res.render('user-details', {
+                        return res.render('profile/user-details', {
                             result: {
                                 user: req.user,
                                 userDetails: mockedUser
@@ -63,7 +63,7 @@ module.exports = function(data) {
 
                     if (username === '5ko') {
                         mockedUser.username = 'pesho';
-                        return res.render('user-details', {
+                        return res.render('profile/user-details', {
                             result: {
                                 user: 'Pesho',
                                 userDetails: mockedUser
@@ -73,14 +73,14 @@ module.exports = function(data) {
                     // Remove To here
 
                     if (user === null) {
-                        return res.render('user-not-found', {
+                        return res.render('profile/user-not-found', {
                             result: {
                                 user: req.user
                             }
                         });
                     }
 
-                    res.render('user-details', {
+                    res.render('profile/user-details', {
                         result: {
                             user: req.user,
                             userDetails: user
