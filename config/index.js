@@ -5,5 +5,6 @@ module.exports = {
     // comment row below when deploy application
     // envMode: 'DEVELOPMENT',
     connectionString: 'mongodb://localhost/voziloDb',
-    port: 3001
+    port: 3001,
+    cryptoSecret: '@nullreference_2016&'
 };

@@ -3,6 +3,10 @@
 /cars-scraper/config/connection-strings.js
 # /config/index.js
 
+#Google Oauth configuration strings
+/config/config.js
+/config/configurationStrings.js
+
 # Logs
 logs
 *.log
