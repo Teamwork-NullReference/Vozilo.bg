@@ -10,7 +10,7 @@ module.exports = function (config) {
     mongoose.Promise = global.Promise;
 
     if (config.envMode === 'DEVELOPMENT') {
-        process.env.MONGOLAB_URI = config.uri;
+        process.env.MONGOLAB_URI = config.connectionString;
     }
 
     mongoose.connect(process.env.MONGOLAB_URI);
