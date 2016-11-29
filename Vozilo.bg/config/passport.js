@@ -3,9 +3,10 @@
 
 const passport= require('passport'),
     LocalStratey= require('passport-local'),
+    googleStrategy= require('./strategies/google-strategy'),
     crypto = require('crypto'),
     secret = require('./../config').cryptoSecret;
-    // googleStrategy= require('./strategies/google-strategy');
+    console.log(secret);
 function hash(password) {
     return crypto.createHmac('sha256', secret)
                    .update(password)
@@ -28,6 +29,7 @@ module.exports= function (app, data) {
             .catch(error => done(error, null));
     });
     passport.use(Strategy);
+    googleStrategy(passport, data);
     passport.serializeUser((user, done) => {
         if (user) {
             done(null, user.id);

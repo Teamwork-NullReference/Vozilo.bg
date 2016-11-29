@@ -1,8 +1,10 @@
 /* globals module */
-// const passport = require('passport');
 
-const crypto = require('crypto');
-const secret = require('./../config').cryptoSecret;
+const passport = require('passport'),
+    crypto = require('crypto'),
+    secret = require('./../config').cryptoSecret,
+    profile= require('./../config/configurationStrings').googleCredentials.profile;
+
 
 
 module.exports = function(data) {
@@ -43,34 +45,35 @@ module.exports = function(data) {
             return res.render('authentication/sign-in', {
                 result: { user: req.user }
             });
+        },
+        getSgnInGoogle(req, res, next) {
+            const auth = passport.authenticate('google', { scope: profile }, (error, user) => {
+                if (error) {
+                    console.log('auth-controler error');
+                    next(error);
+                    return;
+                }
+
+                if (!user) {
+                    res.redirect('/auth/sign-in');
+                }
+
+                req.login(user, error1 => {
+                    if (error1) {
+                        next(error1);
+                        return;
+                    }
+                     console.log('auth-controler tuka sum');
+                    res.redirect('/profile');
+                });
+            });
+            // .catch(error => {
+            //     console.log(error);
+            //     res.status(500).json(error);
+            // });
+
+            auth(req, res, next);
         }
-        // ,
-        // loginGoogle(req, res, next) {
-        //     const auth = passport.authenticate('google', { scope: 'https://www.googleapis.com/auth/plus.login' } (error, user) => {
-        //         if (error) {
-        //             next(error);
-        //             return;
-        //         }
-
-        //         if (!user) {
-        //             res.json({
-        //                 success: false,
-        //                 message: 'Invalid name or password!'
-        //             });
-        //         }
-
-        //         req.login(user, error1 => {
-        //             if (error1) {
-        //                 next(error1);
-        //                 return;
-        //             }
-
-        //             res.redirect('/');
-        //         });
-        //     });
-
-        //     auth(req, res, next);
-        // }
     };
 };
 
