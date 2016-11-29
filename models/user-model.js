@@ -3,7 +3,7 @@
 const modelRegistrator = require('./utils/model-registrator');
 const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 // Minimum 8 characters at least 1 Alphabet and 1 Number.
-const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+// const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 
 module.exports = modelRegistrator.register('User', {
     // TODO  update user-data.js, auth-controler and then uncomment
@@ -51,8 +51,8 @@ module.exports = modelRegistrator.register('User', {
     receivedReviews: [{}],
     userRating: Number,
     password: {
-        type: String,
-        match: passwordRegex
+        type: String
+        // match: passwordRegex
     },
     // messages: [{
     //     senderUsername: String,

@@ -1,35 +1,36 @@
 /* globals module */
 
 const passport = require('passport'),
-    crypto = require('crypto'),
-    secret = require('./../config').cryptoSecret,
-    profile= require('./../config/configurationStrings').googleCredentials.profile;
+    // crypto = require('crypto'),
+    // secret = require('./../config').cryptoSecret,
+    profile = require('./../config/configurationStrings').googleCredentials.profile;
 
 
 
-module.exports = function(data) {
+module.exports = function (data, createHash, validator) {
     return {
         signUp(req, res) {
-            let newUser={};
-            let propoerties=['username', 'firstName', 'lastName', 'email', 'picture', 'phoneNumber', 'experience', 'city', 'street'];
+            let newUser = {};
+            let propoerties = ['username', 'firstName', 'lastName', 'email', 'picture', 'phoneNumber', 'experience', 'city', 'street'];
             propoerties.forEach(property => {
-                if (!property||property.length<0) {
+                if (!property || property.length < 0) {
                     res.status(411).json(`Missing ${property}`);
                 }
                 newUser[property] = req.body[property];
             });
-            const hash = crypto.createHmac('sha256', secret)
-                   .update(req.body.password)
-                   .digest('hex');
-            newUser.password=hash;
+            if (!validator.validatePassword(req.body.password)) {
+                console.log({ error: 'Password doesn\'t match requirements!' });
+                res.redirect('/auth/sign-up');
+            }
+            newUser.password = createHash(req.body.password);
             data.createUser(newUser)
                 .then(
-                    () => {
-                        res.redirect('/auth/sign-in');
-                    })
+                () => {
+                    res.redirect('/auth/sign-in');
+                })
                 .catch(error => {
                     console.log(error);
-                    res.status(500).json(error);
+                    res.redirect('/auth/sign-up');
                 });
         },
         signOut(req, res) {
