@@ -17,8 +17,9 @@ module.exports = function ({ app, data }) {
         // .get('/login/github/callback', controller.getSgnInGoogle)
         .get('/auth/google/callback',
              passport.authenticate('google', { failureRedirect: '/login' }),
-            (req, res) => { console.log('router');}
-            // res.redirect('/')
+             (req, res) => {
+                 res.redirect('/');
+             }
             )
         .post('/sign-up', controller.signUp)
         .post('/sign-in',

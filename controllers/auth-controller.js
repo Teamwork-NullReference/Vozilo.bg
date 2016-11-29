@@ -49,7 +49,6 @@ module.exports = function(data) {
         getSgnInGoogle(req, res, next) {
             const auth = passport.authenticate('google', { scope: profile }, (error, user) => {
                 if (error) {
-                    console.log('auth-controler error');
                     next(error);
                     return;
                 }
@@ -63,15 +62,9 @@ module.exports = function(data) {
                         next(error1);
                         return;
                     }
-                     console.log('auth-controler tuka sum');
                     res.redirect('/profile');
                 });
             });
-            // .catch(error => {
-            //     console.log(error);
-            //     res.status(500).json(error);
-            // });
-
             auth(req, res, next);
         }
     };

@@ -22,37 +22,36 @@ module.exports = modelRegistrator.register('User', {
         maxlength: 30,
         unique: true
     },
+    googleId: {
+        type: String,
+        unique: true
+    },
     picture: String,
     drivingExpInYears: {
-        type: Number,
-        required: true
+        type: Number
     },
     address: {
         city: {
-            type: String,
-            required: true
+            type: String
         },
         street: {
-            type: String,
-            required: true
+            type: String
         }
     },
     email: {
         type: String,
-        required: true,
+        // required: true,
         unique: true,
         match: emailRegex
     },
     phoneNumber: {
-        type: String,
-        required: true
+        type: String
     },
     cars: [{}],
     receivedReviews: [{}],
     userRating: Number,
     password: {
         type: String,
-        required: true,
         match: passwordRegex
     },
     // messages: [{

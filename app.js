@@ -11,4 +11,4 @@ const app = require('./config/application')(data);
 require('./routes')({ app, data });
 
 const port = process.env.PORT || config.port;
-app.listen(port, () => console.log(`it works on port: ${port}`));
+app.listen(port, () => console.log(`it works on: localhost:${port}`));
