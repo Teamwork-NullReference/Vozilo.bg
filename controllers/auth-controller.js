@@ -11,7 +11,10 @@ if (config.envMode === 'DEVELOPMENT') {
     profile = require('./../config/configurationStrings').googleCredentials.profile;
 } else {
     // secret = process.env.CRYPTO_SECRET;
-    profile = process.env.GOOGLECREDENTIALS_PROFILE;
+    profile = [
+        process.env.GOOGLECREDENTIALS_PROFILE_LOGIN,
+        process.env.GOOGLECREDENTIALS_PROFILE_EMAIL
+    ];
 }
 
 module.exports = function(data, createHash, validator) {
