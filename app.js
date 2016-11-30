@@ -1,18 +1,24 @@
 /* globals require */
 'use strict';
 
-const config = require('./config');
+let config = {};
+if (process.env.ENV_MODE === 'PRODUCTION') {
+    config.MONGOLAB_URI = process.env.MONGOLAB_URI;
+    config.PORT = process.env.PORT;
+} else {
+    process.env.ENV_MODE = 'DEVELOPMENT';
 
-let connectionSettings;
-if (config.envMode === 'DEVELOPMENT') {
-    connectionSettings = require('./config/connection-strings');
+    const connectionStrings = require('./config/connection-strings');
+    config.MONGOLAB_URI = connectionStrings.connectionString;
+    config.PORT = connectionStrings.port;
 }
 
-let data = require('./data')(config, connectionSettings);
+let data = require('./data')(config);
 
 const app = require('./config/application')(data);
 
 require('./routes')({ app, data });
 
-const port = process.env.PORT || connectionSettings.port;
-app.listen(port, () => console.log(`it works on: localhost:${port}`));
+app.listen(config.PORT, () => {
+    console.log(`it works on: localhost:${config.PORT}`);
+});

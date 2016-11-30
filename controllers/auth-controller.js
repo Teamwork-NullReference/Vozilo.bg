@@ -1,23 +1,23 @@
 /* globals module */
 
-const passport = require('passport'),
-    config = require('./../config');
-    // crypto = require('crypto');
+const passport = require('passport');
 
-// let secret,
-let profile;
-if (config.envMode === 'DEVELOPMENT') {
-    // secret = config.cryptoSecret;
-    profile = require('./../config/configurationStrings').googleCredentials.profile;
+let config = {};
+if (process.env.ENV_MODE === 'PRODUCTION') {
+    config.GOOGLECREDENTIALS_PROFILE_LOGIN = process.env.GOOGLECREDENTIALS_PROFILE_LOGIN;
+    config.GOOGLECREDENTIALS_PROFILE_EMAIL = process.env.GOOGLECREDENTIALS_PROFILE_EMAIL;
 } else {
-    // secret = process.env.CRYPTO_SECRET;
-    profile = [
-        process.env.GOOGLECREDENTIALS_PROFILE_LOGIN,
-        process.env.GOOGLECREDENTIALS_PROFILE_EMAIL
-    ];
+    const googleCredentials = require('./config/configurationStrings').googleCredentials;
+    config.GOOGLECREDENTIALS_PROFILE_LOGIN = googleCredentials.profile[0];
+    config.GOOGLECREDENTIALS_PROFILE_EMAIL = googleCredentials.profile[1];
 }
 
-module.exports = function(data, createHash, validator) {
+const profile = [
+    config.GOOGLECREDENTIALS_PROFILE_LOGIN,
+    config.GOOGLECREDENTIALS_PROFILE_EMAIL
+];
+
+module.exports = function (data, createHash, validator) {
     return {
         signUp(req, res) {
             let newUser = {};

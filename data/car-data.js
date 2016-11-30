@@ -48,36 +48,9 @@ module.exports = function (models) {
                 }
 
                 if (city) {
-<<<<<<< HEAD
-                    filter = {
-                        'owner.city': options.city
-                    };
-                } else {
-                    filter = {};
-=======
                     andCriteria.push({ 'owner.city': city });
->>>>>>> 793ab196272e0810c7e9d50fe14084da122aabf0
                 }
 
-<<<<<<< HEAD
-                    return resolve(res);
-                });
-                // .then(cars => {
-                //     let { startDate, endDate } = options;
-                //     console.log(startDate);
-                //     if (startDate && endDate) {
-                //         // let availableCars = [];
-                //         // for (let i = 0; i < cars.length; i += 1) {
-                //         //     let car = cars[i];
-                //         //     for (let j = 0;)
-                //         // }
-
-                //         return resolve(availableCars);
-                //     }
-
-                //     return resolve(cars);
-                // });
-=======
                 filter.$and = andCriteria;
 
                 Car.find(filter)
@@ -90,7 +63,6 @@ module.exports = function (models) {
 
                         return resolve(res);
                     });
->>>>>>> 793ab196272e0810c7e9d50fe14084da122aabf0
             });
 
             return promise;
