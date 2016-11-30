@@ -2,7 +2,11 @@
 'use strict';
 
 const config = require('./config');
-const connectionSettings = require('./config/connection-strings');
+
+let connectionSettings;
+if (config.envMode === 'DEVELOPMENT') {
+    connectionSettings = require('./config/connection-strings');
+}
 
 let data = require('./data')(config, connectionSettings);
 

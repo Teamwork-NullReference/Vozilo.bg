@@ -8,7 +8,7 @@ block body-content
             a(href="#" data-toggle="tab") Cars
         li(id="third-tab")
             a(href="#" data-toggle="tab") Received Reviews
-        if result.user
+        if result.isCurrentUser
            li(id="forth-tab")
                 a(href="/user/" + result.userDetails.username + "/update") Update Profile
         
@@ -53,6 +53,10 @@ block body-content
                 strong
                     | Шофиорски опит: 
                 != result.userDetails.drivingExpInYears
+            if !result.isCurrentUser && result.user
+                div(class="clear-both margin text-center" id="profile-btns")
+                    a(href="#" class="btn btn-success") Коментирай
+                    a(href="#" class="btn btn-success") Изпрати съобщение                 
         div(id="user-cars" class="profile-tab hidden")
             each car in result.userDetails.cars
                 div(class="car-preview")
