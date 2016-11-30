@@ -1,11 +1,11 @@
 /* globals module require */
 
 const crypto = require('crypto'),
-    config = require('./../config'),
-    secretString = require('./../config/configurationStrings');
+    config = require('./../config');
+
 let secret;
 if (config.envMode === 'DEVELOPMENT') {
-    secret = secretString.cryptoSecret;
+    secret = require('./../config/configurationStrings').cryptoSecret;
 } else {
     secret = process.env.CRYPTO_SECRET;
 }
