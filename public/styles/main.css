@@ -73,7 +73,7 @@ form {
 /* Create car form */
 
 #form-create-car {
-    background-color: rgba(14, 188, 65, 0.4);
+    background-color: white;
     padding: 50px;
     border-radius: 10px;
 }
