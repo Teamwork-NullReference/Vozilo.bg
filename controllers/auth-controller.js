@@ -21,6 +21,7 @@ module.exports = function (data, createHash, validator) {
             if (!validator.validatePassword(req.body.password)) {
                 console.log({ error: 'Password doesn\'t match requirements!' });
                 res.redirect('/auth/sign-up');
+                return;
             }
             newUser.password = createHash(req.body.password);
             data.createUser(newUser)
@@ -35,7 +36,7 @@ module.exports = function (data, createHash, validator) {
         },
         signOut(req, res) {
             req.logout();
-            res.redirect('/');
+            return res.redirect('/home');
         },
         getSignUpForm(req, res) {
             return res.render('authentication/sign-up', {
