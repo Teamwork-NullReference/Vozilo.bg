@@ -58,6 +58,7 @@ module.exports = function (models) {
                         'owner.city': city
                     });
                 }
+
                 filter.$and = andCriteria;
 
                 Car.find(filter)
