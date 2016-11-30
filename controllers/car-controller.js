@@ -61,9 +61,6 @@ module.exports = function (data) {
             data.getDatesFromCalendar(req.params.id)
                 .then(dates => {
                     return res.send(dates);
-                    // return res.send({
-                    //     result: dates.map(superhero => mapper.map(superhero, "_id", "name", "imageUrl"))
-                    // });
                 });
         }
     };
