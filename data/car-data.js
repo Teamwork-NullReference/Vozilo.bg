@@ -92,8 +92,9 @@ module.exports = function (models) {
         getDatesFromCalendar(id) {
             let promise = new Promise((resolve, reject) => {
                 Car.find({
-                        _id: id
-                    }).select('availability')
+                    _id: id
+                })
+                    .select('availability')
                     .exec((err, dates) => {
                         if (err) {
                             reject(err);
