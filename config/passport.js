@@ -5,11 +5,11 @@ const passport= require('passport'),
     LocalStratey= require('passport-local'),
     googleStrategy= require('./strategies/google-strategy'),
     crypto = require('crypto'),
-    config = require('./../config');
-
+    config = require('./../config'),
+    secretString = require('./../config/configurationStrings');
 let secret;
 if (config.envMode === 'DEVELOPMENT') {
-    secret = config.cryptoSecret;
+    secret = secretString.cryptoSecret;
 } else {
     secret = process.env.CRYPTO_SECRET;
 }
