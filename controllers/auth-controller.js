@@ -1,20 +1,20 @@
 /* globals module */
 
 const passport = require('passport'),
-    crypto = require('crypto'),
     config = require('./../config');
+    // crypto = require('crypto');
 
-let secret,
-    profile;
+// let secret,
+let profile;
 if (config.envMode === 'DEVELOPMENT') {
-    secret = config.cryptoSecret;
+    // secret = config.cryptoSecret;
     profile = require('./../config/configurationStrings').googleCredentials.profile;
 } else {
-    secret = process.env.CRYPTO_SECRET;
+    // secret = process.env.CRYPTO_SECRET;
     profile = process.env.GOOGLECREDENTIALS_PROFILE;
 }
 
-module.exports = function (data) {
+module.exports = function(data, createHash, validator) {
     return {
         signUp(req, res) {
             let newUser = {};
@@ -25,10 +25,13 @@ module.exports = function (data) {
                 }
                 newUser[property] = req.body[property];
             });
-            const hash = crypto.createHmac('sha256', secret)
-                .update(req.body.password)
-                .digest('hex');
-            newUser.password = hash;
+
+            if (!validator.validatePassword(req.body.password)) {
+                console.log({ error: 'Password doesn\'t match requirements!' });
+                res.redirect('/auth/sign-up');
+            }
+            newUser.password = createHash(req.body.password);
+
             data.createUser(newUser)
                 .then(
                 () => {
@@ -36,7 +39,7 @@ module.exports = function (data) {
                 })
                 .catch(error => {
                     console.log(error);
-                    res.status(500).json(error);
+                    res.redirect('/auth/sign-up');
                 });
         },
         signOut(req, res) {
@@ -56,7 +59,6 @@ module.exports = function (data) {
         getSgnInGoogle(req, res, next) {
             const auth = passport.authenticate('google', { scope: profile }, (error, user) => {
                 if (error) {
-                    console.log('auth-controler error');
                     next(error);
                     return;
                 }
@@ -70,15 +72,10 @@ module.exports = function (data) {
                         next(error1);
                         return;
                     }
-                    console.log('auth-controler tuka sum');
+
                     res.redirect('/profile');
                 });
             });
-            // .catch(error => {
-            //     console.log(error);
-            //     res.status(500).json(error);
-            // });
-
             auth(req, res, next);
         }
     };

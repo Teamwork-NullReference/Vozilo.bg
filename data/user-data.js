@@ -66,6 +66,7 @@ module.exports = function (models) {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 username: user.username,
+                googleId: user.googleId,
                 picture: user.picture,
                 drivingExpInYears: user.experience,
                 email: user.email,
