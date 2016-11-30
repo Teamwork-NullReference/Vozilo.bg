@@ -9,7 +9,7 @@ const passport= require('passport'),
 
 let secret;
 if (config.envMode === 'DEVELOPMENT') {
-    secret = config.cryptoSecret;
+    secret = require('./configurationStrings').cryptoSecret;
 } else {
     secret = process.env.CRYPTO_SECRET;
 }
