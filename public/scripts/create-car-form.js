@@ -18,9 +18,5 @@ $(() => {
             }
         }
     });
-    $('#btn-sign-out').click(() => {
-        console.log('clicked');
-        jsonRequester.send('post', 'sign-out');
-    });
 });
 

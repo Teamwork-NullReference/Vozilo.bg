@@ -43,41 +43,21 @@ module.exports = function (models) {
                     limit = page * pageSize;
 
                 if (filterDates.length > 0) {
-                    andCriteria.push({ 'availability.date': { '$all': filterDates } });
-                    andCriteria.push({ 'availability.isAvailable': true });
+                    andCriteria.push({
+                        'availability.date': {
+                            '$all': filterDates
+                        }
+                    });
+                    andCriteria.push({
+                        'availability.isAvailable': true
+                    });
                 }
 
                 if (city) {
-<<<<<<< HEAD
-                    filter = {
-                        'owner.city': options.city
-                    };
-                } else {
-                    filter = {};
-=======
-                    andCriteria.push({ 'owner.city': city });
->>>>>>> 793ab196272e0810c7e9d50fe14084da122aabf0
+                    andCriteria.push({
+                        'owner.city': city
+                    });
                 }
-
-<<<<<<< HEAD
-                    return resolve(res);
-                });
-                // .then(cars => {
-                //     let { startDate, endDate } = options;
-                //     console.log(startDate);
-                //     if (startDate && endDate) {
-                //         // let availableCars = [];
-                //         // for (let i = 0; i < cars.length; i += 1) {
-                //         //     let car = cars[i];
-                //         //     for (let j = 0;)
-                //         // }
-
-                //         return resolve(availableCars);
-                //     }
-
-                //     return resolve(cars);
-                // });
-=======
                 filter.$and = andCriteria;
 
                 Car.find(filter)
@@ -90,7 +70,6 @@ module.exports = function (models) {
 
                         return resolve(res);
                     });
->>>>>>> 793ab196272e0810c7e9d50fe14084da122aabf0
             });
 
             return promise;
@@ -113,8 +92,8 @@ module.exports = function (models) {
         getDatesFromCalendar(id) {
             let promise = new Promise((resolve, reject) => {
                 Car.find({
-                    _id: id
-                }).select('availability')
+                        _id: id
+                    }).select('availability')
                     .exec((err, dates) => {
                         if (err) {
                             reject(err);

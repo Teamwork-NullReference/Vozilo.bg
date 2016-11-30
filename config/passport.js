@@ -11,7 +11,6 @@ module.exports= function (app, data) {
     app.use(passport.session());
 
     const Strategy = new LocalStratey((username, password, done) => {
-
         data.findUserByCredentials(username, hash(password))
             .then(user => {
                 if (user) {

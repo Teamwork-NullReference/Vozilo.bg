@@ -6,6 +6,7 @@ const crypto = require('crypto'),
 let secret;
 if (config.envMode === 'DEVELOPMENT') {
     secret = require('./../config/configurationStrings').cryptoSecret;
+    console.log(secret);
 } else {
     secret = process.env.CRYPTO_SECRET;
 }
