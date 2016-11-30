@@ -1,5 +1,4 @@
 /* globals module require global __dirname process */
-/* eslint-disable no-process-env */
 'use strict';
 
 const mongoose = require('mongoose');

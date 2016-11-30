@@ -3,5 +3,5 @@
 
 module.exports = {
     // comment row below when deploy application
-    // envMode: 'DEVELOPMENT'
+    envMode: 'DEVELOPMENT'
 };

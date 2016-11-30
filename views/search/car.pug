@@ -1,4 +1,5 @@
 extends ../_layout
+include ../_mixins/_car-search
 
 block custom-styles
     link(rel='stylesheet', href='/static/styles/car-search.css')
@@ -6,18 +7,41 @@ block custom-styles
 
 block body-content
     div(id="car-search")
-        div.car
-            img.car-img(src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQ683D5AwO5zFJYoTRAoSQpFmAl3ggtuqmacrMMojfc92VJ-6hOLA")
-            span.brand 
-                strong Tesla
-            span.description Good!
-            table
-                tr
-                    td
-                        img.img-circle(src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcS6KCq6icIupl8u330C0bbUsy2IDqeyeuYAKLBu0Vy-mH9UzoHS")
-                        | Pamella Anderson
-                    td.price
-                        strong 750 
-                        span.unit лв/ден
+        div.seach-form
+            +car-search-form
+
+        each car in result.cars
+            div.car
+                a(href=`/car/${car._id}`)
+                    img.car-img(src=`${car.picture}`)
+                div.brand.ellipsis-text
+                    strong= car.brand
+                div.description.ellipsis-text= car.shortInfo
+                table
+                    tr
+                        td
+                            a(href=`/user/${car.owner.username}`)
+                                img.img-circle(src=`${car.owner.imageUrl}`)
+                                span.username.ellipsis-text= car.owner.firstName + car.owner.lastName
+                        td.price
+                            span
+                                strong.amount.ellipsis-text= car.price.perDay 
+                            span.unit лв/ден
+                        if car.price.perWeek > 0
+                            td.price
+                                span
+                                    strong.amount.ellipsis-text= car.price.perWeek 
+                                span.unit лв/седм
+        if result.cars.length == 0
+            div.no-cars
+                strong Не бяха намерени резултати
+        else
+            nav(aria-label="Page navigation")
+                ul.pagination
+                    li.page-item
+                        a.page-link(href="#" aria-label="Previous")
+                            span(aria-hidden="true") &laquo;
+                            span.sr-only Previous
+                    
 
     div(id="map")

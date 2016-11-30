@@ -1,13 +1,23 @@
 /* globals module */
 
 const passport = require('passport'),
-    // crypto = require('crypto'),
-    // secret = require('./../config').cryptoSecret,
+    config = require('./../config');
+    // crypto = require('crypto');
+
+// let secret,
+let profile;
+if (config.envMode === 'DEVELOPMENT') {
+    // secret = config.cryptoSecret;
     profile = require('./../config/configurationStrings').googleCredentials.profile;
+} else {
+    // secret = process.env.CRYPTO_SECRET;
+    profile = [
+        process.env.GOOGLECREDENTIALS_PROFILE_LOGIN,
+        process.env.GOOGLECREDENTIALS_PROFILE_EMAIL
+    ];
+}
 
-
-
-module.exports = function (data, createHash, validator) {
+module.exports = function(data, createHash, validator) {
     return {
         signUp(req, res) {
             let newUser = {};
@@ -18,12 +28,14 @@ module.exports = function (data, createHash, validator) {
                 }
                 newUser[property] = req.body[property];
             });
+
             if (!validator.validatePassword(req.body.password)) {
                 console.log({ error: 'Password doesn\'t match requirements!' });
                 res.redirect('/auth/sign-up');
                 return;
             }
             newUser.password = createHash(req.body.password);
+
             data.createUser(newUser)
                 .then(
                 () => {
@@ -64,6 +76,7 @@ module.exports = function (data, createHash, validator) {
                         next(error1);
                         return;
                     }
+
                     res.redirect('/profile');
                 });
             });
@@ -71,4 +84,3 @@ module.exports = function (data, createHash, validator) {
         }
     };
 };
-
