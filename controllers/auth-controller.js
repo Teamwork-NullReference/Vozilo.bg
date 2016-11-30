@@ -2,31 +2,38 @@
 
 const passport = require('passport'),
     crypto = require('crypto'),
-    secret = require('./../config').cryptoSecret,
-    profile= require('./../config/configurationStrings').googleCredentials.profile;
+    config = require('./../config');
 
+let secret,
+    profile;
+if (config.envMode === 'DEVELOPMENT') {
+    secret = config.cryptoSecret;
+    profile = require('./../config/configurationStrings').googleCredentials.profile;
+} else {
+    secret = process.env.CRYPTO_SECRET;
+    profile = process.env.GOOGLECREDENTIALS_PROFILE;
+}
 
-
-module.exports = function(data) {
+module.exports = function (data) {
     return {
         signUp(req, res) {
-            let newUser={};
-            let propoerties=['username', 'firstName', 'lastName', 'email', 'picture', 'phoneNumber', 'experience', 'city', 'street'];
+            let newUser = {};
+            let propoerties = ['username', 'firstName', 'lastName', 'email', 'picture', 'phoneNumber', 'experience', 'city', 'street'];
             propoerties.forEach(property => {
-                if (!property||property.length<0) {
+                if (!property || property.length < 0) {
                     res.status(411).json(`Missing ${property}`);
                 }
                 newUser[property] = req.body[property];
             });
             const hash = crypto.createHmac('sha256', secret)
-                   .update(req.body.password)
-                   .digest('hex');
-            newUser.password=hash;
+                .update(req.body.password)
+                .digest('hex');
+            newUser.password = hash;
             data.createUser(newUser)
                 .then(
-                    () => {
-                        res.redirect('/auth/sign-in');
-                    })
+                () => {
+                    res.redirect('/auth/sign-in');
+                })
                 .catch(error => {
                     console.log(error);
                     res.status(500).json(error);
@@ -63,7 +70,7 @@ module.exports = function(data) {
                         next(error1);
                         return;
                     }
-                     console.log('auth-controler tuka sum');
+                    console.log('auth-controler tuka sum');
                     res.redirect('/profile');
                 });
             });
@@ -76,4 +83,3 @@ module.exports = function(data) {
         }
     };
 };
-

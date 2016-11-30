@@ -1,12 +1,19 @@
 /* globals module, require */
-/* use strict */
+'use strict';
 
 const passport= require('passport'),
     LocalStratey= require('passport-local'),
     googleStrategy= require('./strategies/google-strategy'),
     crypto = require('crypto'),
-    secret = require('./../config').cryptoSecret;
-    console.log(secret);
+    config = require('./../config');
+
+let secret;
+if (config.envMode === 'DEVELOPMENT') {
+    secret = config.cryptoSecret;
+} else {
+    secret = process.env.CRYPTO_SECRET;
+}
+
 function hash(password) {
     return crypto.createHmac('sha256', secret)
                    .update(password)
