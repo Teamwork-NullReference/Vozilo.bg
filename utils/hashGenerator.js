@@ -6,7 +6,7 @@ let config = {};
 if (process.env.ENV_MODE === 'PRODUCTION') {
     config.CRYPTO_SECRET = process.env.CRYPTO_SECRET;
 } else {
-    config.CRYPTO_SECRET = require('./config/configurationStrings').cryptoSecret;
+    config.CRYPTO_SECRET = require('./../config/configurationStrings').cryptoSecret;
     console.log(config.CRYPTO_SECRET);
 }
 

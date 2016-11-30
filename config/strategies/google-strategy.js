@@ -10,7 +10,7 @@ if (process.env.ENV_MODE === 'PRODUCTION') {
     config.GOOGLECREDENTIALS_CLIENT_SECRET = process.env.GOOGLECREDENTIALS_CLIENT_SECRET;
     config.GOOGLECREDENTIALS_CALLBACK_URL = process.env.GOOGLECREDENTIALS_CALLBACK_URL;
 } else {
-    const googleCredentials = require('./config/configurationStrings').googleCredentials;
+    const googleCredentials = require('./../configurationStrings').googleCredentials;
     config.GOOGLECREDENTIALS_CLIENT_ID = googleCredentials.clientID;
     config.GOOGLECREDENTIALS_CLIENT_SECRET = googleCredentials.clientSecret;
     config.GOOGLECREDENTIALS_CALLBACK_URL = googleCredentials.callbackURL;
