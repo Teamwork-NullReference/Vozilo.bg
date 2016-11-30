@@ -7,7 +7,7 @@ if (process.env.ENV_MODE === 'PRODUCTION') {
     config.GOOGLECREDENTIALS_PROFILE_LOGIN = process.env.GOOGLECREDENTIALS_PROFILE_LOGIN;
     config.GOOGLECREDENTIALS_PROFILE_EMAIL = process.env.GOOGLECREDENTIALS_PROFILE_EMAIL;
 } else {
-    const googleCredentials = require('./config/configurationStrings').googleCredentials;
+    const googleCredentials = require('./../config/configurationStrings').googleCredentials;
     config.GOOGLECREDENTIALS_PROFILE_LOGIN = googleCredentials.profile[0];
     config.GOOGLECREDENTIALS_PROFILE_EMAIL = googleCredentials.profile[1];
 }
