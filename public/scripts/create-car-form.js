@@ -1,4 +1,4 @@
-/* globals $ */
+/* globals jsonRequester $ */
 
 $(() => {
     let $allModels = $('.model-options');
@@ -18,4 +18,9 @@ $(() => {
             }
         }
     });
+    $('#btn-sign-out').click(() => {
+        console.log('clicked');
+        jsonRequester.send('post', 'sign-out');
+    });
 });
+

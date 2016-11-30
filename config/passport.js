@@ -1,17 +1,11 @@
 /* globals module, require */
-/* use strict */
+'use strict';
 
 const passport= require('passport'),
     LocalStratey= require('passport-local'),
     googleStrategy= require('./strategies/google-strategy'),
-    crypto = require('crypto'),
-    secret = require('./../config').cryptoSecret;
-    console.log(secret);
-function hash(password) {
-    return crypto.createHmac('sha256', secret)
-                   .update(password)
-                   .digest('hex');
-}
+    hash= require('./../utils/hashGenerator');
+
 module.exports= function (app, data) {
     app.use(passport.initialize());
     app.use(passport.session());

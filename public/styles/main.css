@@ -1,6 +1,7 @@
 body {
     background-color: #eee;
 }
+
 form {
     width: 40em;
     padding-top: 1em;
@@ -12,10 +13,6 @@ form {
 
 .form-control {
     margin-bottom: 1em;
-}
-
-button.btn.btn-primary {
-    margin-top: -1em;
 }
 
 .centered {
@@ -89,23 +86,23 @@ button.btn.btn-primary {
     font-size: 0.9em;
 }
 
+
 /* Car details */
 #car-details{
     font-family: Arial, Helvetica, sans-serif;
     background-color: white;
     padding: 30px;
-}
 
 .car-image {
     width: 700px;
     border-radius: 10px;
 }
 
-.color-secondary{
+.color-secondary {
     color: olive;
 }
 
-.color-success{
+.color-success {
     color: olive;
 }
 
@@ -195,4 +192,16 @@ button.btn.btn-primary {
     margin: 10px 15%;
     min-width: 200px;
     float: left;
+}
+
+.clear-both {
+    clear: both;
+}
+
+.margin {
+    margin: 350px 0px 0px 0px;
+}
+
+#profile-btns a {
+    margin-left: 10px;
 }

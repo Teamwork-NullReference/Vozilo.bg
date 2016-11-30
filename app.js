@@ -1,14 +1,18 @@
 /* globals require */
-/* eslint-disable no-process-env */
 'use strict';
 
 const config = require('./config');
 
-let data = require('./data')(config);
+let connectionSettings;
+if (config.envMode === 'DEVELOPMENT') {
+    connectionSettings = require('./config/connection-strings');
+}
+
+let data = require('./data')(config, connectionSettings);
 
 const app = require('./config/application')(data);
 
 require('./routes')({ app, data });
 
-const port = process.env.PORT || config.port;
-app.listen(port, () => console.log(`it works on port: ${port}`));
+const port = process.env.PORT || connectionSettings.port;
+app.listen(port, () => console.log(`it works on: localhost:${port}`));

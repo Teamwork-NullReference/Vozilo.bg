@@ -1,6 +1,15 @@
 /* globals module */
 'use strict';
 
+function getDatesFromRange(startDate, endDate) {
+    let result = [];
+    for (let d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
+        result.push(new Date(d));
+    }
+
+    return result;
+}
+
 module.exports = function (models) {
     let {
         Car
@@ -22,21 +31,35 @@ module.exports = function (models) {
         },
         getFilteredCars(options) {
             let promise = new Promise((resolve, reject) => {
-                let city = options.city;
-                let dates = [];
-                let filter;
+                let startDate = new Date(options.startDate),
+                    endDate = new Date(options.endDate),
+                    city = options.city,
+                    page = options.page || 1,
+                    pageSize = options.pageSize || 1000000000,
+                    filterDates = getDatesFromRange(startDate, endDate),
+                    andCriteria = [{}],
+                    filter = {},
+                    skip = (page - 1) * pageSize,
+                    limit = page * pageSize;
+
+                if (filterDates.length > 0) {
+                    andCriteria.push({ 'availability.date': { '$all': filterDates } });
+                    andCriteria.push({ 'availability.isAvailable': true });
+                }
+
                 if (city) {
+<<<<<<< HEAD
                     filter = {
                         'owner.city': options.city
                     };
                 } else {
                     filter = {};
+=======
+                    andCriteria.push({ 'owner.city': city });
+>>>>>>> 793ab196272e0810c7e9d50fe14084da122aabf0
                 }
-                Car.find(filter, (err, res) => {
-                    if (err) {
-                        return reject(err);
-                    }
 
+<<<<<<< HEAD
                     return resolve(res);
                 });
                 // .then(cars => {
@@ -54,6 +77,20 @@ module.exports = function (models) {
 
                 //     return resolve(cars);
                 // });
+=======
+                filter.$and = andCriteria;
+
+                Car.find(filter)
+                    .skip(skip)
+                    .limit(limit)
+                    .exec((err, res) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve(res);
+                    });
+>>>>>>> 793ab196272e0810c7e9d50fe14084da122aabf0
             });
 
             return promise;

@@ -4,7 +4,7 @@ Team rules
 TODO
 - Passport + create login/register pages - Stoyan
 - Scrap cars from http://www.cars-data.com/en/car-brands-cars-logos.html - Miro DONE
-- Cloud deploy
+- Cloud deploy - Miro DONE
 - Create Schemas/Models - Galin - Under Construction
 - DataLayer - Stoyo
 - Index Constoller - George

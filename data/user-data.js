@@ -2,7 +2,7 @@
 'use strict';
 let dataUtils = require('./utils/data-utils');
 
-module.exports = function (models) {
+module.exports = function(models) {
     let {
         User
     } = models;
@@ -66,6 +66,7 @@ module.exports = function (models) {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 username: user.username,
+                googleId: user.googleId,
                 picture: user.picture,
                 drivingExpInYears: user.experience,
                 email: user.email,
@@ -91,7 +92,9 @@ module.exports = function (models) {
                         brand: car.brand,
                         model: car.model,
                         carId: car._id,
-                        year: car.year
+                        year: car.year,
+                        picture: car.picture,
+                        _id: car._id
                     });
 
                     return dataUtils.update(u);
