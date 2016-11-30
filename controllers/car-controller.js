@@ -46,7 +46,6 @@ module.exports = function (data) {
                     if (!carDetails) {
                         return res.status(404).send('There is not such car');
                     }
-                    console.log(carDetails);
                     return res.status(200).render('car/details', {
                         result: {
                             user: req.user,
@@ -56,6 +55,14 @@ module.exports = function (data) {
                 })
                 .catch(err => {
                     return res.status(500).send(err);
+                });
+        },
+        getCalendar(req, res) {
+            data.getDatesFromCalendar(req.params.id)
+                .then(dates => {
+                    // return res.send({
+                    //     result: dates.map(superhero => mapper.map(superhero, "_id", "name", "imageUrl"))
+                    // });
                 });
         }
     };

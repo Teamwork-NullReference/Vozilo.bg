@@ -91,11 +91,14 @@ button.btn.btn-primary {
 
 /* Car details */
 #car-details{
-    font-family: Arial, Helvetica, sans-serif
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+    padding: 30px;
 }
 
 .car-image {
-    width: 700px
+    width: 700px;
+    border-radius: 10px;
 }
 
 .color-secondary{
@@ -108,6 +111,25 @@ button.btn.btn-primary {
 
 .color-negative {
     color: orangered
+}
+
+.color-primary{
+    color: dodgerblue
+}
+
+.form-rest-car {
+    margin-top: 90px;
+    background-color: #F5F5F5;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#owner-img{
+    width: 100px;
+}
+
+#user-rating{
+    color: #FFC000;
 }
 
 /* Profile */

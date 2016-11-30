@@ -2,12 +2,15 @@ extends ../_layout
 
 block custom-styles
      link(rel='stylesheet', href='/static/bower_components/font-awesome/css/font-awesome.css')
+     link(rel='stylesheet', href='/static/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css')
 
+block custom-scripts
+    script(src='/static/scripts/car-details.js')
 
 block body-content
     .container#car-details
         .row
-            .col-md-8
+            .col-lg-8.col-md-8.col-xs-12
                 h2
                     span 
                         = result.carDetails.brand
@@ -18,7 +21,7 @@ block body-content
                         = result.carDetails.year
                 p   
                     span Собственик: 
-                    a(href='/user/' + result.carDetails.owner.userId)
+                    a(href='/user/' + result.carDetails.owner.username)
                         = result.carDetails.owner.username 
                     span  град: 
                         = result.carDetails.owner.city
@@ -65,10 +68,185 @@ block body-content
                                     span  Животни позволени: Не
                 hr
                 .row
-                    .col-mid-6
+                    .col-md-12
                         h4.color-success Информация за колата
-                               
-
+                        .row
+                            .col-md-6
+                                table.table.table-striped
+                                    tbody
+                                        tr
+                                            td Бранд
+                                            td 
+                                                = result.carDetails.brand    
+                                        tr
+                                            td Модел
+                                            td
+                                                = result.carDetails.model
+                                        tr
+                                            td Година
+                                            td
+                                                = result.carDetails.year
+                                        tr
+                                            td Регистрационен номер
+                                            td 
+                                                = result.carDetails.registrationNumber
+                                        tr
+                                            td Мощност(к.с.)
+                                            td 
+                                                = result.carDetails.hp
+                                       
+                                            
+                            .col-md-6
+                                table.table.table-striped
+                                    tbody
+                                        tr
+                                            td Тип на гориво
+                                            td 
+                                                = result.carDetails.fuelType
+                                        tr
+                                            td Консумация на гориво
+                                            td 
+                                                = result.carDetails.fuelConsumption    
+                                        tr
+                                            td Брой седалки
+                                            td
+                                                = result.carDetails.seats
+                                        tr
+                                            td Пробег (км)
+                                            td
+                                                = result.carDetails.distancePassed
+                                        tr
+                                            td Местоположение
+                                            td
+                                                = result.carDetails.owner.city
+                        .row
+                            .col-md-12
+                                h4.color-success Екстри
+                                ul.list-unstyled
+                                    .row
+                                        .col-md-6
+                                            li
+                                                if result.carDetails.equipment.aircondition
+                                                    i.fa.fa-check-circle-o.fa-lg.color-success
+                                                    span  Климатик: Да
+                                                else
+                                                    i.fa.fa-ban.fa-lg.color-negative
+                                                    span  Климатик: Не
+                                            li
+                                                if result.carDetails.equipment.GPS
+                                                    i.fa.fa-check-circle-o.fa-lg.color-success
+                                                    span  GPS: Да
+                                                else
+                                                    i.fa.fa-ban.fa-lg.color-negative
+                                                    span  GPS: Не
+                                            li
+                                                if result.carDetails.equipment.winterTiers
+                                                    i.fa.fa-check-circle-o.fa-lg.color-success
+                                                    span  Зимни гуми: Да
+                                                else
+                                                    i.fa.fa-ban.fa-lg.color-negative
+                                                    span  Зимни гуми: Не
+                                        .col-md-6
+                                            li
+                                                if result.carDetails.equipment.mp3Player
+                                                    i.fa.fa-check-circle-o.fa-lg.color-success
+                                                    span  mp3 player: Да
+                                                else
+                                                    i.fa.fa-ban.fa-lg.color-negative
+                                                    span  mp3 player: Не
+                                            li
+                                                if result.carDetails.equipment.electricWindows
+                                                    i.fa.fa-check-circle-o.fa-lg.color-success
+                                                    span  Ел. прозорци: Да
+                                                else
+                                                    i.fa.fa-ban.fa-lg.color-negative
+                                                    span  Ел. прозорци: Не
+                        hr
+                        .row
+                            .col-md-12
+                            h4.color-success Календар
+                            .row
+                                .col-md-2
+                                    ul.pagination
+                                        li
+                                            a &lt
+                                        li 
+                                            a &gt
+                                .col-md-10#calendar-container
                                     
-            .col-md-4
-                    
+
+
+
+
+            .col-lg-4.col-md-8.col-xs-6
+                .form-rest-car
+                    form(action='/car/' + result.carDetails._id + '/rent', method='post')
+                        .row
+                            .col-md-3.col-xs-12
+                                label.color-success(for='startDate') Дата за взимане:
+                            .col-md-4.col-xs-4
+                                select.form-control#start-date(name='start-date')
+                                    each date in result.carDetails.availability
+                                        option.start-date(name='startDate' value= date.date)
+                                            = date.date.getDate() + '-' 
+                                            = date.date.getMonth() + '-' 
+                                            = date.date.getFullYear()
+                        .form-group
+                            .row
+                                .col-md-3.col-xs-12
+                                    label.color-success(for='endDate') Дата за връщане:
+                                .col-md-4.col-xs-4
+                                    select.form-control#end-date(name='end-date')
+                                        each date in result.carDetails.availability
+                                            option.end-date(name='endDate' value= date.date)
+                                                = date.date.getDate() + '-' 
+                                                = date.date.getMonth() + '-' 
+                                                = date.date.getFullYear()
+                        .form-group.form-inline
+                            span Цена на ден: 
+                            span#price-per-day
+                                = result.carDetails.price.perDay 
+                            span лв
+                        if result.carDetails.price.perWeek
+                            .form-group.form-inline
+                                span Цена на седмица: 
+                                span#price-per-week
+                                    = result.carDetails.price.perWeek 
+                                span лв
+                        .form-group.form-inline
+                            .row
+                                .col-md-3.col-xs-12
+                                    h3.color-success Общо:
+                                .col-md-4.col-xs-4
+                                    h3.color-primary
+                                        strong#total-sum 
+
+                        button.btn.btn-success Попълни форма
+                
+                .owner-details
+                    h3.color-success Данни за собственика
+                    .row
+                        .col-md-4.col-sm-12.col-xs-12
+                            img#owner-img(src= result.carDetails.owner.imageUrl)
+                        .col-md-8.col-sm-12.col-xs-12
+                            div
+                                strong.color-success Име: 
+                                span 
+                                    = result.carDetails.owner.firstName + ' '
+                                span
+                                    = result.carDetails.owner.lastName
+                            div
+                                strong.color-success Град: 
+                                span 
+                                    = result.carDetails.owner.city
+
+                            #user-rating
+                                - for (var j = 0; j < Math.floor(result.carDetails.owner.userRating); ++j) {
+                                    i.fa.fa-star(aria-hidden='true')
+                                - }
+
+                                if result.carDetails.owner.userRating % 2 > 0
+                                    i.fa.fa-star-half-o(aria-hidden='true')
+                            br
+                            div
+                                button.btn.btn-success#send-message Изпрати съобщение

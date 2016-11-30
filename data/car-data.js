@@ -26,7 +26,9 @@ module.exports = function (models) {
                 let dates = [];
                 let filter;
                 if (city) {
-                    filter = { 'owner.city': options.city };
+                    filter = {
+                        'owner.city': options.city
+                    };
                 } else {
                     filter = {};
                 }
@@ -37,21 +39,21 @@ module.exports = function (models) {
 
                     return resolve(res);
                 });
-                    // .then(cars => {
-                    //     let { startDate, endDate } = options;
-                    //     console.log(startDate);
-                    //     if (startDate && endDate) {
-                    //         // let availableCars = [];
-                    //         // for (let i = 0; i < cars.length; i += 1) {
-                    //         //     let car = cars[i];
-                    //         //     for (let j = 0;)
-                    //         // }
+                // .then(cars => {
+                //     let { startDate, endDate } = options;
+                //     console.log(startDate);
+                //     if (startDate && endDate) {
+                //         // let availableCars = [];
+                //         // for (let i = 0; i < cars.length; i += 1) {
+                //         //     let car = cars[i];
+                //         //     for (let j = 0;)
+                //         // }
 
-                    //         return resolve(availableCars);
-                    //     }
+                //         return resolve(availableCars);
+                //     }
 
-                    //     return resolve(cars);
-                    // });
+                //     return resolve(cars);
+                // });
             });
 
             return promise;
@@ -67,6 +69,22 @@ module.exports = function (models) {
 
                     resolve(res);
                 });
+            });
+
+            return promise;
+        },
+        getDatesFromCalendar(id) {
+            let promise = new Promise((resolve, reject) => {
+                Car.find({
+                    _id: id
+                }).select('availability')
+                    .exec((err, dates) => {
+                        if (err) {
+                            reject(err);
+                        }
+
+                        resolve(dates);
+                    });
             });
 
             return promise;
@@ -119,7 +137,8 @@ module.exports = function (models) {
                 userId: user._id,
                 city: user.address.city,
                 firstName: user.firstName,
-                lastName: user.lastName
+                lastName: user.lastName,
+                userRating: user.userRating
             };
 
             let promise = new Promise((resolve, reject) => {
@@ -144,10 +163,10 @@ module.exports = function (models) {
 
                 newCar.save(err => {
                     if (err) {
-                        return reject(err);
+                        reject(err);
                     }
 
-                    return resolve(newCar);
+                    resolve(newCar);
                 });
             });
 
