@@ -4,21 +4,8 @@
 const passport= require('passport'),
     LocalStratey= require('passport-local'),
     googleStrategy= require('./strategies/google-strategy'),
-    crypto = require('crypto'),
-    config = require('./../config'),
-    secretString = require('./../config/configurationStrings');
-let secret;
-if (config.envMode === 'DEVELOPMENT') {
-    secret = secretString.cryptoSecret;
-} else {
-    secret = process.env.CRYPTO_SECRET;
-}
+    hash= require('./../utils/hashGenerator');
 
-function hash(password) {
-    return crypto.createHmac('sha256', secret)
-                   .update(password)
-                   .digest('hex');
-}
 module.exports= function (app, data) {
     app.use(passport.initialize());
     app.use(passport.session());
