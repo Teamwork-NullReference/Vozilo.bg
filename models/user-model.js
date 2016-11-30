@@ -23,8 +23,7 @@ module.exports = modelRegistrator.register('User', {
         unique: true
     },
     googleId: {
-        type: String,
-        unique: true
+        type: String
     },
     picture: String,
     drivingExpInYears: {

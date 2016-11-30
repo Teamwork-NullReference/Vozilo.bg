@@ -5,11 +5,11 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 
-module.exports = function (config) {
+module.exports = function (config, connectionSettings) {
     mongoose.Promise = global.Promise;
 
     if (config.envMode === 'DEVELOPMENT') {
-        process.env.MONGOLAB_URI = config.connectionString;
+        process.env.MONGOLAB_URI = connectionSettings.connectionString;
     }
 
     mongoose.connect(process.env.MONGOLAB_URI);
