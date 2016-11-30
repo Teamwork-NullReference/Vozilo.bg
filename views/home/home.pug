@@ -1,4 +1,5 @@
 extends ../_layout
+include ../_mixins/_car-search
 
 block custom-styles
     link(rel='stylesheet', href='/static/styles/home.css')
@@ -9,14 +10,7 @@ block custom-scripts
 block body-content
 
     div.img-after-menu
-        form.search-form.centered.form(method="GET", action="/search/car")
-            input.form-control(type="text" name="city")
-            .form-group
-                .input-group.input-daterange(data-provide='datepicker' data-date-format='yyyy-mm-dd')
-                    input.form-control(type='text' name='startDate')
-                    span.input-group-addon до
-                    input.form-control(type='text' name='endDate')
-            button.btn.btn-primary(type="submit") Намери кола
+        +car-search-form
 
     div.info.centered
         strong Хората с Vozilo имат добри преживявания

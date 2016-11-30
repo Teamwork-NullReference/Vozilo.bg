@@ -21,18 +21,27 @@ body {
     border-bottom-left-radius: 0.5em;
     border-top-left-radius: 0.5em;
 }
-.car span.brand {
-    float: right;
-    margin-top: 3%; 
-    margin-right: 45%;
+.car div.brand {
+    height: 11%;
+    width: 40%;
+    margin-left: 47%;
     font-size: 1.3em;
 }
-.car span.description {
-    float: right;
-    margin-top: 2%; 
-    margin-right: 46%;
-    margin-bottom: 8%;
+.car div.description {
+    height: 40%;    
+    width: 40%;
+    margin-top: 4%; 
+    margin-left: 47%;
     color: grey;    
+}
+td a {
+    text-decoration: none;
+    color: black;
+}
+.ellipsis-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
 }
 .img-circle {
     width: 3em;
@@ -56,4 +65,25 @@ body {
 .unit {
     font-size: 1em;
     color: grey;
+}
+.no-cars {
+    width: 30em;
+    font-size: 1.5em;
+    margin: 5em;
+}
+.seach-form {
+    width: 40em;
+    height: 11em;
+    background-color: white;
+    border-radius: 0.5em;
+    margin: 3em;    
+}
+.username {
+    display: inline-block;
+    width: 10em;
+}
+.amount {
+    
+    display: inline-block;
+    width: 2.5em;
 }

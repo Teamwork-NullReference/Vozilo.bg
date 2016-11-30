@@ -1,6 +1,15 @@
 /* globals module */
 'use strict';
 
+function getDatesFromRange(startDate, endDate) {
+    let result = [];
+    for (let d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
+        result.push(new Date(d));
+    }
+
+    return result;
+}
+
 module.exports = function (models) {
     let {
         Car
@@ -22,36 +31,38 @@ module.exports = function (models) {
         },
         getFilteredCars(options) {
             let promise = new Promise((resolve, reject) => {
-                let city = options.city;
-                let dates = [];
-                let filter;
-                if (city) {
-                    filter = { 'owner.city': options.city };
-                } else {
-                    filter = {};
+                let startDate = new Date(options.startDate),
+                    endDate = new Date(options.endDate),
+                    city = options.city,
+                    page = options.page || 1,
+                    pageSize = options.pageSize || 1000000000,
+                    filterDates = getDatesFromRange(startDate, endDate),
+                    andCriteria = [{}],
+                    filter = {},
+                    skip = (page - 1) * pageSize,
+                    limit = page * pageSize;
+
+                if (filterDates.length > 0) {
+                    andCriteria.push({ 'availability.date': { '$all': filterDates } });
+                    andCriteria.push({ 'availability.isAvailable': true });
                 }
-                Car.find(filter, (err, res) => {
-                    if (err) {
-                        return reject(err);
-                    }
 
-                    return resolve(res);
-                });
-                    // .then(cars => {
-                    //     let { startDate, endDate } = options;
-                    //     console.log(startDate);
-                    //     if (startDate && endDate) {
-                    //         // let availableCars = [];
-                    //         // for (let i = 0; i < cars.length; i += 1) {
-                    //         //     let car = cars[i];
-                    //         //     for (let j = 0;)
-                    //         // }
+                if (city) {
+                    andCriteria.push({ 'owner.city': city });
+                }
 
-                    //         return resolve(availableCars);
-                    //     }
+                filter.$and = andCriteria;
 
-                    //     return resolve(cars);
-                    // });
+                Car.find(filter)
+                    .skip(skip)
+                    .limit(limit)
+                    .exec((err, res) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve(res);
+                    });
             });
 
             return promise;
