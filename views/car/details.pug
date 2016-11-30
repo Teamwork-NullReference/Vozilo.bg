@@ -6,9 +6,10 @@ block custom-styles
 
 block custom-scripts
     script(src='/static/scripts/car-details.js')
+    script(src='/static/scripts/calendar.js')
 
 block body-content
-    .container#car-details
+    .container#car-details(carId= result.carDetails._id)
         .row
             .col-lg-8.col-md-8.col-xs-12
                 h2
@@ -169,10 +170,14 @@ block body-content
                                 .col-md-2
                                     ul.pagination
                                         li
-                                            a &lt
+                                            a#previous-month &lt
                                         li 
-                                            a &gt
+                                            a#next-month &gt
+                                    br
+                                    span#mark-availability
+                                    span Свободни дни
                                 .col-md-10#calendar-container
+                                    
                                     
 
 
@@ -187,10 +192,11 @@ block body-content
                             .col-md-4.col-xs-4
                                 select.form-control#start-date(name='start-date')
                                     each date in result.carDetails.availability
-                                        option.start-date(name='startDate' value= date.date)
-                                            = date.date.getDate() + '-' 
-                                            = date.date.getMonth() + '-' 
-                                            = date.date.getFullYear()
+                                        if date.isAvailable
+                                            option.start-date(name='startDate' value= date.date)
+                                                = date.date.getDate() + '-' 
+                                                = date.date.getMonth() + 1 + '-' 
+                                                = date.date.getFullYear()
                         .form-group
                             .row
                                 .col-md-3.col-xs-12
@@ -198,10 +204,11 @@ block body-content
                                 .col-md-4.col-xs-4
                                     select.form-control#end-date(name='end-date')
                                         each date in result.carDetails.availability
-                                            option.end-date(name='endDate' value= date.date)
-                                                = date.date.getDate() + '-' 
-                                                = date.date.getMonth() + '-' 
-                                                = date.date.getFullYear()
+                                            if date.isAvailable
+                                                option.end-date(name='endDate' value= date.date)
+                                                    = date.date.getDate() + '-' 
+                                                    = date.date.getMonth() + 1 + '-' 
+                                                    = date.date.getFullYear()
                         .form-group.form-inline
                             span Цена на ден: 
                             span#price-per-day

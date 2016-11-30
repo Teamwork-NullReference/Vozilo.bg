@@ -94,7 +94,8 @@ module.exports = function (models) {
             let promise = new Promise((resolve, reject) => {
                 Car.find({
                     _id: id
-                }).select('availability')
+                })
+                    .select('availability')
                     .exec((err, dates) => {
                         if (err) {
                             reject(err);

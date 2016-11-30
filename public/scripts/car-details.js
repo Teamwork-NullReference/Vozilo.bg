@@ -1,7 +1,8 @@
-/* globals $ window */
+/* globals $ */
 
 $(() => {
     const WEEK_DAYS = 7;
+
     let pricePerDay = $('#price-per-day').html(),
         pricePerWeek = $('#price-per-week').html(),
         startDate = new Date($('#start-date').val()),
@@ -43,37 +44,5 @@ $(() => {
 
     $('#send-message').on('click', () => {
         console.log('clicked');
-    });
-
-    let calendar = $('#calendar-container');
-    let url = window.location.href;
-    let index = url.lastIndexOf('/');
-    let id = url.substr(index + 1);
-
-    $.getJSON(`/car/${id}/calendar`, (resp) => {
-        var $table = $('<table>')
-            .addId('calendar');
-
-            
-        // var $list = $('<ul/>')
-        //     .addClass('list-newest-superheroes')
-        //     .addClass('list');
-
-        // resp.result.forEach(function (superhero) {
-        //     $('<li/>')
-        //         .addClass('text-center')
-        //         .append(
-        //             $('<a/>')
-        //             .attr('href', '/superheroes/' + superhero._id)
-        //             .html(superhero.name)
-        //         )
-        //         .append('<br/>')
-        //         .append(
-        //             $('<img/>')
-        //             .attr('src', superhero.imageUrl)
-        //         )
-        //         .appendTo($list);
-        // });
-        // $list.appendTo('.newest-superheroes-container');
     });
 });

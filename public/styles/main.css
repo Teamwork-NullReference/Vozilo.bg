@@ -130,6 +130,21 @@ form {
     color: #FFC000;
 }
 
+#calendar td {
+    border: solid 1px black;
+    padding: 5px;
+}
+
+.car-available {
+    background-color: greenyellow;
+}
+
+#mark-availability{
+     background-color: greenyellow;
+     padding: 5px;
+     margin-right: 5px;
+}
+
 /* Profile */
 
 #profile-tabs {
