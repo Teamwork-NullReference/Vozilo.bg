@@ -3,7 +3,6 @@
 
 const config = require('./config'),
     db = require('./config/mongoose'),
-    connectionStrings = require('./config/connection-strings'),
     carBrands = require('./scrapers/car-brands-scraper'),
     carBrandsDetails = require('./scrapers/car-brands-details-scraper'),
     timeMeasurement = require('./utils/time-measurement');
@@ -13,7 +12,7 @@ const startTime = Date.now();
 Promise.resolve()
     .then(() => {
         if (config.envMode === 'DEVELOPMENT') {
-            process.env.MONGOLAB_URI = connectionStrings.uri;
+            process.env.MONGOLAB_URI = require('./config/connection-strings').uri;
         }
 
         return db.open(process.env.MONGOLAB_URI);
