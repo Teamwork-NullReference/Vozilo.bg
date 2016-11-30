@@ -1,7 +1,7 @@
 
 # Ignore file with connection strings for DB
 /cars-scraper/config/connection-strings.js
-# /config/index.js
+/config/index.js
 
 #Google Oauth configuration strings
 /config/config.js
