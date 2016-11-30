@@ -5,7 +5,6 @@ module.exports = function(data) {
     return {
         getDetailedUser(req, res) {
             let username = req.params.username;
-            console.log(username);
             data.getUserByUsername(username)
                 .then(user => {
 

@@ -1,6 +1,7 @@
 body {
     background-color: #eee;
 }
+
 form {
     width: 40em;
     padding-top: 1em;
@@ -85,8 +86,10 @@ form {
     font-size: 0.9em;
 }
 
+
 /* Car details */
-#car-details{
+
+#car-details {
     font-family: Arial, Helvetica, sans-serif
 }
 
@@ -94,17 +97,18 @@ form {
     width: 700px
 }
 
-.color-secondary{
+.color-secondary {
     color: olive;
 }
 
-.color-success{
+.color-success {
     color: olive;
 }
 
 .color-negative {
     color: orangered
 }
+
 
 /* Profile */
 
@@ -169,4 +173,16 @@ form {
     margin: 10px 15%;
     min-width: 200px;
     float: left;
+}
+
+.clear-both {
+    clear: both;
+}
+
+.margin {
+    margin: 350px 0px 0px 0px;
+}
+
+#profile-btns a {
+    margin-left: 10px;
 }
