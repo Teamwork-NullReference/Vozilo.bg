@@ -5,7 +5,7 @@
 const GoogleStrategy = require('passport-google-oauth20'),
     config = require('./../../config');
 
-let CONFIG;
+let CONFIG = {};
 if (config.envMode === 'DEVELOPMENT') {
     CONFIG = require('./../configurationStrings').googleCredentials;
 } else {
