@@ -43,12 +43,20 @@ module.exports = function (models) {
                     limit = page * pageSize;
 
                 if (filterDates.length > 0) {
-                    andCriteria.push({ 'availability.date': { '$all': filterDates } });
-                    andCriteria.push({ 'availability.isAvailable': true });
+                    andCriteria.push({
+                        'availability.date': {
+                            '$all': filterDates
+                        }
+                    });
+                    andCriteria.push({
+                        'availability.isAvailable': true
+                    });
                 }
 
                 if (city) {
-                    andCriteria.push({ 'owner.city': city });
+                    andCriteria.push({
+                        'owner.city': city
+                    });
                 }
 
                 filter.$and = andCriteria;

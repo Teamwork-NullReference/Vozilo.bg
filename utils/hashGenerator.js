@@ -7,12 +7,11 @@ if (process.env.ENV_MODE === 'PRODUCTION') {
     config.CRYPTO_SECRET = process.env.CRYPTO_SECRET;
 } else {
     config.CRYPTO_SECRET = require('./config/configurationStrings').cryptoSecret;
+    console.log(config.CRYPTO_SECRET);
 }
 
-let secret = config.CRYPTO_SECRET;
-
 module.exports = function (password) {
-    return crypto.createHmac('sha256', secret)
+    return crypto.createHmac('sha256', config.CRYPTO_SECRET)
         .update(password)
         .digest('hex');
 

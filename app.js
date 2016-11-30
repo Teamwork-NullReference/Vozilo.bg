@@ -6,8 +6,6 @@ if (process.env.ENV_MODE === 'PRODUCTION') {
     config.MONGOLAB_URI = process.env.MONGOLAB_URI;
     config.PORT = process.env.PORT;
 } else {
-    process.env.ENV_MODE = 'DEVELOPMENT';
-
     const connectionStrings = require('./config/connection-strings');
     config.MONGOLAB_URI = connectionStrings.connectionString;
     config.PORT = connectionStrings.port;
