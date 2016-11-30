@@ -1,7 +1,14 @@
 /* globals module require */
 
 const crypto = require('crypto'),
-    secret = require('./../config').cryptoSecret;
+    config = require('./../config');
+
+let secret;
+if (config.envMode === 'DEVELOPMENT') {
+    secret = require('./../config/configurationStrings').cryptoSecret;
+} else {
+    secret = process.env.CRYPTO_SECRET;
+}
 
 module.exports = function (password) {
     return crypto.createHmac('sha256', secret)
