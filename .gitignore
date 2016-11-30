@@ -1,3 +1,4 @@
+/development
 
 # Ignore file with connection strings for DB
 /cars-scraper/config/connection-strings.js
