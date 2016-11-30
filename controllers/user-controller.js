@@ -5,9 +5,11 @@ module.exports = function(data) {
     return {
         getDetailedUser(req, res) {
             let username = req.params.username;
+            console.log(username);
             data.getUserByUsername(username)
                 .then(user => {
-                    if (user === null) {
+
+                    if (user === null || typeof user === 'undefined') {
                         return res.render('profile/user-not-found', {
                             result: {
                                 user: req.user
@@ -15,10 +17,18 @@ module.exports = function(data) {
                         });
                     }
 
+                    let isCurrentUser = false;
+
+                    if (req.user && username === req.user.username) {
+                        isCurrentUser = true;
+
+                    }
+
                     res.render('profile/user-details', {
                         result: {
                             user: req.user,
-                            userDetails: user
+                            userDetails: user,
+                            isCurrentUser
                         }
                     });
                 });
