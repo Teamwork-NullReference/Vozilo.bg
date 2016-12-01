@@ -2,6 +2,13 @@
 'use strict';
 
 const START_YEAR = 1980;
+const MAX_DAYS_PER_MONTH = 31;
+// function getLastDateOfMonth(currentDate) {
+//     let date = currentDate,
+//         y = date.getFullYear(),
+//         m = date.getMonth();
+//     return new Date(y, m, 0).getDate();
+// }
 
 module.exports = function (data) {
     return {
@@ -49,9 +56,17 @@ module.exports = function (data) {
                 });
         },
         getCalendar(req, res) {
-            data.getDatesFromCalendar(req.params.id)
+            let year = parseInt(req.query.year, 10);
+            let month = parseInt(req.query.month, 10);
+            let startDate = new Date(`${year}-${month + 1}-1`);
+            let endDate = new Date(`${year}-${month + 1}-${MAX_DAYS_PER_MONTH}`);
+
+            data.getDatesFromCalendar(req.params.id, startDate, endDate)
                 .then(dates => {
-                    return res.send(dates);
+                    let result = dates[0].availability.filter(m => m.date <= endDate && m.date >= startDate && m.isAvailable === true)
+                        .map(m => m.date);
+
+                    return res.send(result);
                 });
         }
     };
