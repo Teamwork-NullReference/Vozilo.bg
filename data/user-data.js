@@ -100,6 +100,38 @@ module.exports = function(models) {
                     return dataUtils.update(u);
                 });
         },
+        getUsers({ page, pageSize }) {
+            let skip = (page - 1) * pageSize,
+                limit = page * pageSize;
+
+            return Promise.all([
+                new Promise((resolve, reject) => {
+                    User.find()
+                        .sort({ name: 1 })
+                        .skip(skip)
+                        .limit(limit)
+                        .exec((err, users) => {
+                            if (err) {
+                                return reject(err);
+                            }
+
+                            return resolve(users);
+                        });
+                }), new Promise((resolve, reject) => {
+                    User.count({})
+                        .exec((err, count) => {
+                            if (err) {
+                                return reject(err);
+                            }
+
+                            return resolve(count);
+                        });
+                })
+            ]).then(results => {
+                let [users, count] = results;
+                return { users, count };
+            });
+        },
         /* Looks like dublicated code - keep it commented for now. TODO delete eventually */
         // getUserByCredentials(options) {
         //     let promise = new Promise((resolve, reject) => {
