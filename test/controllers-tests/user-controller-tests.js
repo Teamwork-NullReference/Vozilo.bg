@@ -14,6 +14,10 @@ const adminUser = {
     username: 'totally random',
     roles: ['admin']
 };
+const userWithOtherRoleButNotAdmin = {
+    username: 'totally random',
+    roles: ['manager']
+};
 
 let data = {
     getUserByUsername: null
@@ -190,6 +194,25 @@ describe('user-controller-tests:', () => {
                 username: mockedUser.username
             },
             user: userWithUserNameOnly
+        };
+
+        let res = {
+            render: (view, obj) => {
+                expect(obj.result.extraInfoAllowed).to.eqls(false);
+                done();
+            }
+        };
+
+        let controller = require('./../../controllers/user-controller')(data);
+        controller.getDetailedUser(req, res);
+    });
+
+    it('getDetailedUser should set extraInfoAllowed to false if logged user with diferent then admin role', done => {
+        let req = {
+            params: {
+                username: mockedUser.username
+            },
+            user: userWithOtherRoleButNotAdmin
         };
 
         let res = {
