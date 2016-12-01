@@ -1,27 +1,21 @@
-/* globals module */
+/* globals module require */
 'use strict';
 
-const PAGE_SIZE = 3,
+const mapper = require('../utils/mapper');
+
+const PAGE_SIZE = 5,
     DEFAULT_PAGE = 1;
 
 function getCarsFieldsProjection(cars) {
     let result = cars.map(c => {
-        return {
-            _id: c._id,
-            picture: c.picture,
-            brand: c.brand,
-            shortInfo: c.shortInfo,
-            owner: {
-                username: c.owner.username,
-                imageUrl: c.owner.imageUrl,
-                firstName: c.owner.firstName,
-                lastName: c.owner.lastName
-            },
-            price: {
-                perDay: c.price.perDay,
-                perWeek: c.price.perWeek
-            }
-        };
+        return mapper.map(
+            c,
+            '_id',
+            'picture',
+            'brand',
+            'shortInfo',
+            'owner',
+            'price');
     });
 
     return result;
@@ -31,29 +25,25 @@ module.exports = function (data) {
     return {
         getCarSearch(req, res) {
             let { city, startDate, endDate } = req.query,
-                page = DEFAULT_PAGE,
+                page = req.params.page || DEFAULT_PAGE,
                 pageSize = PAGE_SIZE;
+
+            if (page < 1) {
+                page = DEFAULT_PAGE;
+            }
 
             data.getFilteredCars({ city, startDate, endDate, page, pageSize })
                 .then((cars) => {
+                    let startPage = Math.floor((page - 1) / PAGE_SIZE) * PAGE_SIZE + 1,
+                        endPage = startPage + PAGE_SIZE;
+
                     return res.render('search/car', {
                         result: {
                             user: req.user,
-                            cars: getCarsFieldsProjection(cars)
-                        }
-                    });
-                });
-        },
-        getCarSearchJson(req, res) {
-            let { city, startDate, endDate } = req.query,
-                page = req.params.page,
-                pageSize = PAGE_SIZE;
-
-            data.getFilteredCars({ city, startDate, endDate, page, pageSize })
-                .then((cars) => {
-                    res.json({
-                        result: {
-                            cars: getCarsFieldsProjection(cars)
+                            cars: getCarsFieldsProjection(cars),
+                            startPage,
+                            endPage,
+                            currentPage: page
                         }
                     });
                 });

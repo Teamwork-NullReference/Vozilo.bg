@@ -8,14 +8,11 @@ module.exports = function ({ app, data }) {
     let searchController = require('../controllers/search-controller')(data);
 
     let searchRouter = new express.Router();
-    searchRouter.get('/car', searchController.getCarSearch);
+    searchRouter
+        .get('/car', searchController.getCarSearch)
+        .get('/car/:page', searchController.getCarSearch);
 
     app.use('/search', searchRouter);
-
-    let searchApiRouter = new express.Router();
-    searchApiRouter.get('/car/:page', searchController.getCarSearchJson);
-
-    app.use('/api/search', searchApiRouter);
 
     return searchRouter;
 };
