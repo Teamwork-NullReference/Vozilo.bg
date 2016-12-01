@@ -100,22 +100,22 @@ module.exports = function(models) {
                     return dataUtils.update(u);
                 });
         },
-        /* TODO find out what kind of Credentials we use and add it to be more clear. */
-        getUserByCredentials(options) {
-            let promise = new Promise((resolve, reject) => {
-                User.findOne({
-                    options
-                }, (err, res) => {
-                    if (err) {
-                        reject(err);
-                    }
+        /* Looks like dublicated code - keep it commented for now. TODO delete eventually */
+        // getUserByCredentials(options) {
+        //     let promise = new Promise((resolve, reject) => {
+        //         User.findOne({
+        //             options
+        //         }, (err, res) => {
+        //             if (err) {
+        //                 reject(err);
+        //             }
 
-                    resolve(res);
-                });
-            });
+        //             resolve(res);
+        //         });
+        //     });
 
-            return promise;
-        },
+        //     return promise;
+        // },
         findTopRated(n) {
             return new Promise((resolve, reject) => {
                 User.find()
