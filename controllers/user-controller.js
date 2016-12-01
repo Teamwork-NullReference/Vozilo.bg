@@ -23,6 +23,8 @@ module.exports = function(data) {
 
                     }
 
+                    user.userRating = user.userRating || 0;
+
                     res.render('profile/user-details', {
                         result: {
                             user: req.user,
