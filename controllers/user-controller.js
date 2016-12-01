@@ -16,11 +16,11 @@ module.exports = function(data) {
                         });
                     }
 
-                    let isCurrentUser = false;
+                    let extraInfoAllowed = false;
 
-                    if (req.user && username === req.user.username) {
-                        isCurrentUser = true;
-
+                    if (req.user && ((req.user.roles && req.user.roles.indexOf('admin') >= 0) ||
+                            username === req.user.username)) {
+                        extraInfoAllowed = true;
                     }
 
                     user.userRating = user.userRating || 0;
@@ -29,7 +29,14 @@ module.exports = function(data) {
                         result: {
                             user: req.user,
                             userDetails: user,
-                            isCurrentUser
+                            extraInfoAllowed
+                        }
+                    });
+                })
+                .catch(() => {
+                    return res.render('profile/user-not-found', {
+                        result: {
+                            user: req.user
                         }
                     });
                 });
