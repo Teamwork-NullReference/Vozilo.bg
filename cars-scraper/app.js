@@ -1,22 +1,25 @@
 /* globals console require Promise */
 'use strict';
 
-const config = require('./config'),
-    db = require('./config/mongoose'),
-    connectionStrings = require('./config/connection-strings'),
+process.env.ENV_MODE = 'DEVELOPMENT';
+
+const db = require('./config/mongoose'),
     carBrands = require('./scrapers/car-brands-scraper'),
     carBrandsDetails = require('./scrapers/car-brands-details-scraper'),
     timeMeasurement = require('./utils/time-measurement');
 
 const startTime = Date.now();
 
+let config = {};
+if (process.env.ENV_MODE === 'PRODUCTION') {
+    config.MONGOLAB_URI = process.env.MONGOLAB_URI;
+} else {
+    config.MONGOLAB_URI = require('./config/connection-strings').uri;
+}
+
 Promise.resolve()
     .then(() => {
-        if (config.envMode === 'DEVELOPMENT') {
-            process.env.MONGOLAB_URI = connectionStrings.uri;
-        }
-
-        return db.open(process.env.MONGOLAB_URI);
+        return db.open(config.MONGOLAB_URI);
     })
     .then(() => {
         console.log(`\r\n${new Date().toLocaleString()}`);

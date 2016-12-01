@@ -2,25 +2,26 @@
 'use strict';
 
 // check if .OAuth2Strategy should be removed
-const GoogleStrategy = require('passport-google-oauth20'),
-    config = require('./../../config');
+const GoogleStrategy = require('passport-google-oauth20');
 
-let CONFIG = {};
-if (config.envMode === 'DEVELOPMENT') {
-    CONFIG = require('./../configurationStrings').googleCredentials;
+let config = {};
+if (process.env.ENV_MODE === 'PRODUCTION') {
+    config.GOOGLECREDENTIALS_CLIENT_ID = process.env.GOOGLECREDENTIALS_CLIENT_ID;
+    config.GOOGLECREDENTIALS_CLIENT_SECRET = process.env.GOOGLECREDENTIALS_CLIENT_SECRET;
+    config.GOOGLECREDENTIALS_CALLBACK_URL = process.env.GOOGLECREDENTIALS_CALLBACK_URL;
 } else {
-    CONFIG.clientID = process.env.GOOGLECREDENTIALS_CLIENT_ID;
-    CONFIG.clientSecret = process.env.GOOGLECREDENTIALS_CLIENT_SECRET;
-    CONFIG.callbackURL = process.env.GOOGLECREDENTIALS_CALLBACK_URL;
-    CONFIG.profile = process.env.GOOGLECREDENTIALS_PROFILE;
+    const googleCredentials = require('./../configurationStrings').googleCredentials;
+    config.GOOGLECREDENTIALS_CLIENT_ID = googleCredentials.clientID;
+    config.GOOGLECREDENTIALS_CLIENT_SECRET = googleCredentials.clientSecret;
+    config.GOOGLECREDENTIALS_CALLBACK_URL = googleCredentials.callbackURL;
 }
 
 module.exports = function (passport, data) {
     const authStrategy = new GoogleStrategy(
         {
-            clientID: CONFIG.clientID,
-            clientSecret: CONFIG.clientSecret,
-            callbackURL: CONFIG.callbackURL,
+            clientID: config.GOOGLECREDENTIALS_CLIENT_ID,
+            clientSecret: config.GOOGLECREDENTIALS_CLIENT_SECRET,
+            callbackURL: config.GOOGLECREDENTIALS_CALLBACK_URL,
             passReqToCallback: true
         },
         function (request, accessToken, refreshToken, profile, done) {

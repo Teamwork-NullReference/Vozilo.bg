@@ -1,20 +1,23 @@
 /* globals module */
 
-const passport = require('passport'),
-    config = require('./../config');
-    // crypto = require('crypto');
+const passport = require('passport');
 
-// let secret,
-let profile;
-if (config.envMode === 'DEVELOPMENT') {
-    // secret = config.cryptoSecret;
-    profile = require('./../config/configurationStrings').googleCredentials.profile;
+let config = {};
+if (process.env.ENV_MODE === 'PRODUCTION') {
+    config.GOOGLECREDENTIALS_PROFILE_LOGIN = process.env.GOOGLECREDENTIALS_PROFILE_LOGIN;
+    config.GOOGLECREDENTIALS_PROFILE_EMAIL = process.env.GOOGLECREDENTIALS_PROFILE_EMAIL;
 } else {
-    // secret = process.env.CRYPTO_SECRET;
-    profile = process.env.GOOGLECREDENTIALS_PROFILE;
+    const googleCredentials = require('./../config/configurationStrings').googleCredentials;
+    config.GOOGLECREDENTIALS_PROFILE_LOGIN = googleCredentials.profile[0];
+    config.GOOGLECREDENTIALS_PROFILE_EMAIL = googleCredentials.profile[1];
 }
 
-module.exports = function(data, createHash, validator) {
+const profile = [
+    config.GOOGLECREDENTIALS_PROFILE_LOGIN,
+    config.GOOGLECREDENTIALS_PROFILE_EMAIL
+];
+
+module.exports = function (data, createHash, validator) {
     return {
         signUp(req, res) {
             let newUser = {};
@@ -29,6 +32,7 @@ module.exports = function(data, createHash, validator) {
             if (!validator.validatePassword(req.body.password)) {
                 console.log({ error: 'Password doesn\'t match requirements!' });
                 res.redirect('/auth/sign-up');
+                return;
             }
             newUser.password = createHash(req.body.password);
 
@@ -44,7 +48,7 @@ module.exports = function(data, createHash, validator) {
         },
         signOut(req, res) {
             req.logout();
-            res.redirect('/');
+            return res.redirect('/home');
         },
         getSignUpForm(req, res) {
             return res.render('authentication/sign-up', {

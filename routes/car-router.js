@@ -20,19 +20,20 @@ module.exports = function ({
         .post('/create', controller.craeteCar)
         .get('/create', controller.loadCreateCarForm)
         .get('/:id', controller.loadCarDetails)
+        .get('/:id/calendar', controller.getCalendar)
         .get('/:id/update', (req, res) => { // load car-update view with current car data - not urgent 
-        })
+        })  
         .put('/:id/update', (req, res) => {
-            res.send('It worksssss!');
+            res.send('update put!');
         })
         // .put('/:id/delete', (req, res) => { // called from some button in the universe :)
         //     res.send('It works!');
         // })
         .get('/:id/rent', (req, res) => { // load car-rent view
-            res.send('It workssssss!');
+            res.send('Renting get!');
         })
         .post('/:id/rent', (req, res) => {
-            res.send('It workssssssss!');
+            res.send('renting post!');
         });
 
     app.use('/car', router);

@@ -1,10 +1,11 @@
+/development
 
 # Ignore file with connection strings for DB
+/config/connection-strings.js
 /cars-scraper/config/connection-strings.js
 /config/index.js
 
 #Google Oauth configuration strings
-/config/config.js
 /config/configurationStrings.js
 
 # Logs

@@ -1,19 +1,19 @@
 extends ../_layout
 
-block body-content
-    ul(class="nav nav-tabs" id="profile-tabs")
-        li(id="first-tab")
-            a(href="#" data-toggle="tab") Profile
-        li(id="second-tab")
-            a(href="#" data-toggle="tab") Cars
-        li(id="third-tab")
-            a(href="#" data-toggle="tab") Received Reviews
-        if result.user
-           li(id="forth-tab")
-                a(href="/user/" + result.userDetails.username + "/update") Update Profile
-        
 
-    div(id="profile-wrapper")
+block body-content
+    
+    div(id="profile-wrapper" class="container")
+        ul(class="nav nav-tabs" id="profile-tabs")
+            li(id="first-tab")
+                a(href="#" data-toggle="tab") Profile
+            li(id="second-tab")
+                a(href="#" data-toggle="tab") Cars
+            li(id="third-tab")
+                a(href="#" data-toggle="tab") Received Reviews
+            if result.isCurrentUser
+            li(id="forth-tab")
+                    a(href="/user/" + result.userDetails.username + "/update") Update Profile
         div(id="prfile-info" class="profile-tab")
             h2(class="text-center")
                 != result.userDetails.username 
@@ -31,7 +31,7 @@ block body-content
                     | Фамилия: 
                 != result.userDetails.lastName
                 br
-                if result.user
+                if result.isCurrentUser
                     strong
                         | E-mail: 
                     em
@@ -51,8 +51,12 @@ block body-content
                 != result.userDetails.address.street
                 br
                 strong
-                    | Шофиорски опит: 
+                    | Шофьорски опит: 
                 != result.userDetails.drivingExpInYears
+            if !result.isCurrentUser && result.user
+                div(class="clear-both margin text-center" id="profile-btns")
+                    a(href="#" class="btn btn-success") Коментирай
+                    a(href="#" class="btn btn-success") Изпрати съобщение                 
         div(id="user-cars" class="profile-tab hidden")
             each car in result.userDetails.cars
                 div(class="car-preview")
@@ -71,9 +75,9 @@ block body-content
                         != car.year
                         br
                         br
-                        a(href="/car/" + car.id class="btn btn-primary") Повече информация                        
-                        if result.user
-                            a(href="/car/" + car.id + "/update/" class="btn btn-danger") Промени                          
+                        a(href="/car/" + car._id class="btn btn-primary") Повече информация                  
+                        if result.isCurrentUser
+                            a(href="/car/" + car._id + "/update/" class="btn btn-danger") Промени                          
         div(id="user-reviews" class="profile-tab hidden")
             each review in result.userDetails.receivedReviews
                 div(class="panel panel-primary review-tab")

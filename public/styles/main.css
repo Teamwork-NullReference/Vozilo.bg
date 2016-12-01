@@ -1,6 +1,7 @@
 body {
     background-color: #eee;
 }
+
 form {
     width: 40em;
     padding-top: 1em;
@@ -72,7 +73,7 @@ form {
 /* Create car form */
 
 #form-create-car {
-    background-color: rgba(14, 188, 65, 0.4);
+    background-color: white;
     padding: 50px;
     border-radius: 10px;
 }
@@ -85,26 +86,66 @@ form {
     font-size: 0.9em;
 }
 
+
 /* Car details */
-#car-details{
-    font-family: Arial, Helvetica, sans-serif
+
+#car-details {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+    padding: 30px;
 }
 
 .car-image {
-    width: 700px
+    width: 700px;
+    border-radius: 10px;
 }
 
-.color-secondary{
+.color-secondary {
     color: olive;
 }
 
-.color-success{
+.color-success {
     color: olive;
 }
 
 .color-negative {
     color: orangered
 }
+
+.color-primary {
+    color: dodgerblue
+}
+
+.form-rest-car {
+    margin-top: 90px;
+    background-color: #F5F5F5;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#owner-img {
+    width: 100px;
+}
+
+#user-rating {
+    color: #FFC000;
+}
+
+#calendar td {
+    border: solid 1px black;
+    padding: 5px;
+}
+
+.car-available {
+    background-color: greenyellow;
+}
+
+#mark-availability {
+    background-color: greenyellow;
+    padding: 5px;
+    margin-right: 5px;
+}
+
 
 /* Profile */
 
@@ -115,9 +156,10 @@ form {
 }
 
 #profile-wrapper {
-    padding: 0px 20px 0px 20px;
-    margin: 20px;
     min-height: 500px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+    padding: 30px;
 }
 
 #profile-wrapper #profile-pic-container {
@@ -169,4 +211,16 @@ form {
     margin: 10px 15%;
     min-width: 200px;
     float: left;
+}
+
+.clear-both {
+    clear: both;
+}
+
+.margin {
+    margin: 350px 0px 0px 0px;
+}
+
+#profile-btns a {
+    margin-left: 10px;
 }

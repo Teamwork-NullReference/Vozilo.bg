@@ -8,11 +8,7 @@ const path = require('path');
 module.exports = function (config) {
     mongoose.Promise = global.Promise;
 
-    if (config.envMode === 'DEVELOPMENT') {
-        process.env.MONGOLAB_URI = config.connectionString;
-    }
-
-    mongoose.connect(process.env.MONGOLAB_URI);
+    mongoose.connect(config.MONGOLAB_URI);
 
     // let models = require('./../models'); // not working
     let User = require('../models/user-model');
