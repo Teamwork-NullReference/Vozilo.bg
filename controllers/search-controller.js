@@ -12,6 +12,7 @@ function getCarsFieldsProjection(cars) {
             brand: c.brand,
             shortInfo: c.shortInfo,
             owner: {
+                username: c.owner.username,
                 imageUrl: c.owner.imageUrl,
                 firstName: c.owner.firstName,
                 lastName: c.owner.lastName
