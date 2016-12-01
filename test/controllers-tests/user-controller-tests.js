@@ -72,14 +72,10 @@ describe('user-controller-tests:', () => {
             user: null
         };
 
-        let result = false;
-
         let res = {
             render: (view) => {
-                if (view === 'profile/user-details') {
-                    result = true;
-                }
-                expect(result).to.equals(true);
+
+                expect(view).to.equals('profile/user-details');
                 done();
             }
         };
@@ -96,14 +92,10 @@ describe('user-controller-tests:', () => {
             user: null
         };
 
-        let result = false;
-
         let res = {
             render: (view) => {
-                if (view === 'profile/user-not-found') {
-                    result = true;
-                }
-                expect(result).to.equals(true);
+
+                expect(view).to.equals('profile/user-not-found');
                 done();
             }
         };
