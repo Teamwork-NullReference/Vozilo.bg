@@ -87,3 +87,6 @@ td a {
     display: inline-block;
     width: 2.5em;
 }
+#page-selection {
+    margin-left: 25%;        
+}

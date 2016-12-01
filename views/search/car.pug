@@ -2,46 +2,43 @@ extends ../_layout
 include ../_mixins/_car-search
 
 block custom-styles
-    link(rel='stylesheet', href='/static/styles/car-search.css')
+    link(rel="stylesheet", href="/static/styles/car-search.css")
 
+block custom-scripts
+    script(src="/static/bower_components/bootpag/lib/jquery.bootpag.min.js")
+    script(src="/static/js/car-search.js")
 
 block body-content
     div(id="car-search")
         div.seach-form
             +car-search-form
 
-        each car in result.cars
-            div.car
-                a(href=`/car/${car._id}`)
-                    img.car-img(src=`${car.picture}`)
-                div.brand.ellipsis-text
-                    strong= car.brand
-                div.description.ellipsis-text= car.shortInfo
-                table
-                    tr
-                        td
-                            a(href=`/user/${car.owner.username}`)
-                                img.img-circle(src=`${car.owner.imageUrl}`)
-                                span.username.ellipsis-text= car.owner.firstName + car.owner.lastName
-                        td.price
-                            span
-                                strong.amount.ellipsis-text= car.price.perDay 
-                            span.unit лв/ден
-                        if car.price.perWeek > 0
+        div(id="content")        
+            each car in result.cars
+                div.car
+                    a(href=`/car/${car._id}`)
+                        img.car-img(src=`${car.picture}`)
+                    div.brand.ellipsis-text
+                        strong= car.brand
+                    div.description.ellipsis-text= car.shortInfo
+                    table
+                        tr
+                            td
+                                a(href=`/user/${car.owner.username}`)
+                                    img.img-circle(src=`${car.owner.imageUrl}`)
+                                    span.username.ellipsis-text= car.owner.firstName + car.owner.lastName
                             td.price
                                 span
-                                    strong.amount.ellipsis-text= car.price.perWeek 
-                                span.unit лв/седм
+                                    strong.amount.ellipsis-text= car.price.perDay 
+                                span.unit лв/ден
+                            if car.price.perWeek > 0
+                                td.price
+                                    span
+                                        strong.amount.ellipsis-text= car.price.perWeek 
+                                    span.unit лв/седм
         if result.cars.length == 0
             div.no-cars
                 strong Не бяха намерени резултати
-        else
-            nav(aria-label="Page navigation")
-                ul.pagination
-                    li.page-item
-                        a.page-link(href="#" aria-label="Previous")
-                            span(aria-hidden="true") &laquo;
-                            span.sr-only Previous
-                    
+        div.centered(id="page-selection")
 
     div(id="map")
