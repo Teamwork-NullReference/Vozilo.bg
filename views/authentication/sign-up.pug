@@ -5,45 +5,52 @@ block body-content
 
         div.container
             link(rel="stylesheet", href="/static/styles/sign-up.css")
+            script(src="/static/bower_components/jquery-validation/dist/jquery.validate.min.js")
+            //- script(src='/static/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')
+            script(src="/static/scripts/sign-up.js")
             h2 Регистрация
-            form.form-horizontal(action="/auth/sign-up" method="post")
+            form.form-horizontal(action="/auth/sign-up" id="signupForm" method="post")
                 div.form-group
                     label.col-sm-3.control-label(for="username") Потребителско име
                     div.col-sm-9
-                        input.form-control(type="text" name="username" placeholder="Потребителско име" class="form-control" autofocus)
+                        input.form-control(type="text" name="username"  id="username" placeholder="Потребителско име" class="form-control" autofocus)
                 div.form-group
                     label.col-sm-3.control-label(for="fullName")  Име
                     div.col-sm-9
-                        input(type="text" name="firstName" placeholder="Първо Име" class="form-control" autofocus)
+                        input(type="text" name="firstName"  id="firstname" placeholder="Първо Име" class="form-control" autofocus)
                         span(class="help-block") Първо име: Георги
-                        input(type="text" name="lastName" placeholder="Фамилия" class="form-control" autofocus)
+                        input(type="text" name="lastName"  id="lastname" placeholder="Фамилия" class="form-control" autofocus)
                         span(class="help-block") Фамилия: Иванов
                 div.form-group
                     label.col-sm-3.control-label(for="email") Email
                     div(class="col-sm-9")
-                        input(type="email" name="email" placeholder="Email" class="form-control")
+                        input(type="email" name="email" id="email" placeholder="Email" class="form-control")
                 div.form-group
                     label(for="password" class="col-sm-3 control-label") Парола
                     div.col-sm-9
-                        input(type="password" name="password" placeholder="Password" class="form-control")
+                        input(type="password" name="password" id="password" placeholder="Password" class="form-control")
+                div.form-group
+                    label(for="confirm_passowrd" class="col-sm-3 control-label") Въведете повторно парола
+                    div.col-sm-9
+                        input(type="password" name="confirm_passowrd" id="confirm_passowrd" placeholder="Password" class="form-control")
                 div.form-group
                     label(for="picture" class="col-sm-3 control-label") Профилна Снимка
                     div.col-sm-9
-                        input(type="url" name="picture"  placeholder="линк към снимката" class="form-control")
+                        input(type="url" name="picture" id="picture" placeholder="линк към снимката" class="form-control")
                 div.form-group
                     label(for="phoneNumber" class="col-sm-3 control-label") Телефон
                     div.col-sm-9
-                        input(type="text" name="phoneNumber"  placeholder="08X-XXX-XXXX" class="form-control")        
+                        input(type="text" name="phoneNumber" id="phoneNumber" placeholder="08X-XXX-XXXX" class="form-control")        
                 div.form-group
                     label(for="experience" class="col-sm-3 control-label") Шофьорски стаж
                     div.col-sm-9
-                        input(type="text" name="experience"  placeholder="години като шофьор" class="form-control")
+                        input(type="text" name="experience" id="experience" placeholder="години като шофьор" class="form-control")
                 div.form-group
                     label.col-sm-3.control-label(for="address")  Адрес
                     div.col-sm-9
-                        input(type="text" name="city" placeholder="Град" class="form-control")
+                        input(type="text" name="city" id="city" placeholder="Град" class="form-control")
                         span(class="help-block")
-                        input(type="text" name="street" placeholder="Улица" class="form-control")
+                        input(type="text" name="street" id="street" placeholder="Улица" class="form-control")
                 div.form-group
                    div.col-sm-9.col-sm-offset-3
                         button.btn.btn-lg.btn-primary.btn-block(type="submit" class="btn btn-primary btn-block") Регистрирай се

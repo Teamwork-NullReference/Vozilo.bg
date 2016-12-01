@@ -1,25 +1,31 @@
 extends ../_layout
 
-block body-content
-    ul(class="nav nav-tabs" id="profile-tabs")
-        li(id="first-tab")
-            a(href="#" data-toggle="tab") Profile
-        li(id="second-tab")
-            a(href="#" data-toggle="tab") Cars
-        li(id="third-tab")
-            a(href="#" data-toggle="tab") Received Reviews
-        if result.isCurrentUser
-           li(id="forth-tab")
-                a(href="/user/" + result.userDetails.username + "/update") Update Profile
-        
 
-    div(id="profile-wrapper")
+block body-content
+    
+    div(id="profile-wrapper" class="container")
+        ul(class="nav nav-tabs" id="profile-tabs")
+            li(id="first-tab")
+                a(href="#" data-toggle="tab") Profile
+            li(id="second-tab")
+                a(href="#" data-toggle="tab") Cars
+            li(id="third-tab")
+                a(href="#" data-toggle="tab") Received Reviews
+            if result.isCurrentUser
+            li(id="forth-tab")
+                    a(href="/user/" + result.userDetails.username + "/update") Update Profile
         div(id="prfile-info" class="profile-tab")
             h2(class="text-center")
                 != result.userDetails.username 
             h3(class="text-center")
-                | Rating: 
-                != result.userDetails.userRating            
+                | Рейтинг: 
+                div.rating
+                        - for(let i=0; i < result.userDetails.userRating; i += 1) {
+                            if ((result.userDetails.userRating - i) < 1)
+                                span.glyphicon.glyphicon-star.half
+                            else
+                                span.glyphicon.glyphicon-star
+                        - }  
             div(id="profile-pic-container")
                 img(class="profile-pic-big img-rounded", src= result.userDetails.picture)
             div(id="personal-info")

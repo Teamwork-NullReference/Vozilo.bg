@@ -26,5 +26,7 @@ TODO
 	- Admin page - ? 
 		*delete users
 
+- Unit tests - 100yo
+
 
 	
