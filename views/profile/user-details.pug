@@ -18,8 +18,14 @@ block body-content
             h2(class="text-center")
                 != result.userDetails.username 
             h3(class="text-center")
-                | Rating: 
-                != result.userDetails.userRating            
+                | Рейтинг: 
+                div.rating
+                        - for(let i=0; i < result.userDetails.userRating; i += 1) {
+                            if ((result.userDetails.userRating - i) < 1)
+                                span.glyphicon.glyphicon-star.half
+                            else
+                                span.glyphicon.glyphicon-star
+                        - }  
             div(id="profile-pic-container")
                 img(class="profile-pic-big img-rounded", src= result.userDetails.picture)
             div(id="personal-info")
