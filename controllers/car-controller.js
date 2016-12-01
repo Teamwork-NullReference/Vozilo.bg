@@ -13,14 +13,24 @@ const MAX_DAYS_PER_MONTH = 31;
 module.exports = function (data) {
     return {
         loadCreateCarForm(req, res) {
-            return res.status(200)
-                .render('car/create-form', {
-                    result: {
-                        user: req.user,
-                        endDate: new Date().getFullYear(),
-                        startDate: START_YEAR
-                    }
+            data.getAllBrands()
+                .then(brands => {
+
+                    return res.status(200)
+                        .render('car/create-form', {
+                            result: {
+                                user: req.user,
+                                brands,
+                                endDate: new Date().getFullYear(),
+                                startDate: START_YEAR
+                            }
+                        });
+                })
+                .catch(err => {
+                    res.status(500)
+                        .send(err);
                 });
+
         },
         craeteCar(req, res) {
             let user = req.user;
