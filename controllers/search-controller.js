@@ -21,7 +21,7 @@ function getCarsFieldsProjection(cars) {
     return result;
 }
 
-module.exports = function (data) {
+module.exports = function(data) {
     return {
         getCarSearch(req, res) {
             let { city, startDate, endDate } = req.query,
@@ -43,7 +43,10 @@ module.exports = function (data) {
                             cars: getCarsFieldsProjection(cars),
                             startPage,
                             endPage,
-                            currentPage: page
+                            currentPage: page,
+                            city,
+                            startDate,
+                            endDate
                         }
                     });
                 });

@@ -42,18 +42,18 @@ block body-content
             nav
                 ul.pagination
                     li.page-item
-                        a.page-link(aria-label="Предишна" href=`/search/car/${result.currentPage - 1}`)
+                        a.page-link(aria-label="Предишна" href=`/search/car/${result.currentPage - 1}?city=${result.city}&startDate=${result.startDate}&endDate=${result.endDate}`)
                             span(aria-hidden="true") &laquo;
                             span.sr-only Предишна
                     - for(let i = result.startPage; i < result.endPage; i += 1 )
                         if result.currentPage == i
                             li.page-item.active
-                                a.page-link(href=`/search/car/${i}`)= i
+                                a.page-link(href=`/search/car/${i}?city=${result.city}&startDate=${result.startDate}&endDate=${result.endDate}`)= i
                         else
                             li.page-item
-                                a.page-link(href=`/search/car/${i}`)= i
+                                a.page-link(href=`/search/car/${i}?city=${result.city}&startDate=${result.startDate}&endDate=${result.endDate}`)= i
                     li.page-item
-                        a.page-link(aria-label="Следваща" href=`/search/car/${+result.currentPage + 1}`)
+                        a.page-link(aria-label="Следваща" href=`/search/car/${+result.currentPage + 1}?city=${result.city}&startDate=${result.startDate}&endDate=${result.endDate}`)
                             span(aria-hidden="true") &raquo;
                             span.sr-only Следваща
 
