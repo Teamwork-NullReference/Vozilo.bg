@@ -6,7 +6,7 @@
     "scripts": {
         "start": "node app.js",
         "test": "./node_modules/.bin/mocha ./test/**/*.js",
-        "postinstall": "node_modules/.bin/bower install && ./node_modules/.bin/mocha ./test/**/*.js"
+        "postinstall": "node_modules/.bin/bower install"
     },
     "author": "Team NullReference",
     "license": "MIT",
