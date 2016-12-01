@@ -40,6 +40,48 @@ module.exports = function(data) {
                         }
                     });
                 });
+        },
+        getUpdateUserForm(req, res) {
+            let username = req.params.username;
+            data.getUserByUsername(username)
+                .then(user => {
+
+                    if (user === null || typeof user === 'undefined') {
+                        return res.render('profile/user-not-found', {
+                            result: {
+                                user: req.user
+                            }
+                        });
+                    }
+
+                    let updateAllowed = false;
+
+                    if (req.user && ((req.user.roles && req.user.roles.indexOf('admin') >= 0) ||
+                            username === req.user.username)) {
+                        updateAllowed = true;
+                    }
+
+                    if (updateAllowed) {
+                        res.status(200).render('profile/user-update', {
+                            result: {
+                                user: req.user
+                            }
+                        });
+                    } else {
+                        res.status(401).render('unauthorized', {
+                            result: {
+                                user: req.user
+                            }
+                        });
+                    }
+                })
+                .catch(() => {
+                    return res.render('profile/user-not-found', {
+                        result: {
+                            user: req.user
+                        }
+                    });
+                });
         }
     };
 };

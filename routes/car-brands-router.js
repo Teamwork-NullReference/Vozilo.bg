@@ -13,7 +13,7 @@ module.exports = function ({
     let router = new express.Router();
 
     router
-        .get('/carbrands', controller.getCarBrands);
+        .get('/carbrands', controller.getCarModels);
 
     app.use('/api', router);
 

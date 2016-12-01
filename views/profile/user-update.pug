@@ -1,0 +1,44 @@
+extends ../_layout
+
+
+block body-content
+
+        div(id="profile-wrapper" class="container text-center")
+            h2 Промени профил информацията
+            form.form-horizontal(action="/user/" + result.user.username + "/update" id="signupForm" method="post")
+                div.form-group
+                    label.col-sm-3.control-label(for="username") Потребителско име
+                    div.col-sm-9
+                        input.form-control(type="text" name="username"  id="username" value=result.user.username class="form-control" disabled)
+                div.form-group
+                    label.col-sm-3.control-label(for="fullName")  Име
+                    div.col-sm-9
+                        input(type="text" name="firstName"  id="firstname" value=result.user.firstName class="form-control" autofocus)
+                        input(type="text" name="lastName"  id="lastname" value=result.user.lastName class="form-control" autofocus)
+                div.form-group
+                    label.col-sm-3.control-label(for="email") Email
+                    div(class="col-sm-9")
+                        input(type="email" name="email" id="email" value=result.user.email class="form-control")
+                div.form-group
+                    label(for="picture" class="col-sm-3 control-label") Профилна Снимка
+                    div.col-sm-9
+                        input(type="url" name="picture" id="picture" value=result.user.picture class="form-control")
+                div.form-group
+                    label(for="phoneNumber" class="col-sm-3 control-label") Телефон
+                    div.col-sm-9
+                        input(type="text" name="phoneNumber" id="phoneNumber" value=result.user.phoneNumber class="form-control")        
+                div.form-group
+                    label(for="experience" class="col-sm-3 control-label") Шофьорски стаж
+                    div.col-sm-9
+                        input(type="text" name="experience" id="experience" value=result.user.drivingExpInYears class="form-control")
+                div.form-group
+                    label.col-sm-3.control-label(for="address")  Адрес
+                    div.col-sm-9
+                        input(type="text" name="city" id="city" value=result.user.address.city class="form-control")
+                        span(class="help-block")
+                        input(type="text" name="street" id="street" value=result.user.address.street class="form-control")
+                div.form-group
+                   div.col-sm-9.col-sm-offset-3
+                        button.btn.btn-lg.btn-primary.btn-block(type="submit" class="btn btn-primary btn-block") Промени
+                        a.btn.btn-lg.btn-warning.btn-block(href="/user/" + result.user.username) Назад
+

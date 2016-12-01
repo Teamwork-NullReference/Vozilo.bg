@@ -1,42 +1,29 @@
 /* globals $ */
 
 $(() => {
-    $.getJSON('/api/carbrands', (brands) => {
-        var brandsField = $('#car-brand-choice'),
-            modelField = $('#car-model-choice'),
-            brandOption,
-            modelOption,
-            brand,
-            model,
-            option;
+    function fillModels(brand) {
+        var url = '/api/carbrands?brand=' + brand;
+        $.getJSON(url, (models) => {
+            var modelField = $('#car-model-choice'),
+                modelOption,
+                model,
+                option;
 
-        option = $('<option>');
-        for (brand of brands) {
-            brandOption = option.clone();
-            brandOption.html(brand.brand).appendTo(brandsField);
-            for (model of brand.models) {
+            for (let opt of modelField.children()) {
+                opt.remove();
+            }
+
+            option = $('<option>');
+            for (model of models[0].models) {
                 modelOption = option.clone();
-                modelOption
-                    .attr('brand', brand.brand)
-                    .html(model.model)
-                    .hide()
+                modelOption.html(model.model)
                     .appendTo(modelField);
             }
-        }
-    });
+        });
+    }
 
-    $('#car-brand-choice').on('click', () => {
-        var selectedBrand = $('#car-brand-choice'),
-            model,
-            allModels = $('#car-model-choice').children();
-        for (model of allModels) {
-            $(model).hide();
-        }
-
-        for (model of allModels) {
-            if ($(model).attr('brand') === selectedBrand.val()) {
-                $(model).show();
-            }
-        }
+    $('#car-brand-choice').on('change', () => {
+        var selectedBrand = $('#car-brand-choice').val();
+        fillModels(selectedBrand);
     });
 });

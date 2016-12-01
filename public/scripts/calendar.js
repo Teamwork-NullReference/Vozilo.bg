@@ -1,16 +1,25 @@
 /* globals $ */
 
 $(() => {
-    const monthNames = ['Януари', 'Февруари', 'Март', 'Април', 'Май', 'Юни',
+    var monthNames = ['Януари', 'Февруари', 'Март', 'Април', 'Май', 'Юни',
         'Юли', 'Август', 'Септември', 'Октомври', 'Ноември', 'Декември'
     ];
 
-    var carAvalabilityDates;
+    function getMonthAndYear() {
+        var month = parseInt($('#calendar').attr('month'), 10);
+        var year = parseInt($('#calendar').attr('year'), 10);
 
-    function getFirstAndLastDaysOfCurrentMonth(currentMonth) {
-        var date = currentMonth,
+        return {
+            month,
+            year
+        };
+    }
+
+    function getFirstAndLastDaysOfCurrentMonth(year, month) {
+        var date = new Date(year, month, 1),
             y = date.getFullYear(),
             m = date.getMonth();
+
         var firstDay = new Date(y, m, 1).getDate();
         var lastDay = new Date(y, m + 1, 0).getDate();
 
@@ -20,26 +29,15 @@ $(() => {
         };
     }
 
-    function drawCalendar(currentMonth) {
-        var availableDatesMonth = [];
-        var month = currentMonth.getMonth();
-        var year = currentMonth.getFullYear();
-
-        for (var i = 0; i < carAvalabilityDates.length; i += 1) {
-            var date = carAvalabilityDates[i].date;
-            if (new Date(date).getMonth() === month &&
-                carAvalabilityDates[i].isAvailable === true) {
-                availableDatesMonth.push(date);
-            }
-        }
-
+    function drawCalendar(month, year, carAvalabilityDates) {
         if ($('#calendar')) {
             $('#calendar').remove();
         }
 
         var table = $('<table>')
             .attr('id', 'calendar')
-            .attr('month', currentMonth);
+            .attr('month', month)
+            .attr('year', year);
         var tBody = $('<tbody>');
         var tHead = $('<thead>')
             .append($('<tr>')
@@ -49,15 +47,16 @@ $(() => {
                     .attr('colspan', 7)))
             .appendTo(table);
 
-        var days = getFirstAndLastDaysOfCurrentMonth(currentMonth);
+        var days = getFirstAndLastDaysOfCurrentMonth(year, month);
 
         var tr = $('<tr>');
         for (var i = days.firstDay; i <= days.lastDay; i += 1) {
             var td = $('<td>').html(i);
-            for (var j = 0; j < availableDatesMonth.length; j += 1) {
-                var checkDate = new Date(availableDatesMonth[j]).getDate();
-                var checkYear = new Date(availableDatesMonth[j]).getFullYear();
-                if (i === parseInt(checkDate, 10) && parseInt(checkYear, 10) === year) {
+            for (var j = 0; j < carAvalabilityDates.length; j += 1) {
+                var checkDate = new Date(carAvalabilityDates[j]).getDate();
+                var checkYear = new Date(carAvalabilityDates[j]).getFullYear();
+                var checkMonth = new Date(carAvalabilityDates[j]).getMonth();
+                if (i === parseInt(checkDate, 10) && parseInt(checkYear, 10) === year && parseInt(checkMonth, 10) === month) {
                     td.addClass('car-available');
                 }
             }
@@ -76,35 +75,44 @@ $(() => {
     }
 
     var id = $('#car-details').attr('carId');
-    var currentMonth;
 
-    $.getJSON(`/car/${id}/calendar`, (resp) => {
-        carAvalabilityDates = resp[0].availability;
-        currentMonth = new Date();
-
-        drawCalendar(currentMonth);
-    });
+    function getAvailabilityFromCurrentMonth(month, year) {
+        var url = '/car/' + id + '/calendar?month=' + month + '&year=' + year;
+        $.getJSON(url, (resp) => {
+            drawCalendar(month, year, resp);
+        });
+    }
 
     $('#next-month').on('click', () => {
-        var currentCaledarMonth = $('#calendar').attr('month');
-        var newMonth = new Date(currentCaledarMonth);
-        if (newMonth.getMonth() === 11) {
-            newMonth = new Date(newMonth.getFullYear() + 1, 0, 1);
+        var monthYear = getMonthAndYear();
+        var newMonth,
+            newYear;
+        if (monthYear.month === 11) {
+            newYear = monthYear.year + 1;
+            newMonth = 0;
         } else {
-            newMonth.setMonth(newMonth.getMonth() + 1);
+            newYear = monthYear.year;
+            newMonth = monthYear.month + 1;
         }
-        drawCalendar(newMonth);
+
+        getAvailabilityFromCurrentMonth(newMonth, newYear);
     });
 
     $('#previous-month').on('click', () => {
-        var currentCaledarMonth = $('#calendar').attr('month');
-        var newMonth = new Date(currentCaledarMonth);
-        if (newMonth.getMonth() === 0) {
-            newMonth = new Date(newMonth.getFullYear() - 1, 11, 1);
+        var monthYear = getMonthAndYear();
+        var newMonth,
+            newYear;
+
+        if (monthYear.month === 0) {
+            newYear = monthYear.year - 1;
+            newMonth = 11;
         } else {
-            newMonth.setMonth(newMonth.getMonth() - 1);
+            newYear = monthYear.year;
+            newMonth = monthYear.month - 1;
         }
 
-        drawCalendar(newMonth);
+        getAvailabilityFromCurrentMonth(newMonth, newYear);
     });
+
+    getAvailabilityFromCurrentMonth(new Date().getMonth(), new Date().getFullYear());
 });
