@@ -23,7 +23,7 @@ let data = {
     getUserByUsername: null
 };
 
-var sandbox;
+let sandbox;
 
 beforeEach(() => {
     sandbox = sinon.sandbox.create();
