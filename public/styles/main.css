@@ -73,7 +73,7 @@ form {
 /* Create car form */
 
 #form-create-car {
-    background-color: rgba(14, 188, 65, 0.4);
+    background-color: white;
     padding: 50px;
     border-radius: 10px;
 }
@@ -88,7 +88,8 @@ form {
 
 
 /* Car details */
-#car-details{
+
+#car-details {
     font-family: Arial, Helvetica, sans-serif;
     background-color: white;
     padding: 30px;
@@ -111,7 +112,7 @@ form {
     color: orangered
 }
 
-.color-primary{
+.color-primary {
     color: dodgerblue
 }
 
@@ -122,11 +123,11 @@ form {
     border-radius: 10px;
 }
 
-#owner-img{
+#owner-img {
     width: 100px;
 }
 
-#user-rating{
+#user-rating {
     color: #FFC000;
 }
 
@@ -139,11 +140,12 @@ form {
     background-color: greenyellow;
 }
 
-#mark-availability{
-     background-color: greenyellow;
-     padding: 5px;
-     margin-right: 5px;
+#mark-availability {
+    background-color: greenyellow;
+    padding: 5px;
+    margin-right: 5px;
 }
+
 
 /* Profile */
 
@@ -154,9 +156,10 @@ form {
 }
 
 #profile-wrapper {
-    padding: 0px 20px 0px 20px;
-    margin: 20px;
     min-height: 500px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+    padding: 30px;
 }
 
 #profile-wrapper #profile-pic-container {

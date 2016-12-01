@@ -19,19 +19,19 @@ block body-content
                                 .dropdown
                                     label.label-create-car(for='brand') Бранд
                                     select.form-control#car-brand-choice(name='brand')
-                                        each car in result.predefinedCars
-                                            option(name='brand' value= car.brand)
-                                                = car.brand
+                                        //- each car in result.predefinedCars
+                                        //-     option(name='brand' value= car.brand)
+                                        //-         = car.brand
                                 
                             .form-group                                         
                                 .dropdown
                                     label.label-create-car(for='model') Модел
                                     select.form-control#car-model-choice(name='model')
-                                        option
-                                        each car in result.predefinedCars
-                                            each model in car.models
-                                                option.model-options(name='model' brand= car.brand)
-                                                        = model.model
+                                        //- option
+                                        //- each car in result.predefinedCars
+                                        //-     each model in car.models
+                                        //-         option.model-options(name='model' brand= car.brand)
+                                        //-                 = model.model
                             .form-group
                                 label.label-create-car(for='year') Година
                                 select.form-control#car-model-choice(name='year')
@@ -149,4 +149,4 @@ block body-content
 
                             
                             .form-group
-                            button.submit-btn.btn.btn-default Добави кола
+                            button.submit-btn.btn.btn-success Добави кола
