@@ -7,12 +7,15 @@ const express = require('express');
 module.exports = function ({ app, data }) {
     let searchController = require('../controllers/search-controller')(data);
 
-    let router = new express.Router();
+    let searchRouter = new express.Router();
+    searchRouter.get('/car', searchController.getCarSearch);
 
-    router
-        .get('/car', searchController.getCarSearch);
+    app.use('/search', searchRouter);
 
-    app.use('/search', router);
+    let searchApiRouter = new express.Router();
+    searchApiRouter.get('/car/:page', searchController.getCarSearchJson);
 
-    return router;
+    app.use('/api/search', searchApiRouter);
+
+    return searchRouter;
 };
