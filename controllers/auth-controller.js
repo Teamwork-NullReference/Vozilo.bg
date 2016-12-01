@@ -51,14 +51,20 @@ module.exports = function (data, createHash, validator) {
             return res.redirect('/home');
         },
         getSignUpForm(req, res) {
-            return res.render('authentication/sign-up', {
+            return res.status(200).render('authentication/sign-up', {
                 result: { user: req.user }
             });
+                // .catch(err => {
+                //     return res.status(500).send(err);
+                // });
         },
         getSignInForm(req, res) {
-            return res.render('authentication/sign-in', {
+            return res.status(200).render('authentication/sign-in', {
                 result: { user: req.user }
             });
+                // .catch(err => {
+                //     return res.status(500).send(err);
+                // });
         },
         getSgnInGoogle(req, res, next) {
             const auth = passport.authenticate('google', { scope: profile }, (error, user) => {
