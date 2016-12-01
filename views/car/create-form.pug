@@ -19,9 +19,10 @@ block body-content
                                 .dropdown
                                     label.label-create-car(for='brand') Бранд
                                     select.form-control#car-brand-choice(name='brand')
-                                        //- each car in result.predefinedCars
-                                        //-     option(name='brand' value= car.brand)
-                                        //-         = car.brand
+                                        option
+                                        each brand in result.brands
+                                            option(name='brand' value= brand.brand)
+                                                = brand.brand
                                 
                             .form-group                                         
                                 .dropdown

@@ -9,13 +9,37 @@ module.exports = function (models) {
     return {
         getAllBrands() {
             return new Promise((resolve, reject) => {
-                CarBrandDetail.find((err, res) => {
-                    if (err) {
-                        return reject(err);
-                    }
+                CarBrandDetail.find()
+                    .select('brand')
+                    .exec((err, res) => {
+                        if (err) {
+                            reject(err);
+                        }
 
-                    return resolve(res);
-                });
+                        resolve(res);
+                    });
+                // CarBrandDetail.find((err, res) => {
+                //     if (err) {
+                //         return reject(err);
+                //     }
+
+                //     return resolve(res);
+                // });
+            });
+        },
+        getModels(brand) {
+            return new Promise((resolve, reject) => {
+                CarBrandDetail.find({
+                    brand
+                })
+                    .select('models.model')
+                    .exec((err, res) => {
+                        if (err) {
+                            reject(err);
+                        }
+
+                        resolve(res);
+                    });
             });
         }
     };
