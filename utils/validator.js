@@ -5,7 +5,6 @@ function validatePassword(password) {
     if (!PASSWORD_REGEX.test(password) || typeof password !== 'string') {
         isCorrect = false;
     }
-    console.log(PASSWORD_REGEX.test(password));
 
     return isCorrect;
 }

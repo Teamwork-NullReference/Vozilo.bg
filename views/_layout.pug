@@ -10,8 +10,9 @@ head
 
     script(src="/static/bower_components/jquery/dist/jquery.js")
     script(src="/static/bower_components/bootstrap/dist/js/bootstrap.js")
-    script(src="/static/scripts/main.js")
     script(src="/static/scripts/json-requester.js")
+    script(src="/static/scripts/main.js")
+    
     block custom-scripts
     
     block head-content
@@ -34,7 +35,7 @@ body
                             a(href=`/user/${result.user.username}/messages`) Съобщения
                         li
                             a(href='/car/create') Добави кола
-                        if result.user.role
+                        if result.user.role=='admin'
                             li
                                 a(href='/admin') Администратор
                     else

@@ -22,16 +22,14 @@ module.exports = function ({
         .get('/:id', controller.loadCarDetails)
         .get('/:id/calendar', controller.getCalendar)
         .get('/:id/update', (req, res) => { // load car-update view with current car data - not urgent 
-        })  
+        })
         .put('/:id/update', (req, res) => {
             res.send('update put!');
         })
         // .put('/:id/delete', (req, res) => { // called from some button in the universe :)
         //     res.send('It works!');
         // })
-        .get('/:id/rent', (req, res) => { // load car-rent view
-            res.send('Renting get!');
-        })
+        .get('/:id/rent', controller.loadRentCarForm)
         .post('/:id/rent', (req, res) => {
             res.send('renting post!');
         });

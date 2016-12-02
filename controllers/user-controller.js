@@ -64,7 +64,8 @@ module.exports = function(data) {
                     if (updateAllowed) {
                         res.status(200).render('profile/user-update', {
                             result: {
-                                user: req.user
+                                user: req.user,
+                                userForUpdate: user
                             }
                         });
                     } else {
