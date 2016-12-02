@@ -49,8 +49,9 @@ module.exports = function (data) {
                 .catch(err => {
                     console.log('controller catch');
                     return res.status(400)
-                        .render('status-codes/bad-request-400', {
+                        .render('status-codes/status-code-error', {
                             result: {
+                                code: 400,
                                 err
                             }
                         });
@@ -62,9 +63,10 @@ module.exports = function (data) {
                     if (!carDetails) {
                         return res.status(404).send('There is not such car');
                     }
+
                     return res.status(200).render('car/details', {
                         result: {
-                            user: req.user,
+                            user: req.user || { username: 'undefined' },
                             carDetails
                         }
                     });
