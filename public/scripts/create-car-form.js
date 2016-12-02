@@ -4,7 +4,7 @@ $(() => {
     function fillModels(brand) {
         var url = '/api/carbrands?brand=' + brand;
         $.getJSON(url, (models) => {
-            var modelField = $('#car-model-choice'),
+            var modelField = $('#model'),
                 modelOption,
                 model,
                 option;
@@ -22,8 +22,8 @@ $(() => {
         });
     }
 
-    $('#car-brand-choice').on('change', () => {
-        var selectedBrand = $('#car-brand-choice').val();
+    $('#brand').on('change', () => {
+        var selectedBrand = $('#brand').val();
         fillModels(selectedBrand);
     });
 });
