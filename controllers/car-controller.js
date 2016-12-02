@@ -1,5 +1,7 @@
-/* globals module */
+/* globals module require */
 'use strict';
+
+const mapper = require('../utils/mapper');
 
 const START_YEAR = 1980;
 const MAX_DAYS_PER_MONTH = 31;
@@ -78,6 +80,23 @@ module.exports = function (data) {
 
                     return res.send(result);
                 });
+        },
+        loadRentCarForm(req, res) {
+            let user = req.user;
+            if (user) {
+                return res
+                    .status(200)
+                    .render('car/rent-form', {
+                        result: {
+                            user: mapper.map(req.user, 'username', 'role', 'email', 'firstName', 'lastName')
+                        }
+                    });
+            }
+
+            //TODO redirect to error page when implemented
+            return res
+                .status(300)
+                .redirect('/sign-in');
         }
     };
 };
