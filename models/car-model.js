@@ -46,8 +46,7 @@ module.exports = modelRegistrator.register('Car', {
     }],
     usageRequirements: {
         leastAge: {
-            type: Number,
-            default: 18
+            type: Number
         },
         drivingExperience: Number,
         smokingAllowed: Boolean,

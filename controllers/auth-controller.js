@@ -1,6 +1,8 @@
 /* globals module */
 
 const passport = require('passport');
+const PASWORD_DOES_NOT_MATCH = 'Паролата трябва да бъде минимум 8 символа и да съдържа цифри и латински букви';
+
 
 let config = {};
 if (process.env.ENV_MODE === 'PRODUCTION') {
@@ -30,20 +32,29 @@ module.exports = function (data, createHash, validator) {
             });
 
             if (!validator.validatePassword(req.body.password)) {
-                console.log({ error: 'Password doesn\'t match requirements!' });
-                res.redirect('/auth/sign-up');
-                return;
+                return res.status(400)
+                    .render('status-codes/status-code-error', {
+                        result: {
+                            code: 400,
+                            err: PASWORD_DOES_NOT_MATCH
+                        }
+                    });
             }
             newUser.password = createHash(req.body.password);
 
             data.createUser(newUser)
                 .then(
-                () => {
-                    res.redirect('/auth/sign-in');
-                })
-                .catch(error => {
-                    console.log(error);
-                    res.redirect('/auth/sign-up');
+                    () => {
+                        res.redirect('/auth/sign-in');
+                    })
+                .catch(err => {
+                    return res.status(400)
+                        .render('status-codes/status-code-error', {
+                            result: {
+                                code: 400,
+                                err
+                            }
+                        });
                 });
         },
         signOut(req, res) {
@@ -52,22 +63,28 @@ module.exports = function (data, createHash, validator) {
         },
         getSignUpForm(req, res) {
             return res.status(200).render('authentication/sign-up', {
-                result: { user: req.user }
+                result: {
+                    user: req.user
+                }
             });
-                // .catch(err => {
-                //     return res.status(500).send(err);
-                // });
+            // .catch(err => {
+            //     return res.status(500).send(err);
+            // });
         },
         getSignInForm(req, res) {
             return res.status(200).render('authentication/sign-in', {
-                result: { user: req.user }
+                result: {
+                    user: req.user
+                }
             });
-                // .catch(err => {
-                //     return res.status(500).send(err);
-                // });
+            // .catch(err => {
+            //     return res.status(500).send(err);
+            // });
         },
         getSgnInGoogle(req, res, next) {
-            const auth = passport.authenticate('google', { scope: profile }, (error, user) => {
+            const auth = passport.authenticate('google', {
+                scope: profile
+            }, (error, user) => {
                 if (error) {
                     next(error);
                     return;

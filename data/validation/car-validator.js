@@ -14,12 +14,19 @@ const PRICE_PER_DAY_MUST_BE_A_NUMBER = 'Цената на ден трябва д
     REGISTRATION_NUMBER_NOT_ENTERED = 'Регистрационен номер не е въведен!',
     VALUE_MUST_BE_A_BOOLEAN_TYPE = 'Стойноста трябва да бъде вярно или грешно!';
 
-
 function validate({
     carInfo,
     validator
 }) {
     return new Promise((resolve, reject) => {
+        let props = Object.keys(carInfo);
+        for (let prop of props) {
+            let value = carInfo[prop];
+            if (value) {
+                carInfo[prop] = validator.escapeProhibitedChars(value);
+            }
+        }
+     
         if (!validator.validateNumberType(carInfo.perDay)) {
             reject(PRICE_PER_DAY_MUST_BE_A_NUMBER);
         } else if (!validator.validateNumberType(carInfo.perWeek || 1)) {
@@ -34,7 +41,7 @@ function validate({
             reject(DRIVING_EXP_MUST_BE_A_NUMBER);
         } else if (!validator.validateNumberType(carInfo.minimumRentalPeriod || 1)) {
             reject(MIN_RENTAL_PERIOD_MUST_BE_A_NUMBER);
-        } else if (!validator.validateDataType(carInfo.startDate)) {
+        } else if (!validator.validateDateType(carInfo.startDate)) {
             reject(START_DATE_MUST_BE_A_NUMBER);
         } else if (!validator.validateRequiredInfo(carInfo.brand)) {
             reject(BRAND_NOT_ENTERED);
