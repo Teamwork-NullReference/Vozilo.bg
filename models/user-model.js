@@ -53,12 +53,11 @@ module.exports = modelRegistrator.register('User', {
         type: String
         // match: passwordRegex
     },
-    // messages: [{
-    //     senderUsername: String,
-    //     senderImage: String,
-
-    //     messagesId: String
-    // }],
+    correspondentions: [
+        {
+            id: String
+        }
+    ],
     role: [String],
     isDeleted: Boolean
 });

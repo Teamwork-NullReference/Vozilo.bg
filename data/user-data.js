@@ -2,7 +2,7 @@
 'use strict';
 let dataUtils = require('./utils/data-utils');
 
-module.exports = function(models) {
+module.exports = function({ models, validator }) {
     let {
         User
     } = models;
