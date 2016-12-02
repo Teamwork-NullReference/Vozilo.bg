@@ -1,41 +1,41 @@
-/* globals module */
-'use strict';
+// /* globals module */
+// 'use strict';
 
-function validateRequiredInfo(input) {
-    if (!input) {
-        return false;
-    }
+// function validateRequiredInfo(input) {
+//     if (!input) {
+//         return false;
+//     }
 
-    return true;
-}
+//     return true;
+// }
 
-function validateNumberType(input) {
-    if (!+input) {
-        return false;
-    }
+// function validateNumberType(input) {
+//     if (!+input) {
+//         return false;
+//     }
 
-    return true;
-}
+//     return true;
+// }
 
-function validateDataType(input) {
-    if (!new Date(input)) {
-        return false;
-    }
+// function validateDataType(input) {
+//     if (!new Date(input)) {
+//         return false;
+//     }
 
-    return true;
-}
+//     return true;
+// }
 
-function validateBooleanType(input) {
-    if (!input === 'true' && !input === 'false') {
-        return false;
-    }
+// function validateBooleanType(input) {
+//     if (!input === 'true' && !input === 'false') {
+//         return false;
+//     }
 
-    return true;
-}
+//     return true;
+// }
 
-module.exports = {
-    validateRequiredInfo,
-    validateNumberType,
-    validateDataType,
-    validateBooleanType
-};
+// module.exports = {
+//     validateRequiredInfo,
+//     validateNumberType,
+//     validateDataType,
+//     validateBooleanType
+// };

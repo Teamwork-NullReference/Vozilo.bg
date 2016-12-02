@@ -10,4 +10,42 @@ function validatePassword(password) {
     return isCorrect;
 }
 
-module.exports = { validatePassword };
+function validateRequiredInfo(input) {
+    if (!input) {
+        return false;
+    }
+
+    return true;
+}
+
+function validateNumberType(input) {
+    if (!+input) {
+        return false;
+    }
+
+    return true;
+}
+
+function validateDataType(input) {
+    if (!new Date(input)) {
+        return false;
+    }
+
+    return true;
+}
+
+function validateBooleanType(input) {
+    if (!input === 'true' && !input === 'false') {
+        return false;
+    }
+
+    return true;
+}
+
+module.exports = {
+    validatePassword,
+    validateRequiredInfo,
+    validateNumberType,
+    validateDataType,
+    validateBooleanType
+};
