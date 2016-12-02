@@ -85,6 +85,17 @@ module.exports = function({ models, validator }) {
                 });
             });
         },
+        updateUser(user) {
+            return new Promise((resolve, reject) => {
+                user.save(err => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    return resolve(user);
+                });
+            });
+        },
         addCarToUser(user, car) {
             return this.getUserById(user._id)
                 .then(u => {
