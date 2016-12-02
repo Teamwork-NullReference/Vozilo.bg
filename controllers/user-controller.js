@@ -82,6 +82,24 @@ module.exports = function(data) {
                         }
                     });
                 });
+        },
+        updateUserInfo(req, res) {
+            let username = req.params.username;
+            data.getUserByUsername(username)
+                .then(user => {
+                    let propoerties = ['firstName', 'lastName', 'email', 'picture', 'phoneNumber', 'experience', 'city', 'street'];
+                    propoerties.forEach(property => {
+                        user[property] = req.body[property] || user[property];
+                    });
+
+                    return data.updateUser(user);
+                })
+                .then(user => {
+                    res.redirect('/user/' + user.username);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
     };
 };

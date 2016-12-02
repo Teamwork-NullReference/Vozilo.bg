@@ -5,7 +5,7 @@
 
 // const MIN_PATTERN_LENGTH = 3;
 
-module.exports = function(models) {
+module.exports = function({ models, validator }) {
     let { User } = models;
 
     return {

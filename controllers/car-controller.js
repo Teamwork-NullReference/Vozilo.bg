@@ -35,8 +35,9 @@ module.exports = function (data) {
         craeteCar(req, res) {
             let user = req.user;
             let carInfo = req.body;
-            return data.addCar(user, carInfo)
+            data.addCar(user, carInfo)
                 .then(car => {
+                    console.log('car controller');
                     return data.addCarToUser(user, car);
                 })
                 .then(() => {

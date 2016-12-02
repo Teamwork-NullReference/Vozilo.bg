@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 
-module.exports = function (config) {
+module.exports = function({ config, validator }) {
     mongoose.Promise = global.Promise;
 
     mongoose.connect(config.MONGOLAB_URI);
@@ -29,8 +29,8 @@ module.exports = function (config) {
         .filter(x => x.includes('-data'))
         .forEach(file => {
             let dataModule =
-                require(path.join(__dirname, file))(models);
-            console.log(dataModule);
+                require(path.join(__dirname, file))({ models, validator });
+
             Object.keys(dataModule)
                 .forEach(key => {
                     data[key] = dataModule[key];
