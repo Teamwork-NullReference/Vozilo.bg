@@ -44,8 +44,13 @@ module.exports = function (data) {
                         .redirect('/');
                 })
                 .catch(err => {
+                    console.log('controller catch');
                     return res.status(400)
-                        .send(err);
+                        .render('status-codes/bad-request-400', {
+                            result: {
+                                err
+                            }
+                        });
                 });
         },
         loadCarDetails(req, res) {

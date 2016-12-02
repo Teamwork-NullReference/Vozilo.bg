@@ -1,6 +1,9 @@
 /* globals module */
 'use strict';
 
+let dataUtils = require('./utils/data-utils');
+let validator = require('./utils/car-validator');
+
 function getDatesFromRange(startDate, endDate) {
     let result = [];
     for (let d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
@@ -93,8 +96,8 @@ module.exports = function (models) {
         getDatesFromCalendar(id) {
             let promise = new Promise((resolve, reject) => {
                 Car.find({
-                    _id: id
-                })
+                        _id: id
+                    })
                     .select('availability')
                     .exec((err, dates) => {
                         if (err) {
@@ -108,58 +111,63 @@ module.exports = function (models) {
             return promise;
         },
         addCar(user, carInfo) {
-            let brand = carInfo.brand,
-                model = carInfo.model,
-                year = parseInt(carInfo.year, 10),
-                registrationNumber = carInfo.registrationNumber,
-                hp = parseInt(carInfo.hp, 10) || 0,
-                fuelType = carInfo.fuelType,
-                picture = carInfo.picture,
-                fuelConsumption = carInfo.fuelConsumption,
-                seats = carInfo.seats,
-                distancePassed = parseInt(carInfo.distancePassed, 10) || 0,
-                shortInfo = carInfo.shortInfo,
-                price = {
-                    perDay: parseInt(carInfo.perDay, 10),
-                    perWeek: parseInt(carInfo.perWeek, 10) || 0
-                },
-                usageRequirements = {
-                    leastAge: parseInt(carInfo.leastAge, 10) || 18,
-                    drivingExpirience: parseInt(carInfo.drivingExperience, 10) || 0,
-                    smokingAllowed: carInfo.smokingAllowed || false,
-                    animalsAllowed: carInfo.animalsAllowed || false,
-                    minimumRentalPeriod: parseInt(carInfo.miniumRentalPeriod, 10) || 1
-                },
-                equipment = {
-                    aircondition: carInfo.airCondition || false,
-                    GPS: carInfo.GPS || false,
-                    winterTiers: carInfo.winterTiers || false,
-                    mp3Player: carInfo.mp3Player || false,
-                    electricWindows: carInfo.electricWindows || false
+            let promise = new Promise((resolve, reject) => {
+                let validationResult = validator.validate(carInfo);
+                if (validationResult !== true) {
+                    reject(validationResult);
+                }
+
+                let brand = carInfo.brand,
+                    model = carInfo.model,
+                    year = parseInt(carInfo.year, 10),
+                    registrationNumber = carInfo.registrationNumber,
+                    hp = parseInt(carInfo.hp, 10) || 0,
+                    fuelType = carInfo.fuelType,
+                    picture = carInfo.picture,
+                    fuelConsumption = carInfo.fuelConsumption,
+                    seats = carInfo.seats,
+                    distancePassed = parseInt(carInfo.distancePassed, 10) || 0,
+                    shortInfo = carInfo.shortInfo,
+                    price = {
+                        perDay: parseInt(carInfo.perDay, 10),
+                        perWeek: parseInt(carInfo.perWeek, 10) || 0
+                    },
+                    usageRequirements = {
+                        leastAge: parseInt(carInfo.leastAge, 10) || 18,
+                        drivingExpirience: parseInt(carInfo.drivingExperience, 10) || 0,
+                        smokingAllowed: carInfo.smokingAllowed || false,
+                        animalsAllowed: carInfo.animalsAllowed || false,
+                        minimumRentalPeriod: parseInt(carInfo.minimumRentalPeriod, 10) || 1
+                    },
+                    equipment = {
+                        aircondition: carInfo.airCondition || false,
+                        GPS: carInfo.GPS || false,
+                        winterTiers: carInfo.winterTiers || false,
+                        mp3Player: carInfo.mp3Player || false,
+                        electricWindows: carInfo.electricWindows || false
+                    };
+
+                let startDate = new Date(carInfo.startDate),
+                    endDate = new Date(carInfo.endDate),
+                    availability = [];
+
+                for (let d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
+                    availability.push({
+                        date: new Date(d),
+                        isAvailable: true
+                    });
+                }
+
+                let owner = {
+                    username: user.username,
+                    imageUrl: user.picture,
+                    userId: user._id,
+                    city: user.address.city,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    userRating: user.userRating
                 };
 
-            let startDate = new Date(carInfo.startDate),
-                endDate = new Date(carInfo.endDate),
-                availability = [];
-
-            for (let d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
-                availability.push({
-                    date: new Date(d),
-                    isAvailable: true
-                });
-            }
-
-            let owner = {
-                username: user.username,
-                imageUrl: user.picture,
-                userId: user._id,
-                city: user.address.city,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                userRating: user.userRating
-            };
-
-            let promise = new Promise((resolve, reject) => {
                 let newCar = new Car({
                     brand,
                     model,
