@@ -2,7 +2,7 @@
 'use strict';
 let dataUtils = require('./utils/data-utils');
 
-module.exports = function(models) {
+module.exports = function({ models, validator }) {
     let {
         User
     } = models;
@@ -82,6 +82,17 @@ module.exports = function(models) {
                     }
 
                     return resolve(newUser);
+                });
+            });
+        },
+        updateUser(user) {
+            return new Promise((resolve, reject) => {
+                user.save(err => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    return resolve(user);
                 });
             });
         },

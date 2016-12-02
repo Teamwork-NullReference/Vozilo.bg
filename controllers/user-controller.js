@@ -18,7 +18,7 @@ module.exports = function(data) {
 
                     let extraInfoAllowed = false;
 
-                    if (req.user && ((req.user.roles && req.user.roles.indexOf('admin') >= 0) ||
+                    if (req.user && ((req.user.role && req.user.role.indexOf('admin') >= 0) ||
                             username === req.user.username)) {
                         extraInfoAllowed = true;
                     }
@@ -56,7 +56,7 @@ module.exports = function(data) {
 
                     let updateAllowed = false;
 
-                    if (req.user && ((req.user.roles && req.user.roles.indexOf('admin') >= 0) ||
+                    if (req.user && ((req.user.role && req.user.role.indexOf('admin') >= 0) ||
                             username === req.user.username)) {
                         updateAllowed = true;
                     }
@@ -64,7 +64,8 @@ module.exports = function(data) {
                     if (updateAllowed) {
                         res.status(200).render('profile/user-update', {
                             result: {
-                                user: req.user
+                                user: req.user,
+                                userForUpdate: user
                             }
                         });
                     } else {
@@ -81,6 +82,28 @@ module.exports = function(data) {
                             user: req.user
                         }
                     });
+                });
+        },
+        updateUserInfo(req, res) {
+            let username = req.params.username;
+            data.getUserByUsername(username)
+                .then(user => {
+                    let propoerties = ['firstName', 'lastName', 'email', 'picture', 'phoneNumber', 'drivingExpInYears', 'city', 'street'];
+                    propoerties.forEach(property => {
+                        if (property === 'city' || property === 'street') {
+                            user.address[property] = req.body[property] || user.address[property];
+                        } else {
+                            user[property] = req.body[property] || user[property];
+                        }
+                    });
+
+                    return data.updateUser(user);
+                })
+                .then(user => {
+                    res.redirect('/user/' + user.username);
+                })
+                .catch(err => {
+                    console.log(err);
                 });
         }
     };

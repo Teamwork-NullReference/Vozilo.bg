@@ -37,8 +37,9 @@ module.exports = function (data) {
         craeteCar(req, res) {
             let user = req.user;
             let carInfo = req.body;
-            return data.addCar(user, carInfo)
+            data.addCar(user, carInfo)
                 .then(car => {
+                    console.log('car controller');
                     return data.addCarToUser(user, car);
                 })
                 .then(() => {
@@ -46,8 +47,13 @@ module.exports = function (data) {
                         .redirect('/');
                 })
                 .catch(err => {
+                    console.log('controller catch');
                     return res.status(400)
-                        .send(err);
+                        .render('status-codes/bad-request-400', {
+                            result: {
+                                err
+                            }
+                        });
                 });
         },
         loadCarDetails(req, res) {
