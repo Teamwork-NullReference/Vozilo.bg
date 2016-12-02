@@ -3,6 +3,7 @@ include ../_mixins/_users-list
 
 block custom-styles
     link(rel='stylesheet', href="/static/styles/admin.css")
+    link(rel='stylesheet', href="/static/bower_components/font-awesome/css/font-awesome.min.css")
 
 block body-content
     div.container
@@ -15,20 +16,27 @@ block body-content
                         span.input-group-btn
                             button.btn.btn-info.btn-lg(type="button")
                                 i.glyphicon.glyphicon-search
-    div(id="users")
-        +users-list-form(models, currentPage, pages)
-    if model.length == 0
-        div.no-cars
-            strong Няма потребители
-    else
-        nav(aria-label="Page navigation")
-            ul.pagination
-                li.page-item
-                    a.page-link(href="#" aria-label="Previous")
-                        span(aria-hidden="true") &laquo;
-                        span.sr-only Previous
-                    
-
-    div(id="map")
-
-               
+        div.row(id="users")
+            div.col-md-12.col-sm-8.col-xs-8
+                +users-list-form(models, currentPage, pages)
+                if model.length == 0
+                    div.no-cars
+                        strong Не бяха намерени резултати
+                div(id="page-selection")
+                    nav
+                        ul.pagination
+                            li.page-item
+                                a.page-link(aria-label="Предишна" href=`/admin?page=${params.page - 1}`)
+                                    span(aria-hidden="true") &laquo;
+                                    span.sr-only Предишна
+                            //- - for(let i = result.startPage; i < result.endPage; i += 1 )
+                            //-     if result.currentPage == i
+                            //-         li.page-item.active
+                            //-             a.page-link(href=`/admin?page=/${i}`)= i
+                            //-     else
+                            //-         li.page-item
+                            //-             a.page-link(href=`/admin?page=/${i}`)= i
+                            li.page-item
+                                a.page-link(aria-label="Следваща" href=`/admin?page=${params.page + 1}`)
+                                    span(aria-hidden="true") &raquo;
+                                    span.sr-only Следваща

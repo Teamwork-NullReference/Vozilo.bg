@@ -10,12 +10,14 @@ const mockedUser = require('./mockedUser');
 
 let sandbox;
 let data = {
-
+    getAllBrands: null
 };
 
 beforeEach(() => {
     sandbox = sinon.sandbox.create();
-
+    sandbox.stub(data, 'getAllBrands', () => {
+        return Promise.resolve({});
+    });
 });
 afterEach(() => {
     sandbox.restore();
@@ -28,14 +30,21 @@ describe('car-controller tests:', () => {
         };
 
         let res = {
-            status: null
+            status: {},
+            render: null
         };
-        sandbox.stub(res, 'status', (statuscode) => {
-            expect(statuscode).to.eqls(200);
-            done();
+
+        sandbox.stub(res, 'render', () => {
+            // do nothing
         });
 
-        let controller = require('./../../controllers/car-controller')({});
+        sandbox.stub(res, 'status', (statuscode) => {
+            expect(statuscode).to.equals(200);
+            done();
+            return res;
+        });
+
+        let controller = require('./../../controllers/car-controller')(data);
         controller.loadCreateCarForm(req, res);
     });
 
@@ -58,7 +67,7 @@ describe('car-controller tests:', () => {
             done();
         });
 
-        let controller = require('./../../controllers/car-controller')({});
+        let controller = require('./../../controllers/car-controller')(data);
         controller.loadCreateCarForm(req, res);
     });
 
@@ -81,7 +90,7 @@ describe('car-controller tests:', () => {
             done();
         });
 
-        let controller = require('./../../controllers/car-controller')({});
+        let controller = require('./../../controllers/car-controller')(data);
         controller.loadCreateCarForm(req, res);
     });
 
@@ -104,7 +113,7 @@ describe('car-controller tests:', () => {
             done();
         });
 
-        let controller = require('./../../controllers/car-controller')({});
+        let controller = require('./../../controllers/car-controller')(data);
         controller.loadCreateCarForm(req, res);
     });
 
@@ -127,7 +136,7 @@ describe('car-controller tests:', () => {
             done();
         });
 
-        let controller = require('./../../controllers/car-controller')({});
+        let controller = require('./../../controllers/car-controller')(data);
         controller.loadCreateCarForm(req, res);
     });
 });

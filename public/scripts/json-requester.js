@@ -5,7 +5,6 @@ var jsonRequester = (function () {
 
         let headers = options.headers || {},
             data = options.data || undefined;
-            console.log('ajax');
         let promise = new Promise(function (resolve, reject) {
             $.ajax({
                 url: url,
@@ -20,6 +19,7 @@ var jsonRequester = (function () {
                     reject(err);
                 }
             });
+            console.log('1');
         });
         return promise;
     }

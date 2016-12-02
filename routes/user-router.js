@@ -16,9 +16,7 @@ module.exports = function({ app, data }) {
         })
         .get('/:username', controller.getDetailedUser)
         .get('/:username/update', controller.getUpdateUserForm)
-        .post('/:username/update', (req, res) => {
-            res.send('It works!');
-        })
+        .post('/:username/update', controller.updateUserInfo)
         .get('/:id/received', (req, res) => { // show all messages
             res.send('It works!');
         });

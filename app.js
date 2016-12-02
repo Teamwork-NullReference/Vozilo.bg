@@ -11,7 +11,9 @@ if (process.env.ENV_MODE === 'PRODUCTION') {
     config.PORT = connectionStrings.port;
 }
 
-let data = require('./data')(config);
+let validator = require('./utils/validator');
+
+let data = require('./data')({ config, validator });
 
 const app = require('./config/application')(data);
 

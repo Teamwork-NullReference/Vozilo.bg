@@ -48,7 +48,7 @@ module.exports = function (data, createHash, validator) {
         },
         signOut(req, res) {
             req.logout();
-            return res.redirect('/home');
+            return res.redirect('/');
         },
         getSignUpForm(req, res) {
             return res.status(200).render('authentication/sign-up', {

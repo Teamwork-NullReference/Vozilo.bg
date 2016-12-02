@@ -1,8 +1,13 @@
 extends ../_layout
 
+block custom-styles
+        link(rel="stylesheet", href="/static/styles/sign-up.css")
+block custom-scripts
+        script(src="/static/bower_components/jquery-validation/dist/jquery.validate.min.js")
+            //- script(src='/static/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')
+        script(src="/static/scripts/sign-up.js")
 
 block body-content
-
         div(id="profile-wrapper" class="container text-center")
             h2 Промени профил информацията
             form.form-horizontal(action="/user/" + result.user.username + "/update" id="signupForm" method="post")
