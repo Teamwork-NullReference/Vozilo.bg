@@ -11,7 +11,7 @@ block custom-scripts
 block body-content
     div(id="car-search")
         div.seach-form
-            +car-search-form
+            +car-search-form(result.city, result.startDate, result.endDate)
 
         each car in result.cars
             div.car

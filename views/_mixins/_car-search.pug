@@ -1,9 +1,9 @@
-mixin car-search-form
+mixin car-search-form(city, startDate, endDate)
     form.search-form.centered.form(method="GET", action="/search/car")
-            input.form-control(type="text" name="city")
+            input.form-control(type="text" name="city" value=`${city || ''}`)
             .form-group
                 .input-group.input-daterange(data-provide='datepicker' data-date-format='yyyy-mm-dd')
-                    input.form-control(type='text' name='startDate')
+                    input.form-control(type='text' name='startDate' value=`${startDate || ''}`)
                     span.input-group-addon до
-                    input.form-control(type='text' name='endDate')
+                    input.form-control(type='text' name='endDate' value=`${endDate || ''}`)
             button.btn.btn-primary(type="submit") Намери кола

@@ -1,13 +1,15 @@
 extends ../_layout
 
+block custom-styles
+    link(rel="stylesheet", href="/static/styles/sign-up.css")
+
+block custom-scripts
+        script(src="/static/bower_components/jquery-validation/dist/jquery.validate.min.js")
+        script(src="/static/scripts/validators/sign-up.js")
 
 block body-content
-
         div.container
-            link(rel="stylesheet", href="/static/styles/sign-up.css")
-            script(src="/static/bower_components/jquery-validation/dist/jquery.validate.min.js")
             //- script(src='/static/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')
-            script(src="/static/scripts/sign-up.js")
             h2 Регистрация
             form.form-horizontal(action="/auth/sign-up" id="signupForm" method="post")
                 div.form-group
@@ -32,7 +34,7 @@ block body-content
                 div.form-group
                     label(for="confirm_passowrd" class="col-sm-3 control-label") Въведете повторно парола
                     div.col-sm-9
-                        input(type="password" name="confirm_passowrd" id="confirm_passowrd" placeholder="Password" class="form-control")
+                        input(type="password" name="confirm_passowrd" id="confirmPassword" placeholder="Password" class="form-control")
                 div.form-group
                     label(for="picture" class="col-sm-3 control-label") Профилна Снимка
                     div.col-sm-9
