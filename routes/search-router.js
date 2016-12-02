@@ -7,12 +7,12 @@ const express = require('express');
 module.exports = function ({ app, data }) {
     let searchController = require('../controllers/search-controller')(data);
 
-    let router = new express.Router();
+    let searchRouter = new express.Router();
+    searchRouter
+        .get('/car', searchController.getCarSearch)
+        .get('/car/:page', searchController.getCarSearch);
 
-    router
-        .get('/car', searchController.getCarSearch);
+    app.use('/search', searchRouter);
 
-    app.use('/search', router);
-
-    return router;
+    return searchRouter;
 };

@@ -32,6 +32,9 @@ body
                             a(href=`/user/${result.user.username}`) Моят профил
                         li
                             a(href='/car/create') Добави кола
+                        if result.user.role
+                            li
+                                a(href='/admin') Администратор
                     else
                         li
                             a(href='/car/create') Добави кола

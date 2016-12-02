@@ -1,0 +1,34 @@
+extends ../_layout
+include ../_mixins/_users-list
+
+block custom-styles
+    link(rel='stylesheet', href="/static/styles/admin.css")
+
+block body-content
+    div.container
+        div.row
+            div.col-md-6
+                h2 Намери потребител
+                div( id="search-input")
+                    div.input-group.col-md-12
+                        input.form-control.input-lg(type="text" placeholder="Търси") 
+                        span.input-group-btn
+                            button.btn.btn-info.btn-lg(type="button")
+                                i.glyphicon.glyphicon-search
+    div(id="users")
+        +users-list-form(models, currentPage, pages)
+    if model.length == 0
+        div.no-cars
+            strong Няма потребители
+    else
+        nav(aria-label="Page navigation")
+            ul.pagination
+                li.page-item
+                    a.page-link(href="#" aria-label="Previous")
+                        span(aria-hidden="true") &laquo;
+                        span.sr-only Previous
+                    
+
+    div(id="map")
+
+               

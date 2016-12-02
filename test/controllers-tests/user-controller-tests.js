@@ -12,11 +12,11 @@ const userWithUserNameOnly = {
 };
 const adminUser = {
     username: 'totally random',
-    roles: ['admin']
+    role: ['admin']
 };
 const userWithOtherRoleButNotAdmin = {
     username: 'totally random',
-    roles: ['manager']
+    role: ['manager']
 };
 
 let data = {
