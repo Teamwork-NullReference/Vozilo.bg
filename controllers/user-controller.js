@@ -18,7 +18,7 @@ module.exports = function(data) {
 
                     let extraInfoAllowed = false;
 
-                    if (req.user && ((req.user.roles && req.user.roles.indexOf('admin') >= 0) ||
+                    if (req.user && ((req.user.role && req.user.role.indexOf('admin') >= 0) ||
                             username === req.user.username)) {
                         extraInfoAllowed = true;
                     }
@@ -56,7 +56,7 @@ module.exports = function(data) {
 
                     let updateAllowed = false;
 
-                    if (req.user && ((req.user.roles && req.user.roles.indexOf('admin') >= 0) ||
+                    if (req.user && ((req.user.role && req.user.role.indexOf('admin') >= 0) ||
                             username === req.user.username)) {
                         updateAllowed = true;
                     }
