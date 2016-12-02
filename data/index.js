@@ -15,11 +15,13 @@ module.exports = function (config) {
     let Car = require('../models/car-model');
     let Review = require('../models/review-model');
     let CarBrandDetail = require('../models/car-brand-model');
+    let Correspondention = require('../models/correspondention-model');
     let models = {
         User,
         Car,
         Review,
-        CarBrandDetail
+        CarBrandDetail,
+        Correspondention
     };
 
     let data = {};
@@ -28,6 +30,7 @@ module.exports = function (config) {
         .forEach(file => {
             let dataModule =
                 require(path.join(__dirname, file))(models);
+            console.log(dataModule);
             Object.keys(dataModule)
                 .forEach(key => {
                     data[key] = dataModule[key];
