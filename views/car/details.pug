@@ -223,8 +223,11 @@ block body-content
                                 .col-md-4.col-xs-4
                                     h3.color-primary
                                         strong#total-sum 
-
-                        button.btn.btn-success Попълни форма
+                                        
+                        if  result.user.username === result.carDetails.owner.username
+                            button.btn.btn-success(disabled) Попълни форма
+                        else
+                            button.btn.btn-success Попълни форма
                 
                 .owner-details
                     h3.color-success Данни за собственика
@@ -252,4 +255,7 @@ block body-content
                                     i.fa.fa-star-half-o(aria-hidden='true')
                             br
                             div
-                                button.btn.btn-success#send-message Изпрати съобщение
+                                if  result.user.username === result.carDetails.owner.username
+                                    button.btn.btn-success#send-message(disabled) Изпрати съобщение
+                                else 
+                                    button.btn.btn-success#send-message Изпрати съобщение

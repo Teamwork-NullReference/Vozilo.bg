@@ -63,9 +63,10 @@ module.exports = function (data) {
                     if (!carDetails) {
                         return res.status(404).send('There is not such car');
                     }
+
                     return res.status(200).render('car/details', {
                         result: {
-                            user: req.user,
+                            user: req.user || { username: 'undefined' },
                             carDetails
                         }
                     });

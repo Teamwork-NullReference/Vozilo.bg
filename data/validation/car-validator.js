@@ -26,7 +26,7 @@ function validate({
                 carInfo[prop] = validator.escapeProhibitedChars(value);
             }
         }
-     
+
         if (!validator.validateNumberType(carInfo.perDay)) {
             reject(PRICE_PER_DAY_MUST_BE_A_NUMBER);
         } else if (!validator.validateNumberType(carInfo.perWeek || 1)) {
