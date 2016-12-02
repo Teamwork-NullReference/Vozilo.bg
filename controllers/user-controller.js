@@ -64,7 +64,8 @@ module.exports = function(data) {
                     if (updateAllowed) {
                         res.status(200).render('profile/user-update', {
                             result: {
-                                user: req.user
+                                user: req.user,
+                                userForUpdate: user
                             }
                         });
                     } else {
@@ -87,9 +88,13 @@ module.exports = function(data) {
             let username = req.params.username;
             data.getUserByUsername(username)
                 .then(user => {
-                    let propoerties = ['firstName', 'lastName', 'email', 'picture', 'phoneNumber', 'experience', 'city', 'street'];
+                    let propoerties = ['firstName', 'lastName', 'email', 'picture', 'phoneNumber', 'drivingExpInYears', 'city', 'street'];
                     propoerties.forEach(property => {
-                        user[property] = req.body[property] || user[property];
+                        if (property === 'city' || property === 'street') {
+                            user.address[property] = req.body[property] || user.address[property];
+                        } else {
+                            user[property] = req.body[property] || user[property];
+                        }
                     });
 
                     return data.updateUser(user);
