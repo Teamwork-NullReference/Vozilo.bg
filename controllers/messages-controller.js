@@ -30,6 +30,7 @@ module.exports = function (data) {
                             result: {
                                 user: req.user,
                                 correspondences: [{
+                                    id: '987695786562394763292386',
                                     sender: {
                                         firstName: 'Dwayne',
                                         lastName: 'Johnson',
@@ -45,6 +46,7 @@ module.exports = function (data) {
                                     }
                                 },
                                 {
+                                    id: '7686399347679246789345',
                                     sender: {
                                         firstName: 'Mad',
                                         lastName: 'Marks',
