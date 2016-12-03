@@ -8,7 +8,7 @@ module.exports = function(data) {
             data.getUserByUsername(username)
                 .then(user => {
 
-                    if (user === null || typeof user === 'undefined') {
+                    if (user === null || typeof user === 'undefined' || user.isDeleted) {
                         return res.render('profile/user-not-found', {
                             result: {
                                 user: req.user

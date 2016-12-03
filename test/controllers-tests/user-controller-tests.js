@@ -19,6 +19,11 @@ const userWithOtherRoleButNotAdmin = {
     role: ['manager']
 };
 
+const deletedUser = {
+    username: 'deleted user',
+    isDeleted: true
+};
+
 let data = {
     getUserByUsername: null
 };
@@ -104,7 +109,27 @@ describe('user-controller-tests:', () => {
         controller.getDetailedUser(req, res);
     });
 
-    it('getDetailedUser should pass logged user too res', done => {
+    it('getDetailedUser should pass right view when user is deleted', done => {
+        let req = {
+            params: {
+                username: deletedUser.username
+            },
+            user: mockedUser
+        };
+
+        let res = {
+            render: (view) => {
+
+                expect(view).to.equals('profile/user-not-found');
+                done();
+            }
+        };
+
+        let controller = require('./../../controllers/user-controller')(data);
+        controller.getDetailedUser(req, res);
+    });
+
+    it('getDetailedUser should pass logged user too response (res)', done => {
         let req = {
             params: {
                 username: mockedUser.username
@@ -210,6 +235,82 @@ describe('user-controller-tests:', () => {
         let res = {
             render: (view, obj) => {
                 expect(obj.result.extraInfoAllowed).to.eqls(false);
+                done();
+            }
+        };
+
+        let controller = require('./../../controllers/user-controller')(data);
+        controller.getDetailedUser(req, res);
+    });
+
+    it('getDetailedUser should set allowMessagesAndComment to false if searched user is same as logged', done => {
+        let req = {
+            params: {
+                username: mockedUser.username
+            },
+            user: mockedUser
+        };
+
+        let res = {
+            render: (view, obj) => {
+                expect(obj.result.allowMessagesAndComment).to.eqls(false);
+                done();
+            }
+        };
+
+        let controller = require('./../../controllers/user-controller')(data);
+        controller.getDetailedUser(req, res);
+    });
+
+    it('getDetailedUser should set allowMessagesAndComment to false for not logged users', done => {
+        let req = {
+            params: {
+                username: mockedUser.username
+            },
+            user: null
+        };
+
+        let res = {
+            render: (view, obj) => {
+                expect(obj.result.allowMessagesAndComment).to.eqls(false);
+                done();
+            }
+        };
+
+        let controller = require('./../../controllers/user-controller')(data);
+        controller.getDetailedUser(req, res);
+    });
+
+    it('getDetailedUser should set allowMessagesAndComment to true if user is logged but not same and not admin', done => {
+        let req = {
+            params: {
+                username: mockedUser.username
+            },
+            user: userWithOtherRoleButNotAdmin
+        };
+
+        let res = {
+            render: (view, obj) => {
+                expect(obj.result.allowMessagesAndComment).to.eqls(true);
+                done();
+            }
+        };
+
+        let controller = require('./../../controllers/user-controller')(data);
+        controller.getDetailedUser(req, res);
+    });
+
+    it('getDetailedUser should set allowMessagesAndComment to true if user is logged but not same and admin', done => {
+        let req = {
+            params: {
+                username: mockedUser.username
+            },
+            user: adminUser
+        };
+
+        let res = {
+            render: (view, obj) => {
+                expect(obj.result.allowMessagesAndComment).to.eqls(true);
                 done();
             }
         };
