@@ -9,29 +9,34 @@ block custom-scripts
     script(src='/static/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')
 
 block body-content
-
-    div.img-after-menu
-        +car-search-form
-
-    div.info.centered
-        strong Хората с Vozilo имат добри преживявания
-
-    div.container.centered
+    div.container.background
         div.row
-            each user in result.topRatedUsers
-                div.col-lg4.col-md-4.col-sm-12
-                    a(href=`/user/${user.username}`)
-                        div.card.hovercard
-                            div.card-background
-                                img.card-bkimg(alt="" src=`${user.picture}`)
-                            div.useravatar
-                                img(alt="" src=`${user.picture}`)
-                            div.card-info
-                                span.card-title= user.firstName + " " + user.lastName
-                    div.rating
-                        - for(let i=0; i < user.userRating; i += 1) {
-                            if ((user.userRating - i) < 1)
-                                span.glyphicon.glyphicon-star.half
-                            else
-                                span.glyphicon.glyphicon-star
-                        - }
+            div.col-md-12.col-sm-12.col-xs-12.img-after-menu
+                .row
+                    .col-md-6.col-md-offset-3.col-sm-4.col-sm-offset-1
+                        +car-search-form
+        div.row
+            div.col-md-12
+                div.text-center
+                    strong Хората с Vozilo имат добри преживявания
+
+        div.row
+            div.col-lg-12.col-md-12.col-sm-12.col-xs-12
+                div.row
+                    each user in result.topRatedUsers
+                        div.col-lg-4.col-md-5.col-sm-8.col-xs-12
+                            a(href=`/user/${user.username}`)
+                                div.card.hovercard
+                                    div.card-background
+                                        img.card-bkimg(alt="" src=`${user.picture}`)
+                                    div.useravatar
+                                        img(alt="" src=`${user.picture}`)
+                                    div.card-info
+                                        span.card-title= user.firstName + " " + user.lastName
+                            div.rating
+                                - for(let i=0; i < user.userRating; i += 1) {
+                                    if ((user.userRating - i) < 1)
+                                        span.glyphicon.glyphicon-star.half
+                                    else
+                                        span.glyphicon.glyphicon-star
+                                - }

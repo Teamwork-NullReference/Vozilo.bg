@@ -2,13 +2,13 @@ body {
     background-color: #eee;
 }
 
+.background {
+    background-color: white
+}
+
 form {
     width: 40em;
     padding-top: 1em;
-}
-
-.search-form {
-    width: 36.5em;
 }
 
 .form-control {
@@ -69,6 +69,18 @@ form {
     -webkit-border-radius: 0 !important;
 }
 
+/* Footer */
+footer {
+     background: #575b5b;
+}
+
+footer h5 {
+    color: skyblue
+}
+
+footer li a {
+    color: white
+}
 
 /* Create car form */
 

@@ -1,60 +1,52 @@
-body {
-    background-color: #eeeeee;
+.background {
+    background-color: white
 }
-#car-search {
-    float: left;
+
+.car-container{
+    padding-left: 0px;
+    padding-right: 0px;
+    height: 180px;
+    
 }
-#map {
-    float: right;
-}
+
 .car {
-    background-color: white;
-    width: 50em;
-    height: 15em;
-    border-radius: 0.5em;
     margin: 3em;
+    border-radius: 0.5em;
 }
+
 .car-img {
-    float: left;
+    width: 100%;
     height: 100%;
-    width: 45%;
     border-bottom-left-radius: 0.5em;
     border-top-left-radius: 0.5em;
 }
 .car div.brand {
-    height: 11%;
-    width: 40%;
-    margin-left: 47%;
+    margin-top: 1.2em;
+    margin-bottom: 1.1em;
     font-size: 1.3em;
 }
 .car div.description {
-    height: 40%;    
-    width: 40%;
-    margin-top: 4%; 
-    margin-left: 47%;
+    margin-bottom: 1.1em;
     color: grey;    
 }
-td a {
-    text-decoration: none;
-    color: black;
-}
+
 .ellipsis-text {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; 
 }
+
 .img-circle {
     width: 3em;
     height: 3em;
     margin: 1em;
 }
-.car table {
-    width: 55%;
-}
-.car table td {
+
+.car-details{
     border-top: 0.5px solid #eeeeee;
-    border-right: 0.5px solid #eeeeee;
+    border-left: 0.5px solid #eeeeee; 
 }
+
 .price {
     padding: 1em;
 }
@@ -62,31 +54,34 @@ td a {
     font-size: 1.5em;
     display: block;
 }
+
 .unit {
     font-size: 1em;
     color: grey;
 }
+
 .no-cars {
     width: 30em;
     font-size: 1.5em;
     margin: 5em;
 }
-.seach-form {
-    width: 40em;
-    height: 11em;
-    background-color: white;
+
+.search-form {
     border-radius: 0.5em;
-    margin: 3em;    
+    margin: 3em;  
+    padding: 1em;  
 }
+
 .username {
     display: inline-block;
     width: 10em;
 }
+
 .amount {
-    
     display: inline-block;
     width: 2.5em;
 }
+
 #page-selection {
     margin-left: 3.3em;        
 }

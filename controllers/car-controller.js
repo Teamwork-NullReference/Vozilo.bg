@@ -58,15 +58,23 @@ module.exports = function(data) {
                 });
         },
         loadCarDetails(req, res) {
+            let carDetails = {};
             data.getCarById(req.params.id)
-                .then(carDetails => {
-                    if (!carDetails) {
-                        return res.status(404).send('There is not such car');
+                .then(car => {
+                    if (car) {
+                        carDetails = car;
+
+                        return data.getUserByUsername(car.owner.username);
                     }
+
+                    return res.status(404).send('There is not such car');
+                })
+                .then(user => {
+                    carDetails.owner.receivedReviews = user.receivedReviews;
 
                     return res.status(200).render('car/details', {
                         result: {
-                            user: req.user || { username: 'undefined' },
+                            user: req.user,
                             carDetails
                         }
                     });
