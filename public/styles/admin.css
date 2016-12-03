@@ -7,7 +7,12 @@
 .autocomplete-group { padding: 2px 5px; }
 .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }*/
 
-.ui-id-1{ background: white}
+.ui-autocomplete {
+    background: #EEEEEE;
+    border-radius: 20px;
+    font-size: 14;
+    list-style-type: none;
+}
 
 #users{
     margin-top: 30px;

@@ -5,7 +5,7 @@ block custom-styles
     link(rel='stylesheet', href="/static/styles/admin.css")
     link(rel='stylesheet', href="/static/bower_components/font-awesome/css/font-awesome.min.css")
     link(rel='stylesheet', href="/static/bower_components/jquery-ui/themes/base/autocomplete.css")
-    link(rel='stylesheet', href="/static/bower_components/jquery-ui/themes/base/autocomplete.css")
+    link(rel='stylesheet', href="/public/bower_components/jquery-ui/themes/base/jquery-ui.css")
     
 
 block custom-scripts
@@ -18,13 +18,13 @@ block body-content
         div.row
             div.col-md-6
                 h2 Намери потребител
-                div.ui-widget( id="search-input")
+                div.ui-widget.ui-autocomplete-input( id="search-input")
                         form.input-group.col-md-12(action="/admin/search" method="post")
                             input.form-control.input-lg(type="text" name="adminSearch" placeholder="Търси" id='autocomplete' autocomplete="off")
                             span.input-group-btn
                                 button.btn.btn-info.btn-lg(type="submit")
                                     i.glyphicon.glyphicon-search
-                ul(id="ui-id-1" tabindex="0" class="ui-autocomplete" )
+                ul.ui-autocomplete(id="ui-id-1" tabindex="0" )
                 div(role="status" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible")
                
         div.row(id="users")
@@ -33,22 +33,14 @@ block body-content
                 if model.length == 0
                     div.no-cars
                         strong Не бяха намерени резултати
-                if result.startPage
-                    div(id="page-selection")
-                        nav
-                            ul.pagination
-                                li.page-item
-                                    a.page-link(aria-label="Предишна" href=`/admin?page=${params.page - 1}`)
-                                        span(aria-hidden="true") &laquo;
-                                        span.sr-only Предишна
-                                        - for(let i = result.startPage; i < result.endPage; i += 1 )
-                                            if result.currentPage == i
-                                                li.page-item.active
-                                                    a.page-link(href=`/admin?page=/${i}`)= i
-                                            else
-                                                li.page-item
-                                                    a.page-link(href=`/admin?page=/${i}`)= i
-                                li.page-item
-                                    a.page-link(aria-label="Следваща" href=`/admin?page=${params.page + 1}`)
-                                        span(aria-hidden="true") &raquo;
-                                        span.sr-only Следваща
+                div(id="page-selection")
+                    nav
+                        ul.pagination
+                            li.page-item
+                                a.page-link(aria-label="Предишна" href=`/admin?page=${params.page - 1}`)
+                                    span(aria-hidden="true") &laquo;
+                                    span.sr-only Предишна
+                            li.page-item
+                                a.page-link(aria-label="Следваща" href=`/admin?page=${params.page + 1}`)
+                                    span(aria-hidden="true") &raquo;
+                                    span.sr-only Следваща
