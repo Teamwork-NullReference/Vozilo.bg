@@ -90,13 +90,15 @@ module.exports = function (data) {
                 });
         },
         loadRentCarForm(req, res) {
-            let user = req.user;
+            let user = req.user,
+                carId = req.params.id;
             if (user) {
                 return res
                     .status(200)
                     .render('car/rent-form', {
                         result: {
-                            user: mapper.map(req.user, 'username', 'role', 'email', 'firstName', 'lastName')
+                            user: mapper.map(req.user, 'username', 'role', 'email', 'firstName', 'lastName'),
+                            carId
                         }
                     });
             }
@@ -105,6 +107,9 @@ module.exports = function (data) {
             return res
                 .status(300)
                 .redirect('/sign-in');
+        },
+        rentCar(req, res) {
+
         }
     };
 };

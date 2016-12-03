@@ -1,0 +1,48 @@
+body {
+    background-color: #eeeeee;
+}
+.title {
+    margin: 5%;
+    font-size: 1.3em;    
+}
+.rent-form {
+    float: left;
+    width: 50em;
+    height: 35em;
+    background-color: white;
+    border-radius: 0.5em;
+    margin: 5%;
+}
+.label{
+    width: 40%;
+    float: left;
+    text-align: right;
+    color: black;
+    padding-right: 5%;
+    font-size: 1em;
+}
+.label.msg {
+    height: 5em;
+}
+.data {
+    width: 60%;
+    float: right;
+}
+.rent-form div div {
+    height: 20%;
+}
+.place-holder {
+    height: 1em;
+}
+.section {
+    padding-top: 3em;
+    margin: auto;
+    border-bottom: 0.5px solid #eeeeee;
+    width: 95%;
+    height: 40%;
+}
+.btn {
+    float: right;
+    margin-right: 6%;
+    margin-top: 1%;
+}

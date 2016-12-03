@@ -1,3 +1,28 @@
 extends ../_layout
 
+block custom-styles
+    link(rel='stylesheet', href='/static/styles/car-rent.css')
+
 block body-content
+    form.rent-form(action=`/car/${result.carId}/rent` method="POST")
+        span.title
+            strong Наеми кола
+        div.section
+            div.place-holder
+            div.label
+                strong Име и Фамилия
+            div.data= result.user.firstName + " " + result.user.lastName
+            div.label
+                    strong Имейл
+            div.data= result.user.email
+            div.label
+                    strong Телефон
+            div.data
+                input(type="text" name="phone")
+        div.section
+            div.label.msg
+                strong Изпрати съобщение на собственика
+            div.data
+                textarea(rows="4" cols="50" name="message")
+        button.btn.btn-success.btn-lg
+            | Наеми
