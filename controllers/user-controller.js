@@ -98,7 +98,11 @@ module.exports = function(data) {
                 .then(user => {
                     let propoerties = ['firstName', 'lastName', 'email', 'picture', 'phoneNumber', 'drivingExpInYears', 'city', 'street'];
                     propoerties.forEach(property => {
-                        user[property] = req.body[property] || user[property];
+                        if (property === 'city' || property === 'street') {
+                            user.address[property] = req.body[property] || user.address[property];
+                        } else {
+                            user[property] = req.body[property] || user[property];
+                        }
                     });
 
                     return data.updateUser(user);
@@ -108,6 +112,36 @@ module.exports = function(data) {
                 })
                 .catch(err => {
                     console.log(err);
+                });
+        },
+        addComment(req, res) {
+            let username = req.params.username;
+            let content = req.body.content;
+
+            if (!req.user) {
+                return res.status(401).render('unauthorized');
+            }
+
+            let comment = {
+                content,
+                senderUsername: req.user.username
+            };
+
+            data.getUserByUsername(username)
+                .then(user => {
+                    if (!user.receivedReviews) {
+                        user.receivedReviews = [];
+                    }
+
+                    user.receivedReviews.unshift(comment);
+                    return data.updateUser(user);
+                })
+                .then(() => {
+                    res.status(200).send(comment);
+                })
+                .catch(err => {
+                    console.log(err);
+                    res.status(400).send(err);
                 });
         }
     };

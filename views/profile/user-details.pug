@@ -1,5 +1,9 @@
 extends ../_layout
 
+block custom-scripts
+    script(src="/static/scripts/json-requester.js")
+    script(src="/static/scripts/profile.js")
+    script(src="/static/scripts/comments-modal.js")
 
 block body-content
     
@@ -61,8 +65,31 @@ block body-content
                 != result.userDetails.drivingExpInYears
             if result.allowMessagesAndComment
                 div(class="clear-both margin text-center" id="profile-btns")
-                    a(href="#" class="btn btn-success") Коментирай
-                    a(href="#" class="btn btn-success") Изпрати съобщение                 
+                    a(href="#" class="btn btn-success" id="add-comment") Коментирай
+                    div(class="modal fade" id="comments-modal" role="dialog")
+                            div(class="modal-dialog")
+                                div(class="modal-content")
+                                    div(class="modal-header")
+                                        span 
+                                            | Напиши коментар
+                                    div(class="modal-body")
+                                        form(role="form" class="text-left")
+                                            div(class="form-group")
+                                                label(for="recipient-username")
+                                                    | Коментар за: 
+                                                input(type="text" value=result.userDetails.username id="recipient-username" name="username" class="form-control")
+                                            div(class="form-group")
+                                                label(for="content-area")
+                                                    | Коментар
+                                                textarea(id="content-area" class="form-control" placeholder="Коментар... " name="fromArea")
+                                    div(class="modal-footer")
+                                        button(type="submit" class="btn btn-success" id="modal-success")
+                                            span
+                                                | Изпрати коментара
+                                        button(class="btn" data-dismiss="modal" aria-hidden="true" id="close-modal")
+                                            | Затвори
+                    a(href="#" class="btn btn-success") Изпрати съобщение
+                    a(href="#" class="btn btn-success") Добави рейтинг                 
         div(id="user-cars" class="profile-tab hidden")
             each car in result.userDetails.cars
                 div(class="car-preview")
@@ -93,11 +120,4 @@ block body-content
                            != review.fromUser
                     div(class="panel-body")
                         span
-                           != review.content       
-    
-    script
-        | $('#first-tab a').click(function (e) {  e.preventDefault(); $('.profile-tab').addClass('hidden'); $('#prfile-info').removeClass('hidden');})
-        | $('#second-tab a').click(function (e) {  e.preventDefault(); $('.profile-tab').addClass('hidden'); $('#user-cars').removeClass('hidden');})
-        | $('#third-tab a').click(function (e) {  e.preventDefault(); $('.profile-tab').addClass('hidden'); $('#user-reviews').removeClass('hidden');})
-                      
-                
+                           != review.content
