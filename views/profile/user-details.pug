@@ -59,7 +59,7 @@ block body-content
                 strong
                     | Шофьорски опит: 
                 != result.userDetails.drivingExpInYears
-            if !result.extraInfoAllowed && result.user
+            if result.allowMessagesAndComment
                 div(class="clear-both margin text-center" id="profile-btns")
                     a(href="#" class="btn btn-success") Коментирай
                     a(href="#" class="btn btn-success") Изпрати съобщение                 

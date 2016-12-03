@@ -17,10 +17,17 @@ module.exports = function(data) {
                     }
 
                     let extraInfoAllowed = false;
+                    let allowMessagesAndComment = false;
 
-                    if (req.user && ((req.user.role && req.user.role.indexOf('admin') >= 0) ||
-                            username === req.user.username)) {
-                        extraInfoAllowed = true;
+                    if (req.user) {
+                        if (!(username === req.user.username)) {
+                            allowMessagesAndComment = true;
+                        }
+
+                        if (username === req.user.username ||
+                            (req.user.role && req.user.role.indexOf('admin') >= 0)) {
+                            extraInfoAllowed = true;
+                        }
                     }
 
                     user.userRating = user.userRating || 0;
@@ -29,7 +36,8 @@ module.exports = function(data) {
                         result: {
                             user: req.user,
                             userDetails: user,
-                            extraInfoAllowed
+                            extraInfoAllowed,
+                            allowMessagesAndComment
                         }
                     });
                 })

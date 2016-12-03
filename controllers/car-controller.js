@@ -12,7 +12,7 @@ const MAX_DAYS_PER_MONTH = 31;
 //     return new Date(y, m, 0).getDate();
 // }
 
-module.exports = function (data) {
+module.exports = function(data) {
     return {
         loadCreateCarForm(req, res) {
             data.getAllBrands()
