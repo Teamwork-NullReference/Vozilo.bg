@@ -104,6 +104,14 @@ form {
     color: olive;
 }
 
+.color-finished {
+    color: green;
+}
+
+.color-active {
+    color: olive;
+}
+
 .color-success {
     color: olive;
 }
@@ -150,8 +158,8 @@ form {
 /* Profile */
 
 #profile-tabs {
-    margin-left: 25%;
-    margin-right: 25%;
+    margin-left: 15%;
+    margin-right: 15%;
     clear: both
 }
 
@@ -199,7 +207,7 @@ form {
     clear: both;
 }
 
-#profile-wrapper #user-cars .car-preview .car-pic-preview {
+.car-pic-preview {
     max-width: 285px;
     max-height: 220px;
     float: left;
@@ -227,4 +235,19 @@ form {
 
 #profile-btns a {
     margin-left: 10px;
+}
+
+.request-container {
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 75%;
+    margin: 10px 10%;
+    min-width: 300px;
+    padding: 5px;
+    float: left;
+}
+
+.request-info {
+    margin: 10px 20px;
+    float: left;
 }

@@ -19,4 +19,10 @@ $(document).ready(function() {
         $('.profile-tab').addClass('hidden');
         $('#user-reviews').removeClass('hidden');
     });
+
+    $('#forth-tab a').click(function(e) {
+        e.preventDefault();
+        $('.profile-tab').addClass('hidden');
+        $('#user-requests').removeClass('hidden');
+    });
 });
