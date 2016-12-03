@@ -47,4 +47,8 @@ $(function () {
     $('#send-message').on('click', function () {
         console.log('clicked');
     });
+
+    $('#add-comment').click(function() {
+        $('#comments-modal').modal();
+    });
 });
