@@ -1,6 +1,7 @@
 /* globals module */
 'use strict';
 let dataUtils = require('./utils/data-utils');
+let filterLimit = 10;
 let userValidator = require('./validation/user-validator');
 
 module.exports = function ({
@@ -191,6 +192,20 @@ module.exports = function ({
                         }
 
                         return resolve(users);
+                    });
+            });
+        },
+        filterUsers(filter, limit) {
+            filterLimit=limit||filterLimit;
+            return new Promise((resolve, reject) => {
+                User.find()
+                    .where({ 'username': { '$regex': filter, '$options': 'i' } })
+                    .limit(filterLimit)
+                    .exec((err, res) => {
+                        if (err) {
+                            reject(err);
+                        }
+                        resolve(res);
                     });
             });
         },

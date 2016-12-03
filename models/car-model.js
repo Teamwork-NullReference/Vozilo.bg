@@ -1,5 +1,6 @@
 /* globals require module */
 
+const mongoose = require('mongoose');
 const modelRegistrator = require('./utils/model-registrator');
 
 module.exports = modelRegistrator.register('Car', {
@@ -84,7 +85,7 @@ module.exports = modelRegistrator.register('Car', {
     owner: {
         username: String,
         imageUrl: String,
-        userId: String,
+        userId: mongoose.Schema.Types.ObjectId,
         city: String,
         firstName: String,
         lastName: String,

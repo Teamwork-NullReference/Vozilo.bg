@@ -1,0 +1,35 @@
+extends ../_layout
+
+block custom-styles
+    link(rel="stylesheet", href="/static/styles/user-messages.css")
+
+block body-content
+    div.container
+        div.row
+            div.col-md-12
+                h2(class="text-center")
+                    | Съобщения
+                br
+
+        div.row
+            div.col-md-12
+                div.col-md-2.text-center <span>User</span>
+                div.col-md-1.text-center <span>Image</span>
+                div.col-md-5.text-center <span>Message</span>
+                div.col-md-2.text-center <span>Date</span>
+                div.col-md-2.text-center <span>Address</span>    
+        div.row
+            div.col-md-12
+            each correspondence in result.correspondences                
+                a.row.correspondence-link(href=`messages/${correspondence.id}`)                      
+                    div.col-md-2
+                        span= `${correspondence.sender.firstName} ${correspondence.sender.lastName}`
+                    div.col-md-1
+                        div.circle-avatar
+                            img.img-circle(src=`${correspondence.sender.pictureUrl}`, "User image")
+                    div.col-md-5
+                        span= correspondence.message.text
+                    div.col-md-2
+                        span= correspondence.message.datetime
+                    div.col-md-2
+                        span= `${correspondence.sender.address.city}, ${correspondence.sender.address.street}`

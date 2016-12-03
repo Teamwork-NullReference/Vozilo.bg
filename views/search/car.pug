@@ -9,52 +9,59 @@ block custom-scripts
     script(src='/static/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js')
 
 block body-content
-    div(id="car-search")
-        div.seach-form
-            +car-search-form(result.city, result.startDate, result.endDate)
+    div.container
+        div.row.search-form.background.text-center
+            div.col-lg-12.col-lg-offset-3.col-md-12.col-md-offset-2.col-sm-4
+                +car-search-form(result.city, result.startDate, result.endDate)
+        div.row
+            div.col-lg-12.col-md-12
+                each car in result.cars
+                    div.row.car.background
+                        div.col-md-4.car-container
+                            a(href=`/car/${car._id}`)
+                                img.car-img(src=`${car.picture}`)
+                        div.col-md-8
+                             div.row
+                                 div.col-md-12.brand.ellipsis-text
+                                    strong= car.brand
+                             div.row
+                                 div.col-md-12.description.ellipsis-text= car.shortInfo
+                             div.row
+                                 div.col-md-6.car-details
+                                     a(href=`/user/${car.owner.username}`)
+                                        img.img-circle(src=`${car.owner.imageUrl}`)
+                                        span.username.ellipsis-text= car.owner.firstName + car.owner.lastName
+                                 div.col-md-3.price.car-details
+                                    span
+                                        strong.amount.ellipsis-text= car.price.perDay 
+                                    span.unit лв/ден
+                                 div.col-md-3.car-details
+                                    if car.price.perWeek > 0
+                                        .price
+                                            span
+                                                strong.amount.ellipsis-text= car.price.perWeek 
+                                            span.unit лв/седм
 
-        each car in result.cars
-            div.car
-                a(href=`/car/${car._id}`)
-                    img.car-img(src=`${car.picture}`)
-                div.brand.ellipsis-text
-                    strong= car.brand
-                div.description.ellipsis-text= car.shortInfo
-                table
-                    tr
-                        td
-                            a(href=`/user/${car.owner.username}`)
-                                img.img-circle(src=`${car.owner.imageUrl}`)
-                                span.username.ellipsis-text= car.owner.firstName + car.owner.lastName
-                        td.price
-                            span
-                                strong.amount.ellipsis-text= car.price.perDay 
-                            span.unit лв/ден
-                        if car.price.perWeek > 0
-                            td.price
-                                span
-                                    strong.amount.ellipsis-text= car.price.perWeek 
-                                span.unit лв/седм
-        if result.cars.length == 0
-            div.no-cars
-                strong Не бяха намерени резултати
-        div(id="page-selection")
-            nav
-                ul.pagination
-                    li.page-item
-                        a.page-link(aria-label="Предишна" href=`/search/car/${result.currentPage - 1}?city=${result.city}&startDate=${result.startDate}&endDate=${result.endDate}`)
-                            span(aria-hidden="true") &laquo;
-                            span.sr-only Предишна
-                    - for(let i = result.startPage; i < result.endPage; i += 1 )
-                        if result.currentPage == i
-                            li.page-item.active
-                                a.page-link(href=`/search/car/${i}?city=${result.city}&startDate=${result.startDate}&endDate=${result.endDate}`)= i
-                        else
+                if result.cars.length == 0
+                    div.no-cars
+                        strong Не бяха намерени резултати
+                div(id="page-selection")
+                    nav
+                        ul.pagination
                             li.page-item
-                                a.page-link(href=`/search/car/${i}?city=${result.city}&startDate=${result.startDate}&endDate=${result.endDate}`)= i
-                    li.page-item
-                        a.page-link(aria-label="Следваща" href=`/search/car/${+result.currentPage + 1}?city=${result.city}&startDate=${result.startDate}&endDate=${result.endDate}`)
-                            span(aria-hidden="true") &raquo;
-                            span.sr-only Следваща
+                                a.page-link(aria-label="Предишна" href=`/search/car/${result.currentPage - 1}?city=${result.city}&startDate=${result.startDate}&endDate=${result.endDate}`)
+                                    span(aria-hidden="true") &laquo;
+                                    span.sr-only Предишна
+                            - for(let i = result.startPage; i < result.endPage; i += 1 )
+                                if result.currentPage == i
+                                    li.page-item.active
+                                        a.page-link(href=`/search/car/${i}?city=${result.city}&startDate=${result.startDate}&endDate=${result.endDate}`)= i
+                                else
+                                    li.page-item
+                                        a.page-link(href=`/search/car/${i}?city=${result.city}&startDate=${result.startDate}&endDate=${result.endDate}`)= i
+                            li.page-item
+                                a.page-link(aria-label="Следваща" href=`/search/car/${+result.currentPage + 1}?city=${result.city}&startDate=${result.startDate}&endDate=${result.endDate}`)
+                                    span(aria-hidden="true") &raquo;
+                                    span.sr-only Следваща
 
-    div(id="map")
+            div(id="map")

@@ -7,7 +7,6 @@ let sinon = require('sinon');
 
 const mockedUser = require('./mockedUser');
 
-
 let sandbox;
 let data = {
     getAllBrands: null

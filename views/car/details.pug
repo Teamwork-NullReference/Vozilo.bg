@@ -5,13 +5,15 @@ block custom-styles
      link(rel='stylesheet', href='/static/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css')
 
 block custom-scripts
-    script(src='/static/scripts/calculate-price.js')
+    script(src="/static/scripts/json-requester.js")
+    script(src="/static/scripts/comments-modal.js")
+    script(src='/static/scripts/car-details.js')
     script(src='/static/scripts/calendar.js')
 
 block body-content
-    .container#car-details(carId= result.carDetails._id)
-        .row
-            .col-lg-8.col-md-8.col-xs-12
+    div.container#car-details(carId= result.carDetails._id)
+        div.row
+            div.col-lg-8.col-md-8.col-xs-12
                 h2
                     span 
                         = result.carDetails.brand
@@ -29,12 +31,12 @@ block body-content
 
                 img.car-image(src=''+ result.carDetails.picture)
 
-                .row
-                    .col-md-6
+                div.row
+                    div.col-md-6
                         h4.color-secondary Кратко описание
                         p
                             = result.carDetails.shortInfo
-                    .col-md-6
+                    div.col-md-6
                         h4.color-secondary Изисквания към наематели
                         ul.list-unstyled
                             li
@@ -68,11 +70,11 @@ block body-content
                                     i.fa.fa-ban.fa-lg.color-negative
                                     span  Животни позволени: Не
                 hr
-                .row
-                    .col-md-12
+                div.row
+                    div.col-md-12
                         h4.color-success Информация за колата
-                        .row
-                            .col-md-6
+                        div.row
+                            div.col-md-6
                                 table.table.table-striped
                                     tbody
                                         tr
@@ -97,7 +99,7 @@ block body-content
                                                 = result.carDetails.hp
                                        
                                             
-                            .col-md-6
+                            div.col-md-6
                                 table.table.table-striped
                                     tbody
                                         tr
@@ -120,8 +122,8 @@ block body-content
                                             td Местоположение
                                             td
                                                 = result.carDetails.owner.city
-                        .row
-                            .col-md-12
+                        div.row
+                            div.col-md-12
                                 h4.color-success Екстри
                                 ul.list-unstyled
                                     .row
@@ -147,7 +149,7 @@ block body-content
                                                 else
                                                     i.fa.fa-ban.fa-lg.color-negative
                                                     span  Зимни гуми: Не
-                                        .col-md-6
+                                        div.col-md-6
                                             li
                                                 if result.carDetails.equipment.mp3Player
                                                     i.fa.fa-check-circle-o.fa-lg.color-success
@@ -163,11 +165,11 @@ block body-content
                                                     i.fa.fa-ban.fa-lg.color-negative
                                                     span  Ел. прозорци: Не
                         hr
-                        .row
-                            .col-md-12
+                        div.row
+                            div.col-md-12
                             h4.color-success Календар
-                            .row
-                                .col-md-2
+                            div.row
+                                div.col-md-2
                                     ul.pagination
                                         li
                                             a#previous-month &lt
@@ -176,16 +178,56 @@ block body-content
                                     br
                                     span#mark-availability
                                     span Свободни дни
-                                .col-md-10#calendar-container
+                                div.col-md-10#calendar-container
+                        hr
+                        div.row
+                            div.col-md-12
+                                h4.color-success Коментари
+                        
+                                div.text-center
+                                    a.btn.btn-success.btn-comment#add-comment(href="#") Коментирай
+                                    div.modal.fade#comments-modal(role="dialog")
+                                            div.modal-dialog
+                                                div.modal-content
+                                                    div.modal-header
+                                                        span 
+                                                            | Напиши коментар
+                                                    div.modal-body
+                                                        form.text-left(role="form")
+                                                            div.form-group
+                                                                label(for="recipient-username")
+                                                                    | Коментар за: 
+                                                                input.form-control#recipient-username(type="text" value=result.carDetails.owner.username ame="username")
+                                                            div.form-group
+                                                                label(for="content-area")
+                                                                    | Коментар
+                                                                textarea.form-control#content-area(placeholder="Коментар... " name="fromArea")
+                                                    div.modal-footer
+                                                        button.btn.btn-success#modal-success(type="submit")
+                                                            span
+                                                                | Изпрати коментара
+                                                        button.btn#close-modal(data-dismiss="modal" aria-hidden="true")
+                                                            | Затвори
+
+                                    div#user-reviews
+                                        each review in result.carDetails.owner.receivedReviews
+                                            div.panel.panel-info.review-tab
+                                                div.panel-heading
+                                                    h3.panel-title
+                                                        a(href='/user/' + review.senderUsername)
+                                                            = review.senderUsername
+                                                div.panel-body
+                                                    span
+                                                        = review.content
                                     
                                     
-            .col-lg-4.col-md-8.col-xs-6
-                .form-rest-car
+            div.col-lg-4.col-md-8.col-xs-6
+                div.form-rest-car
                     form(action='/car/' + result.carDetails._id + '/rent', method='get')
-                        .row
-                            .col-md-3.col-xs-12
+                        div.row
+                            div.col-md-3.col-xs-12
                                 label.color-success(for='startDate') Дата за взимане:
-                            .col-md-4.col-xs-4
+                            div.col-md-4.col-xs-4
                                 select.form-control#start-date(name='start-date')
                                     each date in result.carDetails.availability
                                         if date.isAvailable
@@ -193,11 +235,11 @@ block body-content
                                                 = date.date.getDate() + '-' 
                                                 = date.date.getMonth() + 1 + '-' 
                                                 = date.date.getFullYear()
-                        .form-group
-                            .row
-                                .col-md-3.col-xs-12
+                        div.form-group
+                            div.row
+                                div.col-md-3.col-xs-12
                                     label.color-success(for='endDate') Дата за връщане:
-                                .col-md-4.col-xs-4
+                                div.col-md-4.col-xs-4
                                     select.form-control#end-date(name='end-date')
                                         each date in result.carDetails.availability
                                             if date.isAvailable
@@ -205,7 +247,7 @@ block body-content
                                                     = date.date.getDate() + '-' 
                                                     = date.date.getMonth() + 1 + '-' 
                                                     = date.date.getFullYear()
-                        .form-group.form-inline
+                        div.form-group.form-inline
                             span Цена на ден: 
                             span#price-per-day
                                 = result.carDetails.price.perDay 
@@ -216,31 +258,32 @@ block body-content
                                 span#price-per-week
                                     = result.carDetails.price.perWeek 
                                 span лв
-                        .form-group.form-inline
-                            .row
-                                .col-md-3.col-xs-12
+                        div.form-group.form-inline
+                            div.row
+                                div.col-md-3.col-xs-12
                                     h3.color-success Общо:
-                                .col-md-4.col-xs-4
+                                div.col-md-4.col-xs-4
                                     h3.color-primary
                                         strong#total-sum 
-                                        
-                        if  result.user.username === result.carDetails.owner.username
-                            button.btn.btn-success(disabled) Попълни форма
-                        else
-                            button.btn.btn-success Попълни форма
-                
-                .owner-details
+                        if  result.user
+                            if  result.user.username === result.carDetails.owner.username
+                                button.btn.btn-success(disabled) Попълни форма
+                            else
+                                button.btn.btn-success Попълни форма
+                                      
+                div.owner-details
                     h3.color-success Данни за собственика
-                    .row
-                        .col-md-4.col-sm-12.col-xs-12
+                    div.row
+                        div.col-md-4.col-sm-12.col-xs-12
                             img#owner-img(src= result.carDetails.owner.imageUrl)
-                        .col-md-8.col-sm-12.col-xs-12
+                        div.col-md-8.col-sm-12.col-xs-12
                             div
                                 strong.color-success Име: 
-                                span 
-                                    = result.carDetails.owner.firstName + ' '
-                                span
-                                    = result.carDetails.owner.lastName
+                                a(href='/user/'+ result.carDetails.owner.username)
+                                    span 
+                                        = result.carDetails.owner.firstName + ' '
+                                    span
+                                        = result.carDetails.owner.lastName
                             div
                                 strong.color-success Град: 
                                 span 
@@ -255,7 +298,8 @@ block body-content
                                     i.fa.fa-star-half-o(aria-hidden='true')
                             br
                             div
-                                if  result.user.username === result.carDetails.owner.username
-                                    button.btn.btn-success#send-message(disabled) Изпрати съобщение
-                                else 
-                                    button.btn.btn-success#send-message Изпрати съобщение
+                                if  result.user
+                                    if  result.user.username === result.carDetails.owner.username
+                                        button.btn.btn-success#send-message(disabled) Изпрати съобщение
+                                    else 
+                                        button.btn.btn-success#send-message Изпрати съобщение

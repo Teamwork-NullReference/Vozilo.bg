@@ -1,5 +1,9 @@
 extends ../_layout
 
+block custom-scripts
+    script(src="/static/scripts/json-requester.js")
+    script(src="/static/scripts/profile.js")
+    script(src="/static/scripts/comments-modal.js")
 
 block body-content
     
@@ -13,6 +17,8 @@ block body-content
                 a(href="#" data-toggle="tab") Получени коментари
             if result.extraInfoAllowed
                 li(id="forth-tab")
+                    a(href="#" data-toggle="tab") Направени заявки
+                li(id="fifth-tab")
                     a(href="/user/" + result.userDetails.username + "/update") Промени профила
         div(id="prfile-info" class="profile-tab")
             h2(class="text-center")
@@ -59,14 +65,38 @@ block body-content
                 strong
                     | Шофьорски опит: 
                 != result.userDetails.drivingExpInYears
-            if !result.extraInfoAllowed && result.user
+            if result.allowMessagesAndComment
                 div(class="clear-both margin text-center" id="profile-btns")
-                    a(href="#" class="btn btn-success") Коментирай
-                    a(href="#" class="btn btn-success") Изпрати съобщение                 
+                    a(href="#" class="btn btn-success" id="add-comment") Коментирай
+                    div(class="modal fade" id="comments-modal" role="dialog")
+                            div(class="modal-dialog")
+                                div(class="modal-content")
+                                    div(class="modal-header")
+                                        span 
+                                            | Напиши коментар
+                                    div(class="modal-body")
+                                        form(role="form" class="text-left")
+                                            div(class="form-group")
+                                                label(for="recipient-username")
+                                                    | Коментар за: 
+                                                input(type="text" value=result.userDetails.username id="recipient-username" name="username" class="form-control")
+                                            div(class="form-group")
+                                                label(for="content-area")
+                                                    | Коментар
+                                                textarea(id="content-area" class="form-control" placeholder="Коментар... " name="fromArea")
+                                    div(class="modal-footer")
+                                        button(type="submit" class="btn btn-success" id="modal-success")
+                                            span
+                                                | Изпрати коментара
+                                        button(class="btn" data-dismiss="modal" aria-hidden="true" id="close-modal")
+                                            | Затвори
+                    a(href="#" class="btn btn-success") Изпрати съобщение
+                    a(href="#" class="btn btn-success") Добави рейтинг                 
         div(id="user-cars" class="profile-tab hidden")
             each car in result.userDetails.cars
                 div(class="car-preview")
-                    img(class="car-pic-preview img-rounded" src=car.picture)
+                    a(href="/car/" + car._id)
+                        img(class="car-pic-preview img-rounded" src=car.picture)
                     div(class="car-info")
                         strong
                             | Марка: 
@@ -83,20 +113,55 @@ block body-content
                         br
                         a(href="/car/" + car._id class="btn btn-primary") Повече информация                  
                         if result.extraInfoAllowed
+                            br
                             a(href="/car/" + car._id + "/update/" class="btn btn-danger") Промени                          
         div(id="user-reviews" class="profile-tab hidden")
             each review in result.userDetails.receivedReviews
                 div(class="panel panel-primary review-tab")
                     div(class="panel-heading")
                         h3(class="panel-title")
-                           != review.fromUser
+                           != review.senderUsername
                     div(class="panel-body")
                         span
-                           != review.content       
-    
-    script
-        | $('#first-tab a').click(function (e) {  e.preventDefault(); $('.profile-tab').addClass('hidden'); $('#prfile-info').removeClass('hidden');})
-        | $('#second-tab a').click(function (e) {  e.preventDefault(); $('.profile-tab').addClass('hidden'); $('#user-cars').removeClass('hidden');})
-        | $('#third-tab a').click(function (e) {  e.preventDefault(); $('.profile-tab').addClass('hidden'); $('#user-reviews').removeClass('hidden');})
-                      
-                
+                           != review.content
+        div(id="user-requests" class="profile-tab hidden")
+            each request in result.userDetails.rentalRequests
+                    div(class="request-container")
+                        a(href="/car/" + request.car.id)
+                            img(class="car-pic-preview img-rounded" src=request.car.imageUrl)
+                        div(class="request-info")
+                            strong
+                                | Собственик: 
+                                a(href="/user/" + request.owner.username)
+                                    != request.owner.username
+                            br
+                            strong
+                                | Начална дата: 
+                            != request.startRentalDate.getDate() + '-'
+                            != request.startRentalDate.getMonth() + 1 + '-'
+                            != request.startRentalDate.getFullYear()
+                            br
+                            strong
+                                | Крайна дата: 
+                            != request.endRentalDate.getDate() + '-'
+                            != request.endRentalDate.getMonth() + 1 + '-'
+                            != request.endRentalDate.getFullYear()
+                            h4
+                                strong
+                                    | Статус: 
+                                if request.status == "Finished"
+                                    span(class="label label-success")
+                                       | Приключен
+                                else if request.status == "Canceled"
+                                    span(class="label label-danger")
+                                       | Отказан
+                                else if request.status == "Active"
+                                    span(class="label label-primary")
+                                       | Активен
+                                else if request.status == "Pending"
+                                    span(class="label label-info")
+                                       | Очаква отговор
+                            a(class="btn btn-primary" href="#")
+                                | Кореспонденция - link pls
+                        
+                        

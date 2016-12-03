@@ -2,22 +2,41 @@ body {
     background-color: #eee;
 }
 
+/*.fb-btns{
+    margin-left: 
+}*/
+
+.logo-font-color {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    color: gold
+}
+
+.logo-img-color {
+    color: gold
+}
+
+.logo-font-size{
+    font-size: 1.5em;
+}
+
+.background {
+    background-color: white
+}
+
 form {
     width: 40em;
     padding-top: 1em;
-}
-
-.search-form {
-    width: 36.5em;
 }
 
 .form-control {
     margin-bottom: 1em;
 }
 
+
+/*
 .centered {
     margin: auto;
-}
+}*/
 
 .form-inline input {
     margin-right: 1em;
@@ -25,6 +44,9 @@ form {
 
 .navbar-collapse {
     background: #575b5b;
+    height: 70px;
+    padding-top: 5px;
+    padding-right: 10px;
 }
 
 .navbar-collapse a {
@@ -70,15 +92,38 @@ form {
 }
 
 
+/* Footer */
+
+.footer {
+    background: #575b5b;
+    padding-top: 20px;
+    clear: both;
+    position: relative;
+    z-index: 10;
+    margin-top: 3em;
+}
+
+footer ul {
+    padding-bottom: 20px;
+}
+
+footer h4 {
+    color: gold
+}
+
+footer li a {
+    color: white
+}
+
+
 /* Create car form */
 
 #form-create-car {
-    background-color: white;
     padding: 50px;
     border-radius: 10px;
 }
 
-#create-car-container {
+.color-dark-success {
     color: darkolivegreen;
 }
 
@@ -101,6 +146,14 @@ form {
 }
 
 .color-secondary {
+    color: olive;
+}
+
+.color-finished {
+    color: green;
+}
+
+.color-active {
     color: olive;
 }
 
@@ -146,12 +199,16 @@ form {
     margin-right: 5px;
 }
 
+.btn-comment {
+    margin-bottom: 1.2em;
+}
+
 
 /* Profile */
 
 #profile-tabs {
-    margin-left: 25%;
-    margin-right: 25%;
+    margin-left: 15%;
+    margin-right: 15%;
     clear: both
 }
 
@@ -195,7 +252,11 @@ form {
     float: left;
 }
 
-#profile-wrapper #user-cars .car-preview .car-pic-preview {
+#profile-wrapper #user-cars .car-preview:nth-child(2n+1) {
+    clear: both;
+}
+
+.car-pic-preview {
     max-width: 285px;
     max-height: 220px;
     float: left;
@@ -223,4 +284,19 @@ form {
 
 #profile-btns a {
     margin-left: 10px;
+}
+
+.request-container {
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 75%;
+    margin: 10px 10%;
+    min-width: 300px;
+    padding: 5px;
+    float: left;
+}
+
+.request-info {
+    margin: 10px 20px;
+    float: left;
 }
