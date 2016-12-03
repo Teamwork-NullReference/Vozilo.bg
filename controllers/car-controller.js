@@ -74,7 +74,7 @@ module.exports = function(data) {
 
                     return res.status(200).render('car/details', {
                         result: {
-                            user: req.user || { username: 'undefined' },
+                            user: req.user,
                             carDetails
                         }
                     });

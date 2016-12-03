@@ -6,15 +6,15 @@ const DEFAULT_PAGE = 1,
 // NEWEST_USERS_COUNT = 5;
 
 
-module.exports = function (data) {
+module.exports = function(data) {
     return {
         getAdminPage(req, res) {
             if (req.user && ((req.user.role && req.user.role.indexOf('admin') >= 0))) {
                 let user = req.user;
                 let pattern = req.query.pattern || '';
                 let query;
-                if (+req.query.page <1) {
-                    query =1;
+                if (+req.query.page < 1) {
+                    query = 1;
                 }
                 else {
                     query = req.query.page;
@@ -60,6 +60,34 @@ module.exports = function (data) {
                         res.status(404)
                             .send(err);
                     });
+            }
+            else {
+                res.status(401).render('unauthorized', {
+                    result: {
+                        user: req.user
+                    }
+                });
+            }
+
+        },
+        filterUsers(req, res) {
+            if (req.user && ((req.user.role && req.user.role.indexOf('admin') >= 0))) {
+                data.filterUsers(req.body.adminSearch)
+                    .then((result) => {
+                        console.log(result);
+                        return res.render('admin/list', {
+                            result: { user: req.user },
+                            model: result
+                        });
+
+                    });
+            }
+            else {
+                res.status(401).render('unauthorized', {
+                    result: {
+                        user: req.user
+                    }
+                });
             }
         }
     };

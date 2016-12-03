@@ -1,5 +1,6 @@
 /* globals module */
 'use strict';
+const mapper = require('./../utils/mapper');
 
 module.exports = function(data) {
     return {
@@ -65,7 +66,7 @@ module.exports = function(data) {
                     let updateAllowed = false;
 
                     if (req.user && ((req.user.role && req.user.role.indexOf('admin') >= 0) ||
-                            username === req.user.username)) {
+                        username === req.user.username)) {
                         updateAllowed = true;
                     }
 
@@ -143,6 +144,22 @@ module.exports = function(data) {
                     console.log(err);
                     res.status(400).send(err);
                 });
+        },
+        getFilteredUsernamesJson(req, res) {
+            // if (req.user && ((req.user.role && req.user.role.indexOf('admin') >= 0))) {
+            let filter = req.params.pattern;
+
+
+            data.filterUsers(filter)
+                .then(users => {
+                    let usernames = users.map((user) => {
+                        return mapper.map(user, 'username').username;
+                    });
+                    res.status(200)
+                        .send(usernames);
+                });
         }
+
+
     };
 };
