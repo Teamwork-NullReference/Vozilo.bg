@@ -2,6 +2,10 @@ body {
     background-color: #eee;
 }
 
+/*.fb-btns{
+    margin-left: 
+}*/
+
 .logo-font-color {
     font-family: "Comic Sans MS", cursive, sans-serif;
     color: gold
@@ -40,6 +44,9 @@ form {
 
 .navbar-collapse {
     background: #575b5b;
+    height: 70px;
+    padding-top: 5px;
+    padding-right: 10px;
 }
 
 .navbar-collapse a {
@@ -112,12 +119,11 @@ footer li a {
 /* Create car form */
 
 #form-create-car {
-    background-color: white;
     padding: 50px;
     border-radius: 10px;
 }
 
-#create-car-container {
+.color-dark-success {
     color: darkolivegreen;
 }
 
