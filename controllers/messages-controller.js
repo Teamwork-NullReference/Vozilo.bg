@@ -3,8 +3,7 @@
 
 module.exports = function (data) {
     return {
-        getUserMessages(req, res) {
-
+        getLatestMessages(req, res) {
             let username = req.params.username;
             data.getUserByUsername(username)
                 .then(user => {
@@ -26,9 +25,40 @@ module.exports = function (data) {
                     }
 
                     if (viewMessagesAllowed) {
-                        res.status(200).render('profile/user-messages', {
+                        res.status(200).render('correspondence/latests', {
+                            // TODO: get last messages of any correspondence, sorted by date
                             result: {
-                                user: req.user
+                                user: req.user,
+                                correspondences: [{
+                                    sender: {
+                                        firstName: 'Dwayne',
+                                        lastName: 'Johnson',
+                                        pictureUrl: 'https://images-na.ssl-images-amazon.com/images/M/MV5BMTkyNDQ3NzAxM15BMl5BanBnXkFtZTgwODIwMTQ0NTE@._V1_UX214_CR0,0,214,317_AL_.jpg',
+                                        address: {
+                                            city: 'София',
+                                            street: 'Цариградско шосе 123'
+                                        }
+                                    },
+                                    message: {
+                                        text: 'Are you talking to me?',
+                                        datetime: '30.12.2016 14:00'
+                                    }
+                                },
+                                {
+                                    sender: {
+                                        firstName: 'Mad',
+                                        lastName: 'Marks',
+                                        pictureUrl: 'http://i.imgur.com/y7Hm9.jpg',
+                                        address: {
+                                            city: 'София',
+                                            street: 'Цариградско шосе 100'
+                                        }
+                                    },
+                                    message: {
+                                        text: 'Ще наема колата за един месец. Каква ще е отстъпката?',
+                                        datetime: '3.12.2016 15:00'
+                                    }
+                                }]
                             }
                         });
                     } else {

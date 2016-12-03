@@ -1,8 +1,8 @@
 /* globals module */
 'use strict';
 
-// let dataUtils = require('./utils/data-utils');
-let carValidator = require('./utils/car-validator');
+let dataUtils = require('./utils/data-utils');
+let carValidator = require('./validation/car-validator');
 
 function getDatesFromRange(startDate, endDate) {
     let result = [];
@@ -13,8 +13,13 @@ function getDatesFromRange(startDate, endDate) {
     return result;
 }
 
-module.exports = function ({ models, validator }) {
-    let { Car } = models;
+module.exports = function ({
+    models,
+    validator
+}) {
+    let {
+        Car
+    } = models;
 
     return {
         getAllCars() {
@@ -94,8 +99,8 @@ module.exports = function ({ models, validator }) {
         getDatesFromCalendar(id) {
             let promise = new Promise((resolve, reject) => {
                 Car.find({
-                    _id: id
-                })
+                        _id: id
+                    })
                     .select('availability')
                     .exec((err, dates) => {
                         if (err) {
@@ -109,7 +114,10 @@ module.exports = function ({ models, validator }) {
             return promise;
         },
         addCar(user, carInfo) {
-            return carValidator.validate({ carInfo, validator })
+            return carValidator.validate({
+                carInfo,
+                validator
+            })
                 .then(() => {
                     return new Promise((resolve, reject) => {
                         let brand = carInfo.brand,
@@ -186,16 +194,7 @@ module.exports = function ({ models, validator }) {
                     });
                 })
                 .then(newCar => {
-                    return new Promise((resolve, reject) => {
-
-                        newCar.save(err => {
-                            if (err) {
-                                reject(err);
-                            }
-
-                            resolve(newCar);
-                        });
-                    });
+                    return dataUtils.save(newCar);
                 });
         }
     };

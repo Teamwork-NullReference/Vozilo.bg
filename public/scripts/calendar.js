@@ -1,6 +1,6 @@
 /* globals $ */
 
-$(() => {
+$(function () {
     var monthNames = ['Януари', 'Февруари', 'Март', 'Април', 'Май', 'Юни',
         'Юли', 'Август', 'Септември', 'Октомври', 'Ноември', 'Декември'
     ];
@@ -10,8 +10,8 @@ $(() => {
         var year = parseInt($('#calendar').attr('year'), 10);
 
         return {
-            month,
-            year
+            month: month,
+            year: year
         };
     }
 
@@ -24,8 +24,8 @@ $(() => {
         var lastDay = new Date(y, m + 1, 0).getDate();
 
         return {
-            firstDay,
-            lastDay
+            firstDay: firstDay,
+            lastDay: lastDay
         };
     }
 
@@ -41,7 +41,7 @@ $(() => {
         var tBody = $('<tbody>');
         var tHead = $('<thead>')
             .append($('<tr>')
-                .append($('<th>').html(`${monthNames[month]} ${year}`)
+                .append($('<th>').html(monthNames[month] + ' ' + year)
                     .addClass('text-center')
                     .addClass('color-success')
                     .attr('colspan', 7)))
@@ -78,12 +78,12 @@ $(() => {
 
     function getAvailabilityFromCurrentMonth(month, year) {
         var url = '/car/' + id + '/calendar?month=' + month + '&year=' + year;
-        $.getJSON(url, (resp) => {
+        $.getJSON(url, function (resp) {
             drawCalendar(month, year, resp);
         });
     }
 
-    $('#next-month').on('click', () => {
+    $('#next-month').on('click', function () {
         var monthYear = getMonthAndYear();
         var newMonth,
             newYear;
@@ -98,7 +98,7 @@ $(() => {
         getAvailabilityFromCurrentMonth(newMonth, newYear);
     });
 
-    $('#previous-month').on('click', () => {
+    $('#previous-month').on('click', function () {
         var monthYear = getMonthAndYear();
         var newMonth,
             newYear;

@@ -2,8 +2,12 @@
 'use strict';
 let dataUtils = require('./utils/data-utils');
 let filterLimit = 10;
+let userValidator = require('./validation/user-validator');
 
-module.exports = function({ models, validator }) {
+module.exports = function ({
+    models,
+    validator
+}) {
     let {
         User
     } = models;
@@ -39,7 +43,9 @@ module.exports = function({ models, validator }) {
         },
         getUserById(id) {
             let promise = new Promise((resolve, reject) => {
-                User.findOne({ _id: id }, (err, res) => {
+                User.findOne({
+                    _id: id
+                }, (err, res) => {
                     if (err) {
                         reject(err);
                     }
@@ -52,7 +58,9 @@ module.exports = function({ models, validator }) {
         },
         getUserByUsername(username) {
             let promise = new Promise((resolve, reject) => {
-                User.findOne({ username }, (err, res) => {
+                User.findOne({
+                    username
+                }, (err, res) => {
                     if (err) {
                         reject(err);
                     }
@@ -63,28 +71,31 @@ module.exports = function({ models, validator }) {
             return promise;
         },
         createUser(user) {
-            let newUser = new User({
-                firstName: user.firstName,
-                lastName: user.lastName,
-                username: user.username,
-                googleId: user.googleId,
-                picture: user.picture,
-                drivingExpInYears: user.experience,
-                email: user.email,
-                phoneNumber: user.phoneNumber,
-                password: user.password
-            });
-            newUser.address.city = user.city;
-            newUser.address.street = user.street;
-            return new Promise((resolve, reject) => {
-                newUser.save(err => {
-                    if (err) {
-                        return reject(err);
-                    }
-
-                    return resolve(newUser);
+            return userValidator.validate({
+                user,
+                validator
+            })
+                .then(() => {
+                    return new Promise((resolve, reject) => {
+                        let newUser = new User({
+                            firstName: user.firstName,
+                            lastName: user.lastName,
+                            username: user.username,
+                            googleId: user.googleId,
+                            picture: user.picture,
+                            drivingExpInYears: user.experience,
+                            email: user.email,
+                            phoneNumber: user.phoneNumber,
+                            password: user.password
+                        });
+                        newUser.address.city = user.city;
+                        newUser.address.street = user.street;
+                        resolve(newUser);
+                    });
+                })
+                .then((newUser) => {
+                    return dataUtils.save(newUser);
                 });
-            });
         },
         updateUser(user) {
             return new Promise((resolve, reject) => {
@@ -112,14 +123,19 @@ module.exports = function({ models, validator }) {
                     return dataUtils.update(u);
                 });
         },
-        getUsers({ page, pageSize }) {
+        getUsers({
+            page,
+            pageSize
+        }) {
             let skip = (page - 1) * pageSize,
                 limit = page * pageSize;
 
             return Promise.all([
                 new Promise((resolve, reject) => {
                     User.find()
-                        .sort({ name: 1 })
+                        .sort({
+                            name: 1
+                        })
                         .skip(skip)
                         .limit(limit)
                         .exec((err, users) => {
@@ -141,7 +157,10 @@ module.exports = function({ models, validator }) {
                 })
             ]).then(results => {
                 let [users, count] = results;
-                return { users, count };
+                return {
+                    users,
+                    count
+                };
             });
         },
         /* Looks like dublicated code - keep it commented for now. TODO delete eventually */
@@ -163,7 +182,9 @@ module.exports = function({ models, validator }) {
         findTopRated(n) {
             return new Promise((resolve, reject) => {
                 User.find()
-                    .sort({ userRating: -1 })
+                    .sort({
+                        userRating: -1
+                    })
                     .limit(n)
                     .exec((err, users) => {
                         if (err) {

@@ -1,7 +1,7 @@
 /* globals $ */
 
-$(() => {
-    const WEEK_DAYS = 7;
+$(function () {
+    var WEEK_DAYS = 7;
 
     var pricePerDay = $('#price-per-day').html(),
         pricePerWeek = $('#price-per-week').html(),
@@ -26,7 +26,7 @@ $(() => {
                 sum = days * parseInt(pricePerDay, 10);
             }
 
-            $('#total-sum').text(`${sum} лв`);
+            $('#total-sum').text(sum + ' лв');
         } else {
             $('#total-sum').text('0 лв');
         }
@@ -34,17 +34,21 @@ $(() => {
 
     countDates(startDate, endDate);
 
-    $('#start-date').on('change', () => {
+    $('#start-date').on('change', function () {
         startDate = new Date($('select[name=start-date]').val());
         countDates(startDate, endDate);
     });
 
-    $('#end-date').on('change', () => {
+    $('#end-date').on('change', function () {
         endDate = new Date($('select[name=end-date]').val());
         countDates(startDate, endDate);
     });
 
-    $('#send-message').on('click', () => {
+    $('#send-message').on('click', function () {
         console.log('clicked');
+    });
+
+    $('#add-comment').click(function() {
+        $('#comments-modal').modal();
     });
 });

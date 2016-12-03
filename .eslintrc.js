@@ -38,7 +38,7 @@ module.exports = {
             "error",
             "last"
         ],
-        "complexity": "error",
+        "complexity": "off",
         "computed-property-spacing": [
             "error",
             "never"
@@ -92,11 +92,11 @@ module.exports = {
         "lines-around-directive": "off",
         "max-depth": "error",
         "max-len": "off",
-        "max-lines": "error",
+        "max-lines": "off",
         "max-nested-callbacks": "error",
-        "max-params": "error",
-        "max-statements": "error",
-        "max-statements-per-line": "error",
+        "max-params": "off",
+        "max-statements": "off",
+        "max-statements-per-line": "off",
         "multiline-ternary": "error",
         "new-cap": "error",
         "new-parens": "error",
@@ -204,7 +204,7 @@ module.exports = {
                 "allowMultiplePropertiesPerLine": true
             }
         ],
-        "object-shorthand": "error",
+        "object-shorthand": "off",
         "one-var": "off",
         "one-var-declaration-per-line": "error",
         "operator-assignment": [

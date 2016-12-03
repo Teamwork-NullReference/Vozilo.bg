@@ -1,10 +1,11 @@
 /* globals require module */
 
+const mongoose = require('mongoose');
 const modelRegistrator = require('./utils/model-registrator');
 
 module.exports = modelRegistrator.register('Correspondention', {
     car: {
-        id: String,
+        id: mongoose.Schema.Types.ObjectId,
         imageUrl: String
     },
     owner: {

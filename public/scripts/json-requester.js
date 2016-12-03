@@ -1,21 +1,25 @@
-var jsonRequester = (function () {
+/* globals $ */
+
+var jsonRequester = (function() {
 
     function send(method, url, options) {
+        var headers, data, promise;
+
         options = options || {};
 
-        let headers = options.headers || {},
-            data = options.data || undefined;
-        let promise = new Promise(function (resolve, reject) {
+        headers = options.headers || {};
+        data = options.data || undefined;
+        promise = new Promise(function(resolve, reject) {
             $.ajax({
                 url: url,
                 method: method,
                 contentType: 'application/json',
                 headers: headers,
                 data: JSON.stringify(data),
-                success: function (res) {
+                success: function(res) {
                     resolve(res);
                 },
-                error: function (err) {
+                error: function(err) {
                     reject(err);
                 }
             });
@@ -46,4 +50,4 @@ var jsonRequester = (function () {
         put
         // delete: del
     };
-} ());
+}());

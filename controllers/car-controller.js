@@ -12,7 +12,7 @@ const MAX_DAYS_PER_MONTH = 31;
 //     return new Date(y, m, 0).getDate();
 // }
 
-module.exports = function (data) {
+module.exports = function(data) {
     return {
         loadCreateCarForm(req, res) {
             data.getAllBrands()
@@ -49,19 +49,29 @@ module.exports = function (data) {
                 .catch(err => {
                     console.log('controller catch');
                     return res.status(400)
-                        .render('status-codes/bad-request-400', {
+                        .render('status-codes/status-code-error', {
                             result: {
+                                code: 400,
                                 err
                             }
                         });
                 });
         },
         loadCarDetails(req, res) {
+            let carDetails = {};
             data.getCarById(req.params.id)
-                .then(carDetails => {
-                    if (!carDetails) {
-                        return res.status(404).send('There is not such car');
+                .then(car => {
+                    if (car) {
+                        carDetails = car;
+
+                        return data.getUserByUsername(car.owner.username);
                     }
+
+                    return res.status(404).send('There is not such car');
+                })
+                .then(user => {
+                    carDetails.owner.receivedReviews = user.receivedReviews;
+
                     return res.status(200).render('car/details', {
                         result: {
                             user: req.user,
