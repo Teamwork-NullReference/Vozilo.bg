@@ -6,7 +6,7 @@ const express = require('express');
 
 module.exports = function({ app, data }) {
     // Leave Commented until controllers/user-controller implemented!
-    let controller = require('../controllers/user-controller')(data);
+    let userController = require('../controllers/user-controller')(data);
 
     let router = new express.Router();
 
@@ -14,12 +14,14 @@ module.exports = function({ app, data }) {
         .get('/', (req, res) => { // get all users with paging.
             res.send('It works!');
         })
-        .get('/:username', controller.getDetailedUser)
-        .get('/:username/update', controller.getUpdateUserForm)
-        .post('/:username/update', controller.updateUserInfo)
-        .get('/:id/received', (req, res) => { // show all messages
-            res.send('It works!');
-        });
+        .get('/:username', userController.getDetailedUser)
+        .get('/:username/update', userController.getUpdateUserForm)
+        .post('/:username/update', userController.updateUserInfo)
+        .post('/:username/comments', userController.addComment);
+    // .get('/:username/comments', userController.getComments)
+    // .get('/:id/received', (req, res) => { // show all messages
+    //     res.send('It works!');
+    // });
     // .get('/:id/reviews', (req, res) => {
     //     res.send('It works!');
     // });

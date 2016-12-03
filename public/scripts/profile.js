@@ -1,4 +1,4 @@
-/* globals $ document*/
+/* globals $ document */
 'use strict';
 
 $(document).ready(function() {
@@ -18,9 +18,5 @@ $(document).ready(function() {
         e.preventDefault();
         $('.profile-tab').addClass('hidden');
         $('#user-reviews').removeClass('hidden');
-    });
-
-    $('#add-comment').click(function() {
-        $('#comments-modal').modal();
     });
 });
