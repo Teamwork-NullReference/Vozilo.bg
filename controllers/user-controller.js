@@ -146,10 +146,7 @@ module.exports = function(data) {
                 });
         },
         getFilteredUsernamesJson(req, res) {
-            // if (req.user && ((req.user.role && req.user.role.indexOf('admin') >= 0))) {
             let filter = req.params.pattern;
-
-
             data.filterUsers(filter)
                 .then(users => {
                     let usernames = users.map((user) => {

@@ -163,22 +163,6 @@ module.exports = function ({
                 };
             });
         },
-        /* Looks like dublicated code - keep it commented for now. TODO delete eventually */
-        // getUserByCredentials(options) {
-        //     let promise = new Promise((resolve, reject) => {
-        //         User.findOne({
-        //             options
-        //         }, (err, res) => {
-        //             if (err) {
-        //                 reject(err);
-        //             }
-
-        //             resolve(res);
-        //         });
-        //     });
-
-        //     return promise;
-        // },
         findTopRated(n) {
             return new Promise((resolve, reject) => {
                 User.find()
