@@ -1,15 +1,17 @@
 /* globals $ */
 
-$(() => {
+$(function () {
     function fillModels(brand) {
-        var url = '/api/carbrands?brand=' + brand;
-        $.getJSON(url, (models) => {
+        var url = '/api/carbrands?brand=' + brand,
+            opt;
+
+        $.getJSON(url, function (models) {
             var modelField = $('#model'),
                 modelOption,
                 model,
                 option;
 
-            for (let opt of modelField.children()) {
+            for (opt of modelField.children()) {
                 opt.remove();
             }
 
@@ -22,7 +24,7 @@ $(() => {
         });
     }
 
-    $('#brand').on('change', () => {
+    $('#brand').on('change', function () {
         var selectedBrand = $('#brand').val();
         fillModels(selectedBrand);
     });
