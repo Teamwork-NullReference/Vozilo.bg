@@ -57,10 +57,7 @@ $(document).ready(function() {
 
         jsonRequester.post('/user/' + recipient + '/comments', options)
             .then(data => {
-                if ($('#profile-wrapper')) {
-                    addCommentsToElement(data, '#user-reviews');
-                }
-
+                addCommentsToElement(data, '#user-reviews');
             })
             .catch(err => {
                 console.log(err);

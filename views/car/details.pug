@@ -5,6 +5,8 @@ block custom-styles
      link(rel='stylesheet', href='/static/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css')
 
 block custom-scripts
+    script(src="/static/scripts/json-requester.js")
+    script(src="/static/scripts/comments-modal.js")
     script(src='/static/scripts/car-details.js')
     script(src='/static/scripts/calendar.js')
 
@@ -181,6 +183,15 @@ block body-content
                         div.row
                             div.col-md-12
                                 h4.color-success Коментари
+                                    div#user-reviews
+                                        each review in result.carDetails.owner.receivedReviews
+                                            div(class="panel panel-primary review-tab")
+                                                div(class="panel-heading")
+                                                    h3(class="panel-title")
+                                                    != review.fromUser
+                                                div(class="panel-body")
+                                                    span
+                                                    != review.content
                         
                         div.row
                             div.col-md-12
@@ -191,9 +202,9 @@ block body-content
                                                 div(class="modal-content")
                                                     div(class="modal-header")
                                                         span 
-                                                            | My Modal Header Should be here
+                                                            | Напиши коментар
                                                     div(class="modal-body")
-                                                        form(role="form")
+                                                        form(role="form" class="text-left")
                                                             div(class="form-group")
                                                                 label(for="recipient-username")
                                                                     | Коментар за: 
@@ -201,12 +212,12 @@ block body-content
                                                             div(class="form-group")
                                                                 label(for="content-area")
                                                                     | Коментар
-                                                                textarea(id="content-area" class="form-control" placeholder="Коментар... ")
+                                                                textarea(id="content-area" class="form-control" placeholder="Коментар... " name="fromArea")
                                                     div(class="modal-footer")
-                                                        button(type="submit" class="btn btn-success")
+                                                        button(type="submit" class="btn btn-success" id="modal-success")
                                                             span
                                                                 | Изпрати коментара
-                                                        button(class="btn" data-dismiss="modal" aria-hidden="true")
+                                                        button(class="btn" data-dismiss="modal" aria-hidden="true" id="close-modal")
                                                             | Затвори
                                     
                                     
