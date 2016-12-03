@@ -21,7 +21,7 @@
              },
              confirm_password: {
                  required: true,
-                 minlength: 5,
+                 minlength: 6,
                  equalTo: '#password'
              },
              email: {

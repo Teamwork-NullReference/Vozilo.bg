@@ -19,7 +19,6 @@ var jsonRequester = (function () {
                     reject(err);
                 }
             });
-            console.log('1');
         });
         return promise;
     }

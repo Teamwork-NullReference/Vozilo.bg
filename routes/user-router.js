@@ -4,22 +4,25 @@
 const express = require('express');
 // const passport = require('passport');
 
-module.exports = function({ app, data }) {
+module.exports = function ({ app, data }) {
     // Leave Commented until controllers/user-controller implemented!
     let controller = require('../controllers/user-controller')(data);
 
     let router = new express.Router();
 
     router
-        .get('/', (req, res) => { // get all users with paging.
-            res.send('It works!');
-        })
+        // .get('/', (req, res) => { // get all users with paging.
+        //     res.send('It works!');
+        // })
+        .get('/filter/:pattern', controller.getFilteredUsernamesJson)
         .get('/:username', controller.getDetailedUser)
         .get('/:username/update', controller.getUpdateUserForm)
         .post('/:username/update', controller.updateUserInfo)
         .get('/:id/received', (req, res) => { // show all messages
             res.send('It works!');
-        });
+        })
+        ;
+    // controller.getFilteredUsernamesJson
     // .get('/:id/reviews', (req, res) => {
     //     res.send('It works!');
     // });
