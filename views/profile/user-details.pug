@@ -83,6 +83,7 @@ block body-content
                         br
                         a(href="/car/" + car._id class="btn btn-primary") Повече информация                  
                         if result.extraInfoAllowed
+                            br
                             a(href="/car/" + car._id + "/update/" class="btn btn-danger") Промени                          
         div(id="user-reviews" class="profile-tab hidden")
             each review in result.userDetails.receivedReviews

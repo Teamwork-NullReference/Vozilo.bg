@@ -195,6 +195,10 @@ form {
     float: left;
 }
 
+#profile-wrapper #user-cars .car-preview:nth-child(2n+1) {
+    clear: both;
+}
+
 #profile-wrapper #user-cars .car-preview .car-pic-preview {
     max-width: 285px;
     max-height: 220px;

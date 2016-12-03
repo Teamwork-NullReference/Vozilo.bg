@@ -88,7 +88,7 @@ module.exports = function(data) {
             let username = req.params.username;
             data.getUserByUsername(username)
                 .then(user => {
-                    let propoerties = ['firstName', 'lastName', 'email', 'picture', 'phoneNumber', 'experience', 'city', 'street'];
+                    let propoerties = ['firstName', 'lastName', 'email', 'picture', 'phoneNumber', 'drivingExpInYears', 'city', 'street'];
                     propoerties.forEach(property => {
                         user[property] = req.body[property] || user[property];
                     });
