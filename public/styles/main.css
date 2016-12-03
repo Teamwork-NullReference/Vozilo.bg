@@ -2,6 +2,19 @@ body {
     background-color: #eee;
 }
 
+.logo-font-color {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    color: gold
+}
+
+.logo-img-color {
+    color: gold
+}
+
+.logo-font-size{
+    font-size: 1.5em;
+}
+
 .background {
     background-color: white
 }
@@ -15,9 +28,11 @@ form {
     margin-bottom: 1em;
 }
 
+
+/*
 .centered {
     margin: auto;
-}
+}*/
 
 .form-inline input {
     margin-right: 1em;
@@ -69,18 +84,30 @@ form {
     -webkit-border-radius: 0 !important;
 }
 
+
 /* Footer */
-footer {
-     background: #575b5b;
+
+.footer {
+    background: #575b5b;
+    padding-top: 20px;
+    clear: both;
+    position: relative;
+    z-index: 10;
+    margin-top: 3em;
 }
 
-footer h5 {
-    color: skyblue
+footer ul {
+    padding-bottom: 20px;
+}
+
+footer h4 {
+    color: gold
 }
 
 footer li a {
     color: white
 }
+
 
 /* Create car form */
 
@@ -156,6 +183,10 @@ footer li a {
     background-color: greenyellow;
     padding: 5px;
     margin-right: 5px;
+}
+
+.btn-comment {
+    margin-bottom: 1.2em;
 }
 
 

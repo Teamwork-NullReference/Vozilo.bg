@@ -4,6 +4,7 @@ head
     meta(charset='UTF-8')
     title Возило.бг
     link(rel='stylesheet', href='/static/bower_components/bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', href='/static/bower_components/font-awesome/css/font-awesome.css')
     link(rel='stylesheet', href='/static/styles/main.css')
     link(rel="icon" type="image/png" href="/static/favicon.ico")
     block custom-styles
@@ -17,7 +18,7 @@ head
     
     block head-content
 body
-    .container
+    header.container
         nav.navbar.navbar-fixed-top.navbar-collapse
             div.navbar-header
                 button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false")
@@ -25,9 +26,14 @@ body
                     span.icon-bar
                     span.icon-bar
                     span.icon-bar
-                a.navbar-brand(href='/') Начало
+                a.navbar-brand.logo-font-size(href='/')
+                    i.fa.fa-car.logo-img-color(aria-hidden="true")
+                    span.logo-font-color  Vozilo
             div.collapse.navbar-collapse(id='bs-example-navbar-collapse-1')
                 ul.nav.navbar-nav
+                    li  
+                        a(href='/') Начало
+
                     if result.user
                         li
                             a(href=`/user/${result.user.username}`) Моят профил
@@ -49,13 +55,14 @@ body
                     if result.user
                         li(id='btn-sign-out')
                             a(href='#' id='btn-sign-out') Изход
-    block body-content
+    main
+        block body-content
 
     footer.footer
         div.container
             .row
-                .col-md-2
-                    h5 За фирмата
+                .col-md-4.col-md-offset-4.col-sm-6
+                    h4 За фирмата
                     ul.list-unstyled
                         li
                             a(href='#') Информация
@@ -65,3 +72,14 @@ body
                             a(href='#') Работа
                         li
                             a(href='#') Помощ
+                .col-md-4.col-sm-6
+                    h4 Наемане на коли
+                    ul.list-unstyled
+                        li
+                            a(href='#') Как работи
+                        li
+                            a(href='#') Виж коли под наем
+                        li
+                            a(href='#') Виж условия
+                        li
+                            a(href='#') Сигурност
