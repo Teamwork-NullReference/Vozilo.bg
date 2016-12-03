@@ -181,7 +181,7 @@ block body-content
                                     
             .col-lg-4.col-md-8.col-xs-6
                 .form-rest-car
-                    form(action='/car/' + result.carDetails._id + '/rent', method='post')
+                    form(action='/car/' + result.carDetails._id + '/rent', method='get')
                         .row
                             .col-md-3.col-xs-12
                                 label.color-success(for='startDate') Дата за взимане:

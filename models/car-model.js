@@ -60,7 +60,7 @@ module.exports = modelRegistrator.register('Car', {
         mp3Player: Boolean,
         electricWindows: Boolean
     },
-    history: [{
+    rentals: [{
         startRentalDate: {
             type: Date,
             required: true

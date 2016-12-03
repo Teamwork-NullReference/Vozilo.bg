@@ -30,9 +30,7 @@ module.exports = function ({
         //     res.send('It works!');
         // })
         .get('/:id/rent', controller.loadRentCarForm)
-        .post('/:id/rent', (req, res) => {
-            res.send('renting post!');
-        });
+        .post('/:id/rent', controller.rentCar);
 
     app.use('/car', router);
 

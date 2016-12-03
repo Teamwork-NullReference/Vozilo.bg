@@ -13,12 +13,21 @@ block body-content
                 strong Име и Фамилия
             div.data= result.user.firstName + " " + result.user.lastName
             div.label
-                    strong Имейл
+                strong Имейл
             div.data= result.user.email
+            //- div.label
+            //-     strong Телефон
+            //- div.data
+            //-     input(type="text" name="phone")
             div.label
-                    strong Телефон
+                strong Избери дати
             div.data
-                input(type="text" name="phone")
+                .form-group
+                    .input-group.input-daterange(data-provide='datepicker' data-date-format='yyyy-mm-dd')
+                        input.form-control(type='text' name='startDate')
+                        span.input-group-addon до
+                        input.form-control(type='text' name='endDate')
+                        input.hidden(type="text" name="carId" value=`${result.carId}`)
         div.section
             div.label.msg
                 strong Изпрати съобщение на собственика

@@ -8,7 +8,7 @@ body {
 .rent-form {
     float: left;
     width: 50em;
-    height: 35em;
+    height: 40em;
     background-color: white;
     border-radius: 0.5em;
     margin: 5%;
@@ -45,4 +45,7 @@ body {
     float: right;
     margin-right: 6%;
     margin-top: 1%;
+}
+.hidden {
+    display: none;
 }

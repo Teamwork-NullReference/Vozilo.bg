@@ -53,7 +53,7 @@ module.exports = modelRegistrator.register('User', {
         type: String
         // match: passwordRegex
     },
-    correspondentions: [
+    correspondences: [
         {
             id: String
         }
@@ -80,7 +80,7 @@ module.exports = modelRegistrator.register('User', {
             required: true,
             enum: ['Pending', 'Active', 'Canceled', 'Finished']
         },
-        correspondentionId: String
+        correspondenceId: String
     }],
     role: [String],
     isDeleted: Boolean

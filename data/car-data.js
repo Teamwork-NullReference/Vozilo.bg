@@ -1,4 +1,4 @@
-/* globals module */
+/* globals module require */
 'use strict';
 
 let dataUtils = require('./utils/data-utils');
@@ -13,7 +13,7 @@ function getDatesFromRange(startDate, endDate) {
     return result;
 }
 
-module.exports = function ({
+module.exports = function({
     models,
     validator
 }) {
@@ -99,8 +99,8 @@ module.exports = function ({
         getDatesFromCalendar(id) {
             let promise = new Promise((resolve, reject) => {
                 Car.find({
-                        _id: id
-                    })
+                    _id: id
+                })
                     .select('availability')
                     .exec((err, dates) => {
                         if (err) {
@@ -196,6 +196,11 @@ module.exports = function ({
                 .then(newCar => {
                     return dataUtils.save(newCar);
                 });
+        },
+        addRequest(car, requestInfo) {
+            car.requests.push(requestInfo.id);
+
+            return dataUtils.save(car);
         }
     };
 };

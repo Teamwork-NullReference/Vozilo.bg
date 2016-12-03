@@ -193,6 +193,17 @@ module.exports = function ({
                         return resolve(users);
                     });
             });
+        },
+        addRentalRequest(user, rentalRequestInfo) {
+            //TODO validate
+            user.rentalRequests.push(rentalRequestInfo);
+
+            return dataUtils.save(user);
+        },
+        addCorrespondenceToUser(user, correspondeceId) {
+            user.correspondences.push(correspondeceId);
+
+            return dataUtils.save(user);
         }
     };
 };

@@ -15,13 +15,13 @@ module.exports = function({ config, validator }) {
     let Car = require('../models/car-model');
     let Review = require('../models/review-model');
     let CarBrandDetail = require('../models/car-brand-model');
-    let Correspondention = require('../models/correspondention-model');
+    let Correspondence = require('../models/correspondence-model');
     let models = {
         User,
         Car,
         Review,
         CarBrandDetail,
-        Correspondention
+        Correspondence
     };
 
     let data = {};
