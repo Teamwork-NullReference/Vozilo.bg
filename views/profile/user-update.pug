@@ -37,10 +37,12 @@ block body-content
                     div.col-sm-9
                         input(type="text" name="drivingExpInYears" id="drivingExpInYears" value=result.userForUpdate.drivingExpInYears class="form-control")
                 div.form-group
-                    label.col-sm-3.control-label(for="address")  Адрес
+                    label.col-sm-3.control-label(for="city")  Град
                     div.col-sm-9
                         input(type="text" name="city" id="city" value=result.userForUpdate.address.city class="form-control")
-                        span(class="help-block")
+                div.form-group
+                    label.col-sm-3.control-label(for="street")  Адрес
+                    div.col-sm-9
                         input(type="text" name="street" id="street" value=result.userForUpdate.address.street class="form-control")
                 div.form-group
                    div.col-sm-9.col-sm-offset-3
