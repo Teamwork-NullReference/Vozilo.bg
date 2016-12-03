@@ -1,7 +1,9 @@
 extends ../_layout
 
 block custom-scripts
-    script(src='/static/scripts/profile.js')
+    script(src="/static/scripts/json-requester.js")
+    script(src="/static/scripts/profile.js")
+    script(src="/static/scripts/comments-modal.js")
 
 block body-content
     
@@ -69,9 +71,9 @@ block body-content
                                 div(class="modal-content")
                                     div(class="modal-header")
                                         span 
-                                            | My Modal Header Should be here
+                                            | Напиши коментар
                                     div(class="modal-body")
-                                        form(role="form")
+                                        form(role="form" class="text-left")
                                             div(class="form-group")
                                                 label(for="recipient-username")
                                                     | Коментар за: 
@@ -79,14 +81,15 @@ block body-content
                                             div(class="form-group")
                                                 label(for="content-area")
                                                     | Коментар
-                                                textarea(id="content-area" class="form-control" placeholder="Коментар... ")
+                                                textarea(id="content-area" class="form-control" placeholder="Коментар... " name="fromArea")
                                     div(class="modal-footer")
-                                        button(type="submit" class="btn btn-success")
+                                        button(type="submit" class="btn btn-success" id="modal-success")
                                             span
                                                 | Изпрати коментара
-                                        button(class="btn" data-dismiss="modal" aria-hidden="true")
+                                        button(class="btn" data-dismiss="modal" aria-hidden="true" id="close-modal")
                                             | Затвори
-                    a(href="#" class="btn btn-success") Изпрати съобщение                 
+                    a(href="#" class="btn btn-success") Изпрати съобщение
+                    a(href="#" class="btn btn-success") Добави рейтинг                 
         div(id="user-cars" class="profile-tab hidden")
             each car in result.userDetails.cars
                 div(class="car-preview")
