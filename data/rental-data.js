@@ -14,7 +14,7 @@ module.exports = function({ models, validator }) {
     return {
         getRentalById(rentalId) {
             return new Promise((resolve, reject) => {
-                Rental.find({ '_id': rentalId }, (err, rental) => {
+                Rental.findOne({ '_id': rentalId }, (err, rental) => {
                     if (err) {
                         return reject(err);
                     }
@@ -81,7 +81,7 @@ module.exports = function({ models, validator }) {
                 });
         },
         addMessageToRental(rentalId, message) {
-            rentalValidator.validateMessage()
+            return rentalValidator.validateMessage(message)
                 .then(() => {
                     return this.getRentalById(rentalId);
                 })
