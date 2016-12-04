@@ -2,6 +2,7 @@
 'use strict';
 
 const mapper = require('../utils/mapper');
+const carValidator = require('./validation/car-validator');
 
 const START_YEAR = 1980;
 const MAX_DAYS_PER_MONTH = 31;
@@ -129,11 +130,9 @@ module.exports = function({ data }) {
             }
 
             return data.getCarById(carId)
-                // .then((car) => {
-                //     if (car.owner.username == user.username) {
-                //         reject();
-                //     }
-                // })
+                .then((car) => {
+                    return carValidator.validateRental({ user, car, startDate, endDate });
+                })
                 .then(() => {
                     return data.addRental({
                         startDate,
