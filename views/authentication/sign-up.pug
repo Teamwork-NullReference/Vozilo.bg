@@ -4,7 +4,9 @@ block custom-styles
     link(rel="stylesheet", href="/static/styles/sign-up.css")
 
 block custom-scripts
+        //- inject:jqueryValidation
         script(src="/static/bower_components/jquery-validation/dist/jquery.validate.min.js")
+        //- endinject
         script(src="/static/scripts/validators/sign-up.js")
 
 block body-content

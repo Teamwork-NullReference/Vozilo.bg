@@ -203,11 +203,9 @@ module.exports = function ({
             return dataUtils.save(car);
         },
         updateCarAvailability(id, startDate, endDate) {
-            console.log('enter update car availability', startDate, endDate);
             return this.getCarById(id)
                 .then(car => {
                     let datesToRemove = getDatesFromRange(startDate, endDate);
-                    console.log(car.availability);
                     for (let date of car.availability) {
                         if (date.isAvailable) {
                             for (let removeDate of datesToRemove) {
@@ -220,31 +218,6 @@ module.exports = function ({
 
                     return dataUtils.update(car);
                 });
-
-            //     Car.update({
-            //         '_id': id,
-            //         '$and': [{
-            //             'availability.date': {
-            //                 '$gte': startDate
-            //             }
-            //         }, {
-            //             'availability.date': {
-            //                 '$lte': endDate
-            //             }
-            //         }]
-            //     }, {
-            //         '$set': {
-            //             'availability.$.isAvailable': false
-            //         }
-            //     })
-            //         .exec((err, result) => {
-            //             if (err) {
-            //                 return reject(err);
-            //             }
-
-            //             return resolve(result);
-            //         });
-            // });
         }
     };
 };

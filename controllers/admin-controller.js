@@ -3,8 +3,6 @@
 
 const DEFAULT_PAGE = 1,
     PAGE_SIZE = 10;
-// NEWEST_USERS_COUNT = 5;
-
 
 module.exports = function({ data }) {
     return {

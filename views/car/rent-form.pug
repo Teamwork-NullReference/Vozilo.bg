@@ -4,34 +4,29 @@ block custom-styles
     link(rel='stylesheet', href='/static/styles/car-rent.css')
 
 block body-content
-    form.rent-form(action=`/car/${result.carId}/rent` method="POST")
-        span.title
-            strong Наеми кола
-        div.section
-            div.place-holder
-            div.label
-                strong Име и Фамилия
-            div.data= result.user.firstName + " " + result.user.lastName
-            div.label
-                strong Имейл
-            div.data= result.user.email
-            //- div.label
-            //-     strong Телефон
-            //- div.data
-            //-     input(type="text" name="phone")
-            div.label
-                strong Избери дати
-            div.data
-                .form-group
-                    .input-group.input-daterange(data-provide='datepicker' data-date-format='yyyy-mm-dd')
-                        input.form-control(type='text' name='startDate')
-                        span.input-group-addon до
-                        input.form-control(type='text' name='endDate')
-                        input.hidden(type="text" name="carId" value=`${result.carId}`)
-        div.section
-            div.label.msg
-                strong Изпрати съобщение на собственика
-            div.data
-                textarea(rows="4" cols="50" name="message")
-        button.btn.btn-success.btn-lg
-            | Наеми
+    div.container.background.form-container
+        div.row
+            div.col-md-9.col-md-offset-3
+                form.rent-form.text-center(action=`/car/${result.carId}/rent` method="POST")
+                    h1.color-dark-success Наеми кола
+                    div.rental-info
+                        p
+                            span Име: 
+                            strong
+                                = result.user.firstName + " " + result.user.lastName
+                        p
+                            span Имейл: 
+                            strong
+                                = result.user.email
+                        p
+                            span От дата: 
+                            strong '11/1/2016'
+                                //- enter start date here
+                        p
+                            span До дата: 
+                            strong '11/1/2016'
+                            //- enter end date here
+                        h3.color-success Изпрати съобщение на собственика
+                        textarea(rows="4" cols="50" name="message")
+                    button.btn.btn-success.btn-lg
+                        | Наеми

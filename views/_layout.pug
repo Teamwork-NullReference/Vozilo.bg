@@ -3,14 +3,23 @@ html(lang='en')
 head
     meta(charset='UTF-8')
     title Возило.бг
+    //- inject:bootstrap
     link(rel='stylesheet', href='/static/bower_components/bootstrap/dist/css/bootstrap.css')
+     //- endinject
     link(rel='stylesheet', href='/static/bower_components/font-awesome/css/font-awesome.css')
     link(rel='stylesheet', href='/static/styles/main.css')
+    //- inject:fontAwesome 
     link(rel='icon' type='image/png' href='/static/favicon.ico')
+     //- endinject
+    
     block custom-styles
-
+    //- inject:jquery
     script(src='/static/bower_components/jquery/dist/jquery.js')
+     //- endinject
+    //- inject:bootstrapJsCdn
     script(src='/static/bower_components/bootstrap/dist/js/bootstrap.js')
+     //- endinject
+    
     script(src='/static/scripts/json-requester.js')
     script(src='/static/scripts/main.js')
     
@@ -42,13 +51,11 @@ body
 
                             li
                                 a(href='/user/' + result.user.username + '/rentals') Наеми
-                                
+
                             if result.user.role=='admin'
                                 li
                                     a(href='/admin') Администратор
                         else
-                            li
-                                a(href='/car/create') Добави кола
                             li
                                 a(href='/auth/sign-in') Вход
                             li

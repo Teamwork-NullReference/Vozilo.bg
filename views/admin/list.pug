@@ -3,8 +3,13 @@ include ../_mixins/_users-list
 
 block custom-styles
     link(rel='stylesheet', href="/static/styles/admin.css")
+    //- inject:fontAwesome
     link(rel='stylesheet', href="/static/bower_components/font-awesome/css/font-awesome.min.css")
+     //- endinject
+     //- inject:jqueryUi
     link(rel='stylesheet', href="/static/bower_components/jquery-ui/themes/base/autocomplete.css")
+     //- endinject
+    
     //- link(rel='stylesheet', href="/public/bower_components/jquery-ui/themes/base/jquery-ui.css")
     
 
