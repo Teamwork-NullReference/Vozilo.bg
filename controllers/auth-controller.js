@@ -33,9 +33,8 @@ module.exports = function({ data, hashGenerator, validator }) {
 
             if (!validator.validatePassword(req.body.password)) {
                 return res.status(400)
-                    .render('status-codes/status-code-error', {
+                    .render('bad-request', {
                         result: {
-                            code: 400,
                             err: PASWORD_DOES_NOT_MATCH
                         }
                     });
@@ -49,9 +48,8 @@ module.exports = function({ data, hashGenerator, validator }) {
                 })
                 .catch(err => {
                     return res.status(400)
-                        .render('status-codes/status-code-error', {
+                        .render('bad-request', {
                             result: {
-                                code: 400,
                                 err
                             }
                         });

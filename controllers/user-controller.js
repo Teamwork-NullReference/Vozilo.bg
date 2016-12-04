@@ -221,9 +221,8 @@ module.exports = function({
                                     res.status(200).redirect(`/user/${req.user.username}/rentals`);
                                 });
                         } else {
-                            res.status(400).render('status-codes/status-code-error', {
+                            res.status(400).render('bad-request', {
                                 result: {
-                                    code: 400,
                                     err
                                 }
                             });
