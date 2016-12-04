@@ -64,6 +64,10 @@ body
                                 
                     ul.nav.navbar-nav.navbar-right
                         if result.user
+                            li
+                                img.profile-img(alt="" src=`${result.user.picture}`)
+                            li
+                                a(href=`/user/${result.user.username}`)= result.user.username
                             li(id='btn-sign-out')
                                 a(href='#' id='btn-sign-out') Изход
         
