@@ -8,7 +8,14 @@ module.exports = modelRegistrator.register('Correspondention', {
         id: mongoose.Schema.Types.ObjectId,
         imageUrl: String
     },
-    owner: {
+    carOwner: {
+        username: {
+            type: String,
+            required: true
+        },
+        imageUrl: String
+    },
+    renter: {
         username: {
             type: String,
             required: true
@@ -17,22 +24,9 @@ module.exports = modelRegistrator.register('Correspondention', {
     },
     messages: [
         {
-            sender: {
-                username: {
-                    type: String,
-                    required: true
-                },
-                imageUrl: String
-            },
-            receiver: {
-                username: {
-                    type: String,
-                    required: true
-                },
-                imageUrl: String
-            },
             text: String,
-            date: Date
+            date: Date,
+            sender: String
         }
     ]
 });
