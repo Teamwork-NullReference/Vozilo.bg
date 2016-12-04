@@ -4,7 +4,7 @@ const mapper = require('./../utils/mapper');
 const commonValidator = require('./validation/common-validator');
 const DATES_RESERVED = 'Колата е заета за избраните дати';
 
-module.exports = function ({
+module.exports = function({
     data
 }) {
     return {
@@ -23,14 +23,18 @@ module.exports = function ({
 
                     let extraInfoAllowed = false;
                     let allowMessagesAndComment = false;
+                    let isAdmin = false;
 
                     if (req.user) {
                         if (!(username === req.user.username)) {
                             allowMessagesAndComment = true;
                         }
 
-                        if (username === req.user.username ||
-                            (req.user.role && req.user.role.indexOf('admin') >= 0)) {
+                        if (req.user.role && req.user.role.indexOf('admin') >= 0) {
+                            isAdmin = true;
+                        }
+
+                        if (username === req.user.username || isAdmin) {
                             extraInfoAllowed = true;
                         }
                     }
@@ -42,7 +46,8 @@ module.exports = function ({
                             user: req.user,
                             userDetails: user,
                             extraInfoAllowed,
-                            allowMessagesAndComment
+                            allowMessagesAndComment,
+                            isAdmin
                         }
                     });
                 })
@@ -163,8 +168,6 @@ module.exports = function ({
         getRentalsInfo(req, res) {
             data.getRentalsByUsername(req.user.username)
                 .then(rentals => {
-                    // console.log('==================================================');
-                    // console.log(rentals);
                     return res.status(200).render('rentals', {
                         result: {
                             user: req.user,
@@ -233,17 +236,25 @@ module.exports = function ({
                         res.status(200).redirect(`/user/${req.user.username}/rentals`);
                     });
             }
+        },
+        setRating(req, res) {
+            if (!req.user || req.user.role.indexOf('admin') < 0) {
+                return res.status(401).render('unauthorized');
+            }
+
+            let username = req.params.username;
+            let rating = req.body.rating;
+            data.getUserByUsername(username)
+                .then(user => {
+                    user.userRating = rating;
+                    return data.updateUser(user);
+                })
+                .then(() => {
+                    res.status(200).send({ rating });
+                })
+                .catch(err => {
+                    res.status(400).send(err);
+                });
         }
     };
 };
-// check status name
-// if approve
-// get dates from rentals by rentalId
-// get car availability dates by carId -> check its availability Dates
-// if available -> 
-//change them to notAvailable (update car availability)
-// change status to Active - updateRentalStatus(id, status)
-// else (not available)
-// change status to not available - updateRentalStatus(id, status)
-// else dissaprove
-// change status to Canceled - updateRentalStatus(id, status)
