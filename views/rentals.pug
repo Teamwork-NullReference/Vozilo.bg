@@ -24,13 +24,13 @@ block body-content
                                     span От:
                                         strong 
                                             = rental.rentalInfo.startDate.getDate() + '/'
-                                            = rental.rentalInfo.startDate.getMonth() + '/'
+                                            = rental.rentalInfo.startDate.getMonth() + 1 + '/'
                                             = rental.rentalInfo.startDate.getFullYear()
                                     br
                                     span До: 
                                         strong
                                             = rental.rentalInfo.endDate.getDate() + '/'
-                                            = rental.rentalInfo.endDate.getMonth() + '/'
+                                            = rental.rentalInfo.endDate.getMonth() + 1 + '/'
                                             = rental.rentalInfo.endDate.getFullYear()
                                 td
                                     span Собственик: 

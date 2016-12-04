@@ -227,7 +227,7 @@ block body-content
                             div.col-md-3.col-xs-12
                                 label.color-success(for='startDate') Дата за взимане:
                             div.col-md-4.col-xs-4
-                                select.form-control#start-date(name='start-date')
+                                select.form-control#start-date(name='startDate')
                                     each date in result.carDetails.availability
                                         if date.isAvailable
                                             option.start-date(name='startDate' value= date.date)
@@ -239,7 +239,7 @@ block body-content
                                 div.col-md-3.col-xs-12
                                     label.color-success(for='endDate') Дата за връщане:
                                 div.col-md-4.col-xs-4
-                                    select.form-control#end-date(name='end-date')
+                                    select.form-control#end-date(name='endDate')
                                         each date in result.carDetails.availability
                                             if date.isAvailable
                                                 option.end-date(name='endDate' value= date.date)
