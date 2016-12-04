@@ -29,11 +29,11 @@ $(document).ready(function() {
     $('#rating-select').change(function() {
         var username = $('#username').text();
         var rating = $('select option:selected').val();
-        jsonRequester.put('/user/' + username + '/rating', { data: { rating } })
-            .then(() => {
+        jsonRequester.put('/user/' + username + '/rating', { data: { rating: rating } })
+            .then(function() {
                 location.reload();
             })
-            .catch(err => {
+            .catch(function(err) {
                 console.log(err);
             });
     });
