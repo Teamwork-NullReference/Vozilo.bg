@@ -47,8 +47,10 @@ block body-content
             
             div.col-md-3
                 if result.user.username === result.carOwner.username                                   
-                    img#renter-img-id(src=`${result.renter.imageUrl}`, "User image")
-                    p= `${result.renter.username}`
+                    img#renter-img-id(src=`${result.renter.imageUrl}`, "User image")                    
+                    a.row(href=`/user/${result.renter.username}`)
+                        span= `${result.renter.username}`
                 else
                     img#car-owner-img-id(src=`${result.carOwner.imageUrl}`, "User image")
-                    p= `${result.carOwner.username}`
+                    a.row(href=`/user/${result.carOwner.username}`)
+                        span= `${result.carOwner.username}`
