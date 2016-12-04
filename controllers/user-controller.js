@@ -2,7 +2,9 @@
 'use strict';
 const mapper = require('./../utils/mapper');
 
-module.exports = function({ data }) {
+module.exports = function ({
+    data
+}) {
     return {
         getDetailedUser(req, res) {
             let username = req.params.username;
@@ -160,41 +162,75 @@ module.exports = function({ data }) {
                 });
         },
         getRentalsInfo(req, res) {
-            return res.status(200).render('rentals', {
-                result: [{
-                    brand: 'Tesla',
-                    model: 'Model X',
-                    carOwner: 'Pesho',
-                    renter: 'Gosho',
-                    startDate: new Date(2016, 12, 1),
-                    endDate: new Date(2016, 12, 4),
-                    status: 'Pending'
-                }, {
-                    brand: 'VW',
-                    model: 'Caddy',
-                    carOwner: 'fafa',
-                    renter: 'Dodo',
-                    startDate: new Date(2016, 12, 1),
-                    endDate: new Date(2016, 12, 4),
-                    status: 'Canceled'
-                }, {
-                    brand: 'Peugeot',
-                    model: '405',
-                    carOwner: 'The Rock',
-                    renter: 'Stone Cold Steve Ostine',
-                    startDate: new Date(2016, 12, 1),
-                    endDate: new Date(2016, 12, 4),
-                    status: 'Active'
-                }, {
-                    brand: 'Laborgini',
-                    model: 'Diablo',
-                    carOwner: 'Pamy666',
-                    renter: 'peshkata',
-                    startDate: new Date(2016, 12, 1),
-                    endDate: new Date(2016, 12, 4),
-                    status: 'Finished'
-                }]
-            });
+            data.getRentalsByUsername(req.user.username)
+                .then(rentals => {
+                    console.log('==================================================');
+                    console.log(rentals);
+                    return res.status(200).render('rentals', {
+                        result: {
+                            user: req.user,
+                            rentals
+                        }
+                    });
+                });
+        },
+        updateRentalsInfo(req, res) {
+            // console.log(req.body.rentalInfo);
+            // let body = req.body.rentalInfo.split(', '),
+            //     status = body[0],
+            //     carId = body[1],
+            //     rentalId = body[2];
+
+            // let rentalDates;
+            // let carDates;
+            // let newStatus;
+
+            // if (status === 'approve') {
+            //     data.getRentalDates(rentalId)
+            //         .then(dates => {
+            //             rentalDates = dates;
+            //             return data.getDatesFromCalendar(carId);
+            //         })
+            //         .then(dates => {
+            //             carDates = dates;
+            //             //compare dates
+
+            //         })
+            //         .then(result => {
+            //             if (result) {
+            //                 newStatus = 'Active';
+            //                 return data.updateCarAvailability(carId, carDates);
+            //             } else {
+            //                 newStatus = 'Not Available';
+            //                 return Promise.resolve();
+            //             }
+            //         })
+            //         .then(() => {
+            //             return data.changeRentalId(rentalId, newStatus);
+            //         })
+            //         .then(() => {
+            //             res.status(200).render(`/user${req.user._id}/rentals`);
+            //         });
+            // } else if (status === 'disapprove') {
+            //     newStatus = 'Canceled';
+            //     data.changeRentalId(rentalId, newStatus)
+            //     .then(() => {
+            //         res.status(200).render(`/user${req.user._id}/rentals`);
+            //     });
         }
     };
 };
+
+// check status name
+// if approve
+// get dates from rentals by rentalId
+// get car availability dates by carId -> check its availability Dates
+// if available -> 
+//change them to notAvailable (update car availability)
+// change status to Active - updateRentalStatus(id, status)
+// else (not available)
+// change status to not available - updateRentalStatus(id, status)
+// else dissaprove
+// change status to Canceled - updateRentalStatus(id, status)
+
+// render

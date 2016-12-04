@@ -15,8 +15,9 @@ module.exports = function({ app, controllers }) {
     //     res.send('It works!');
     // })
         .get('/filter/:pattern', controller.getFilteredUsernamesJson)
-        .get('/rentals', controller.getRentalsInfo)
         .get('/:username', controller.getDetailedUser)
+        .get('/:username/rentals', controller.getRentalsInfo)
+        .post('/:username/rentals', controller.updateRentalsInfo)
         .get('/:username/update', controller.getUpdateUserForm)
         .post('/:username/update', controller.updateUserInfo)
         .get('/:id/received', (req, res) => { // show all messages

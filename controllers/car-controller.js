@@ -12,9 +12,19 @@ const MAX_DAYS_PER_MONTH = 31;
 //     return new Date(y, m, 0).getDate();
 // }
 
-module.exports = function({ data }) {
+module.exports = function ({
+    data
+}) {
     return {
         loadCreateCarForm(req, res) {
+            if (!req.user) {
+                return res.status(401).render('unauthorized', {
+                    result: {
+                        user: req.user
+                    }
+                });
+            }
+
             data.getAllBrands()
                 .then(brands => {
 
@@ -117,7 +127,12 @@ module.exports = function({ data }) {
         rentCar(req, res) {
             let user = req.user;
             if (user) {
-                let { startDate, endDate, message, carId } = req.body;
+                let {
+                    startDate,
+                    endDate,
+                    message,
+                    carId
+                } = req.body;
                 return data.getCarById(carId)
                     .then((car) => {
                         let carProjection = {

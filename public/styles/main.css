@@ -315,3 +315,7 @@ footer li a {
 .table>tbody>tr>td {
     vertical-align: middle;
 }
+
+.hidden{
+    display: none;
+}

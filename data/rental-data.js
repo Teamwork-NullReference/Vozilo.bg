@@ -3,9 +3,13 @@
 
 const dataUtils = require('./utils/data-utils');
 
-module.exports = function ({ models, validator }) {
+module.exports = function ({
+    models,
+    validator
+}) {
     let {
-        Rental
+        Rental,
+        Car
     } = models;
 
     const rentalValidator = require('./validation/rental-validator')(validator);
@@ -13,7 +17,9 @@ module.exports = function ({ models, validator }) {
     return {
         getRentalById(rentalId) {
             return new Promise((resolve, reject) => {
-                Rental.find({ '_id': rentalId }, (err, rental) => {
+                Rental.find({
+                    '_id': rentalId
+                }, (err, rental) => {
                     if (err) {
                         return reject(err);
                     }
@@ -39,6 +45,36 @@ module.exports = function ({ models, validator }) {
                     rental.messages.push(message);
 
                     return dataUtils.save(rental);
+                });
+        },
+        getRentalsInfo(username) {
+            return new Promise((resolve, reject) => {
+                Rental.find({
+                        $or: [{
+                            'carOwner.username': username
+                        }, {
+                            'renter.username': username
+                        }]
+
+                    })
+                    .select('car rentalInfo carOwner renter')
+                    .exec((err, result) => {
+                        if (err) {
+                            return reject(err);
+                        }
+                        return resolve(result);
+                    });
+            });
+        },
+        changeRentalStatus(newStatus, carId, rentalId) {
+            this.getRentalById(rentalId)
+                .then(rental => {
+                    if (newStatus === 'disapprove') { //const
+                        rental.rentalInfo.status = newStatus;
+                        return dataUtils.update(rental);
+                    } else if (newStatus === 'approve') {
+
+                    }
                 });
         }
     };
