@@ -10,6 +10,8 @@ module.exports = function({ app, controllers }) {
 
     router.get('/:username/messages/:correspondenceId', controller.getCorrespondenceDetails);
 
+    router.post('/:username/messages/:correspondenceId', controller.sendMessage);
+
     router.get('/:username/messages', controller.getLatestMessages);
 
     app.use('/user', router);

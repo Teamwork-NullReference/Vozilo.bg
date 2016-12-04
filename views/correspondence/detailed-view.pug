@@ -17,16 +17,17 @@ block body-content
             div.col-md-9
                 div.row
                     div.col-md-12
-                        div.row
-                            div.col-md-1
-                                div.circle-avatar
-                                    img.img-circle(src=`${result.user.picture}`, "User image")
-                            div.col-md-10
-                                textarea(class="form-control" id="inputBody" rows="6")
-                        div.row
-                            div.col-md-1
-                            div.col-md-2
-                                button(class="btn btn-success btn-sm" title="Send Message") Send Message
+                        form(method="post" action=`${result.id}`)
+                            div.row
+                                div.col-md-1
+                                    div.circle-avatar
+                                        img.img-circle(src=`${result.user.picture}`, "User image")
+                                div.col-md-10
+                                    textarea(class="form-control" rows="6" name="inputData")
+                            div.row
+                                div.col-md-1
+                                div.col-md-2
+                                    button(class="btn btn-success btn-sm" title="Send Message") Send Message
                         div.row
                             br
                         div.row
@@ -42,7 +43,7 @@ block body-content
                                 div.col-md-8
                                     span= message.text
                                 div.col-md-3
-                                    span= message.date.toLocaleString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+                                    span= message.date.toLocaleString('en-US', { hour12: false })
 
             div.col-md-3
                 img(src=`${result.renter.imageUrl}`, "User image")
