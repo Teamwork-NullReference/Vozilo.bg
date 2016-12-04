@@ -34,7 +34,7 @@ block body-content
                             span= correspondence.messages.reverse()[0].date.toLocaleString('bg-BG')
                     else
                         div.col-md-2
-                            span= `${correspondence.car.owner.firstName} ${correspondence.car.owner.lastName}`
+                            span= `${correspondence.carOwner.username}`
                         div.col-md-1  
                             div.circle-avatar
                                 img.img-circle(src=`${correspondence.carOwner.imageUrl}`, "User image")
@@ -42,5 +42,3 @@ block body-content
                             span= correspondence.messages.reverse()[0].text
                         div.col-md-2
                             span= correspondence.messages.reverse()[0].date.toLocaleString('bg-BG')
-                        div.col-md-2
-                            span= `${correspondence.car.owner.city}`

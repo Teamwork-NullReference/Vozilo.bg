@@ -14,7 +14,7 @@ module.exports = function(data) {
     if (process.env.ENV_MODE === 'PRODUCTION') {
         app.use('/static', express.static('build'));
     } else {
-        app.use('/static', express.static('build'));
+        app.use('/static', express.static('public'));
     }
     app.use(cookieParser());
     app.use(bodyParser.urlencoded({ extended: true }));
