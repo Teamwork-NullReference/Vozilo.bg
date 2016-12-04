@@ -1,0 +1,1 @@
+$(function(){function a(a,b){var c=$(b.target).parent().parent(),d=c.attr("rentalId"),e=c.attr("carId");return a+","+e+","+d}$(".approve").on("click",function(b){var c=a("approve",b);$(".rental-info").val(c)}),$(".disapprove").on("click",function(b){var c=a("disapprove",b);$(".rental-info").val(c)})});
