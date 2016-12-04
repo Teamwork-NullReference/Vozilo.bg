@@ -9,9 +9,9 @@ module.exports = function (validator) {
     return {
         validateMessage(message) {
             return new Promise((resolve, reject) => {
-                message.text = validator.escapeProhibitedChars(message.text);
+                let escapedMessage = validator.escapeProhibitedChars(message);
 
-                if (!validator.validateLength(message.text, MESSAGE_MIN_LENGTH, MESSAGE_MAX_LENGTH)) {
+                if (!validator.validateLength(escapedMessage, MESSAGE_MIN_LENGTH, MESSAGE_MAX_LENGTH)) {
                     return reject(MESSAGE_LENGTH);
                 }
 

@@ -105,7 +105,7 @@ module.exports = function ({
                 });
         },
         addMessageToRental(rentalId, message) {
-            return rentalValidator.validateMessage(message)
+            return rentalValidator.validateMessage(message.text)
                 .then(() => {
                     return this.getRentalById(rentalId);
                 })
