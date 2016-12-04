@@ -1,6 +1,8 @@
 /* globals module */
 'use strict';
 const mapper = require('./../utils/mapper');
+const commonValidator = require('./validation/common-validator');
+const DATES_RESERVED = 'Колата е заета за избраните дати';
 
 module.exports = function ({
     data
@@ -161,8 +163,8 @@ module.exports = function ({
         getRentalsInfo(req, res) {
             data.getRentalsByUsername(req.user.username)
                 .then(rentals => {
-                    console.log('==================================================');
-                    console.log(rentals);
+                    // console.log('==================================================');
+                    // console.log(rentals);
                     return res.status(200).render('rentals', {
                         result: {
                             user: req.user,
@@ -172,52 +174,68 @@ module.exports = function ({
                 });
         },
         updateRentalsInfo(req, res) {
-            // console.log(req.body.rentalInfo);
-            // let body = req.body.rentalInfo.split(', '),
-            //     status = body[0],
-            //     carId = body[1],
-            //     rentalId = body[2];
+            let body = req.body.rentalInfo.split(','),
+                status = body[0],
+                carId = body[1],
+                rentalId = body[2];
+            let rentalDates = {};
+            let carDates;
+            let newStatus;
 
-            // let rentalDates;
-            // let carDates;
-            // let newStatus;
+            if (status === 'approve') {
+                data.getRentalDates(rentalId)
+                    .then(dates => {
+                        rentalDates = dates;
+                        return data.getDatesFromCalendar(carId);
+                    })
+                    .then(dates => {
+                        carDates = dates;
+                        return commonValidator.validateDatesAvailability({
+                            startDate: rentalDates.rentalInfo.startDate,
+                            endDate: rentalDates.rentalInfo.endDate,
+                            availability: carDates[0].availability
+                        });
 
-            // if (status === 'approve') {
-            //     data.getRentalDates(rentalId)
-            //         .then(dates => {
-            //             rentalDates = dates;
-            //             return data.getDatesFromCalendar(carId);
-            //         })
-            //         .then(dates => {
-            //             carDates = dates;
-            //             //compare dates
-
-            //         })
-            //         .then(result => {
-            //             if (result) {
-            //                 newStatus = 'Active';
-            //                 return data.updateCarAvailability(carId, carDates);
-            //             } else {
-            //                 newStatus = 'Not Available';
-            //                 return Promise.resolve();
-            //             }
-            //         })
-            //         .then(() => {
-            //             return data.changeRentalId(rentalId, newStatus);
-            //         })
-            //         .then(() => {
-            //             res.status(200).render(`/user${req.user._id}/rentals`);
-            //         });
-            // } else if (status === 'disapprove') {
-            //     newStatus = 'Canceled';
-            //     data.changeRentalId(rentalId, newStatus)
-            //     .then(() => {
-            //         res.status(200).render(`/user${req.user._id}/rentals`);
-            //     });
+                    })
+                    .then(() => {
+                        console.log('update car availability');
+                        return data.updateCarAvailability(carId, rentalDates.rentalInfo.startDate, rentalDates.rentalInfo.endDate);
+                    })
+                    .then(() => {
+                        newStatus = 'Active';
+                        console.log('status change to Active');
+                        return data.changeRentalStatus(rentalId, newStatus);
+                    })
+                    .then(() => {
+                        res.status(200).redirect(`/user/${req.user.username}/rentals`);
+                    })
+                    .catch(err => {
+                        if (err === DATES_RESERVED) {
+                            console.log('not available');
+                            newStatus = 'Not Available';
+                            data.changeRentalStatus(rentalId, newStatus)
+                                .then(() => {
+                                    res.status(200).redirect(`/user/${req.user.username}/rentals`);
+                                });
+                        } else {
+                            res.status(400).render('status-codes/status-code-error', {
+                                result: {
+                                    code: 400,
+                                    err
+                                }
+                            });
+                        }
+                    });
+            } else if (status === 'disapprove') {
+                newStatus = 'Canceled';
+                data.changeRentalStatus(rentalId, newStatus)
+                    .then(() => {
+                        res.status(200).redirect(`/user/${req.user.username}/rentals`);
+                    });
+            }
         }
     };
 };
-
 // check status name
 // if approve
 // get dates from rentals by rentalId
@@ -229,5 +247,3 @@ module.exports = function ({
 // change status to not available - updateRentalStatus(id, status)
 // else dissaprove
 // change status to Canceled - updateRentalStatus(id, status)
-
-// render
