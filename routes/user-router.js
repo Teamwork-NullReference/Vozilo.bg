@@ -17,8 +17,8 @@ module.exports = function({ app, controllers }) {
         .post('/:username/rentals', controller.updateRentalsInfo)
         .get('/:username/update', controller.getUpdateUserForm)
         .post('/:username/update', controller.updateUserInfo)
-        .put('/:username/rating', controller.setRating);
-
+        .put('/:username/rating', controller.setRating)
+        .post('/:username/comments', controller.addComment);
 
     app.use('/user', router);
 

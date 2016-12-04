@@ -11,9 +11,11 @@ module.exports = function(data) {
     let app = express();
 
     app.set('view engine', 'pug');
-
-    app.use('/static', express.static('public'));
-
+    if (process.env.ENV_MODE === 'PRODUCTION') {
+        app.use('/static', express.static('build'));
+    } else {
+        app.use('/static', express.static('build'));
+    }
     app.use(cookieParser());
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());

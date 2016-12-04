@@ -10,3 +10,7 @@ div.circle-avatar > img {
     width: 20px;
     height: 20px;
 }
+
+#renter-img-id, #car-owner-img-id {
+    width: 90%;
+}
