@@ -39,7 +39,6 @@ module.exports = function(data) {
             let carInfo = req.body;
             data.addCar(user, carInfo)
                 .then(car => {
-                    console.log('car controller');
                     return data.addCarToUser(user, car);
                 })
                 .then(() => {
@@ -47,7 +46,6 @@ module.exports = function(data) {
                         .redirect('/');
                 })
                 .catch(err => {
-                    console.log('controller catch');
                     return res.status(400)
                         .render('status-codes/status-code-error', {
                             result: {

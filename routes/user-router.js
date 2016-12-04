@@ -15,6 +15,7 @@ module.exports = function ({ app, data }) {
         //     res.send('It works!');
         // })
         .get('/filter/:pattern', controller.getFilteredUsernamesJson)
+        .get('/rentals', controller.getRentalsInfo)
         .get('/:username', controller.getDetailedUser)
         .get('/:username/update', controller.getUpdateUserForm)
         .post('/:username/update', controller.updateUserInfo)

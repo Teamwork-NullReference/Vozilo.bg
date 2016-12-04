@@ -2,6 +2,7 @@
 'use strinct';
 
 $().ready(function () {
+
     $('#car-creation-form').validate({
         rules: {
             brand: {

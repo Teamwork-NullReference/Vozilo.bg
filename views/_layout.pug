@@ -49,6 +49,11 @@ body
                                 a(href='/auth/sign-in') Вход
                             li
                                 a(href='/auth/sign-up') Регистрация
+
+                            li
+                                //- a(href='/user/' = result.user._id + '/rentals') Наеми
+                                a(href='/user/rentals') Наеми
+                                
                     ul.nav.navbar-nav.navbar-right
                         if result.user
                             li(id='btn-sign-out')
@@ -58,7 +63,7 @@ body
        block body-content
 
     footer.footer
-        div.container
+        div.container.footer-content
             .row
                 .col-md-4
                     div.fb-btns
