@@ -2,15 +2,10 @@
 'use strict';
 
 const dataUtils = require('./utils/data-utils');
-
-<<<<<<< HEAD
 module.exports = function ({
     models,
     validator
 }) {
-=======
-module.exports = function({ models, validator }) {
->>>>>>> 923bfd9b9bc616fc605326113628f9867821d9eb
     let {
         Rental,
         Car
@@ -21,13 +16,9 @@ module.exports = function({ models, validator }) {
     return {
         getRentalById(rentalId) {
             return new Promise((resolve, reject) => {
-<<<<<<< HEAD
-                Rental.find({
+                Rental.findOne({
                     '_id': rentalId
                 }, (err, rental) => {
-=======
-                Rental.findOne({ '_id': rentalId }, (err, rental) => {
->>>>>>> 923bfd9b9bc616fc605326113628f9867821d9eb
                     if (err) {
                         return reject(err);
                     }
@@ -58,7 +49,7 @@ module.exports = function({ models, validator }) {
                         renterImageUrl,
                         messageSender
                     } = rentalInfo,
-                        carProjection = {
+                    carProjection = {
                             id: car._id,
                             brand: car.brand,
                             model: car.model
@@ -104,7 +95,7 @@ module.exports = function({ models, validator }) {
                     return dataUtils.save(rental);
                 });
         },
-        getRentalsInfo(username) {
+        getRentalsByUsername(username) {
             return new Promise((resolve, reject) => {
                 Rental.find({
                         $or: [{
