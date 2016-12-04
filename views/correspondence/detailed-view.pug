@@ -23,7 +23,7 @@ block body-content
                                     div.circle-avatar
                                         img.img-circle(src=`${result.user.picture}`, "User image")
                                 div.col-md-10
-                                    textarea(class="form-control" rows="6" name="inputData" cols="12")
+                                    textarea(class="form-control" rows="6" name="inputData")
                             div.row
                                 div.col-md-1
                                 div.col-md-2
@@ -43,7 +43,7 @@ block body-content
                                 div.col-md-8
                                     span= message.text
                                 div.col-md-3
-                                    span= message.date.toLocaleString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+                                    span= message.date.toLocaleString('en-US', { hour12: false })
 
             div.col-md-3
                 img(src=`${result.renter.imageUrl}`, "User image")
