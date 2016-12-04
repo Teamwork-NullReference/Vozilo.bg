@@ -4,7 +4,7 @@ let dataUtils = require('./utils/data-utils');
 let filterLimit = 10;
 let userValidator = require('./validation/user-validator');
 
-module.exports = function ({
+module.exports = function({
     models,
     validator
 }) {
@@ -164,22 +164,6 @@ module.exports = function ({
                 };
             });
         },
-        /* Looks like dublicated code - keep it commented for now. TODO delete eventually */
-        // getUserByCredentials(options) {
-        //     let promise = new Promise((resolve, reject) => {
-        //         User.findOne({
-        //             options
-        //         }, (err, res) => {
-        //             if (err) {
-        //                 reject(err);
-        //             }
-
-        //             resolve(res);
-        //         });
-        //     });
-
-        //     return promise;
-        // },
         findTopRated(n) {
             return new Promise((resolve, reject) => {
                 User.find()
@@ -197,7 +181,7 @@ module.exports = function ({
             });
         },
         filterUsers(filter, limit) {
-            filterLimit=limit||filterLimit;
+            filterLimit = limit || filterLimit;
             return new Promise((resolve, reject) => {
                 User.find()
                     .where({ 'username': { '$regex': filter, '$options': 'i' } })
@@ -207,6 +191,28 @@ module.exports = function ({
                             reject(err);
                         }
                         resolve(res);
+                    });
+            });
+        },
+        deleteUser(username) {
+            return new Promise((resolve, reject) => {
+                User.update({ username }, { isDeleted: true },
+                    function(err, numberAffected, rawResponse) {
+                        if (err) {
+                            reject(err);
+                        }
+                        resolve(rawResponse);
+                    });
+            });
+        },
+        restoreUser(username) {
+            return new Promise((resolve, reject) => {
+                User.update({ username }, { isDeleted: false },
+                    function(err, numberAffected, rawResponse) {
+                        if (err) {
+                            reject(err);
+                        }
+                        resolve(rawResponse);
                     });
             });
         }

@@ -28,7 +28,7 @@ module.exports = function (passport, data) {
             data
                 .findByGoogleId(profile.id)
                 .then(user => {
-                    if (user) {
+                    if (user && !user.isDeleted) {
                         return user;
                     }
                     let googleUser = data.createUser({

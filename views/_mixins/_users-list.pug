@@ -47,5 +47,9 @@ mixin users-list-form
                                                 span.fa-stack <i class="fa fa-square fa-stack-2x"> </i> <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
                                             a.table-link(href=`/user/${user.username}/update`)
                                                 span.fa-stack <i class="fa fa-square fa-stack-2x"> </i> <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                                            a.table-link.danger(href=`/user/${user.username}/delete`)
-                                                span.fa-stack <i class="fa fa-square fa-stack-2x"> </i> <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                            if(!user.isDeleted) 
+                                                a.table-link.danger(class="delete" href="" id=`${user.username}`)
+                                                    span.fa-stack <i class="fa fa-square fa-stack-2x"> </i><i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
+                                            else                
+                                                a.table-link.success(class="restore" href="" id=`${user.username}`)
+                                                    span.fa-stack <i class="fa fa-square fa-stack-2x"> </i><i class="fa fa-user-plus fa-stack-1x fa-inverse"></i>
