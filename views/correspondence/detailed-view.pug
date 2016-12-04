@@ -44,10 +44,11 @@ block body-content
                                     span= message.text
                                 div.col-md-3
                                     span= message.date.toLocaleString('en-US', { hour12: false })
-
+            
             div.col-md-3
-                img(src=`${result.renter.imageUrl}`, "User image")
-            div.row
-                div.col-md-9
-                div.col-md-3
-                    span= `${result.renter.username}`
+                if result.user.username === result.carOwner.username                                   
+                    img#renter-img-id(src=`${result.renter.imageUrl}`, "User image")
+                    p= `${result.renter.username}`
+                else
+                    img#car-owner-img-id(src=`${result.carOwner.imageUrl}`, "User image")
+                    p= `${result.carOwner.username}`
