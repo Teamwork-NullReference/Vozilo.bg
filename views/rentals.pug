@@ -9,7 +9,7 @@ block body-content
     div.container
         div.row.background.text-center
             div.col-lg-12.col-md-12
-                h1.color-dark-success Всички наеми на коли
+                h1.color-dark-success.margin-top-30 Всички наеми на коли
                 table.table.table-striped
                     thead
                     form(method='POST' action='/user/' + result.user.usernmae + '/rentals')
@@ -17,10 +17,11 @@ block body-content
                         each rental in result.rentals
                             tr.rental-row(rentalId= rental._id carId= rental.car.id)
                                 td
-                                    span 
-                                        = rental.car.brand + ' '
-                                    span
-                                        = rental.car.model
+                                    a(href='/car/' + rental.car.id)
+                                        span 
+                                            = rental.car.brand + ' '
+                                        span
+                                            = rental.car.model
                                 td
                                     span От:
                                         strong 

@@ -2,6 +2,7 @@
 'use strict';
 
 const dataUtils = require('./utils/data-utils');
+
 module.exports = function ({
     models,
     validator
@@ -105,7 +106,7 @@ module.exports = function ({
                 });
         },
         addMessageToRental(rentalId, message) {
-            return rentalValidator.validateMessage(message)
+            return rentalValidator.validateMessage(message.text)
                 .then(() => {
                     return this.getRentalById(rentalId);
                 })
@@ -134,16 +135,28 @@ module.exports = function ({
                 });
             });
         },
-        changeRentalStatus(newStatus, carId, rentalId) {
-            this.getRentalById(rentalId)
+        changeRentalStatus(rentalId, newStatus) {
+            return this.getRentalById(rentalId)
                 .then(rental => {
-                    if (newStatus === 'disapprove') { //const
-                        rental.rentalInfo.status = newStatus;
-                        return dataUtils.update(rental);
-                    } else if (newStatus === 'approve') {
-
-                    }
+                    console.log(rental);
+                    rental.rentalInfo.status = newStatus;
+                    return dataUtils.update(rental);
                 });
+        },
+        getRentalDates(rentalId) {
+            return new Promise((resolve, reject) => {
+                Rental.findOne({
+                    '_id': rentalId
+                })
+                    .select('rentalInfo')
+                    .exec((err, result) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve(result);
+                    });
+            });
         }
     };
 };
