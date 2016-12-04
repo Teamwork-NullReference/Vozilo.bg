@@ -65,9 +65,13 @@ module.exports = function({ data }) {
                         return data.getUserByUsername(car.owner.username);
                     }
 
-                    return res.status(404).send('There is not such car');
+                    return Promise.resolve(null);
                 })
                 .then(user => {
+                    if (!user) {
+                        return res.status(404).send('There is not such car');
+                    }
+
                     carDetails.owner.receivedReviews = user.receivedReviews;
 
                     return res.status(200).render('car/details', {

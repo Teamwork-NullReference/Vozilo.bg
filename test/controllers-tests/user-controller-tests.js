@@ -5,7 +5,7 @@ let chai = require('chai');
 let expect = chai.expect;
 let sinon = require('sinon');
 
-const mockedUser = require('./mockedUser');
+const mockedUser = require('./mocked-user');
 const usernameThatDoNotExsist = 'That username do not exsist in the database ... oooops there is no database coz stub';
 const userWithUserNameOnly = {
     username: 'Traqn'
