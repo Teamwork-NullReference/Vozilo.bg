@@ -2,7 +2,7 @@
 'use strict';
 const mapper = require('./../utils/mapper');
 
-module.exports = function ({
+module.exports = function({
     data
 }) {
     return {
@@ -21,14 +21,18 @@ module.exports = function ({
 
                     let extraInfoAllowed = false;
                     let allowMessagesAndComment = false;
+                    let isAdmin = false;
 
                     if (req.user) {
                         if (!(username === req.user.username)) {
                             allowMessagesAndComment = true;
                         }
 
-                        if (username === req.user.username ||
-                            (req.user.role && req.user.role.indexOf('admin') >= 0)) {
+                        if (req.user.role && req.user.role.indexOf('admin') >= 0) {
+                            isAdmin = true;
+                        }
+
+                        if (username === req.user.username || isAdmin) {
                             extraInfoAllowed = true;
                         }
                     }
@@ -40,7 +44,8 @@ module.exports = function ({
                             user: req.user,
                             userDetails: user,
                             extraInfoAllowed,
-                            allowMessagesAndComment
+                            allowMessagesAndComment,
+                            isAdmin
                         }
                     });
                 })
@@ -214,6 +219,25 @@ module.exports = function ({
             //     .then(() => {
             //         res.status(200).render(`/user${req.user._id}/rentals`);
             //     });
+        },
+        setRating(req, res) {
+            if (!req.user || req.user.role.indexOf('admin') < 0) {
+                return res.status(401).render('unauthorized');
+            }
+
+            let username = req.params.username;
+            let rating = req.body.rating;
+            data.getUserByUsername(username)
+                .then(user => {
+                    user.userRating = rating;
+                    return data.updateUser(user);
+                })
+                .then(() => {
+                    res.status(200).send({ rating });
+                })
+                .catch(err => {
+                    res.status(400).send(err);
+                });
         }
     };
 };

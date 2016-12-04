@@ -316,6 +316,15 @@ footer li a {
     vertical-align: middle;
 }
 
-.hidden{
+#rating-select {
+    width: 60px;
+    display: inline-block;
+}
+
+.margin-left-fiftheen {
+    margin-left: 15px;
+}
+
+.hidden {
     display: none;
 }
