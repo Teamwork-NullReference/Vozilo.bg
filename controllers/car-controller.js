@@ -7,7 +7,7 @@ const carValidator = require('./validation/car-validator');
 const START_YEAR = 1980;
 const MAX_DAYS_PER_MONTH = 31;
 
-module.exports = function ({
+module.exports = function({
     data
 }) {
     return {
@@ -103,14 +103,17 @@ module.exports = function ({
         },
         loadRentCarForm(req, res) {
             let user = req.user,
-                carId = req.params.id;
+                carId = req.params.id,
+                { startDate, endDate } = req.query;
             if (user) {
                 return res
                     .status(200)
                     .render('car/rent-form', {
                         result: {
                             user: mapper.map(req.user, 'username', 'role', 'email', 'firstName', 'lastName'),
-                            carId
+                            carId,
+                            startDate: new Date(startDate),
+                            endDate: new Date(endDate)
                         }
                     });
             }
@@ -121,7 +124,8 @@ module.exports = function ({
         },
         rentCar(req, res) {
             let user = req.user,
-                { startDate, endDate, message, carId } = req.body,
+                { startDate, endDate, message } = req.body,
+                carId = req.params.id,
                 renterUserName = user.username,
                 renterImageUrl = user.picture,
                 messageText = message,
@@ -149,7 +153,7 @@ module.exports = function ({
                     });
                 })
                 .then(() => {
-                    return res.status(200).redirect('/');
+                    return res.status(200).redirect(`/user/${user.username}/rentals`);
                 })
                 .catch(err => {
                     return res.status(400)

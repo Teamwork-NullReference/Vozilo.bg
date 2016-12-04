@@ -20,12 +20,18 @@ block body-content
                                 = result.user.email
                         p
                             span От дата: 
-                            strong '11/1/2016'
-                                //- enter start date here
+                            strong
+                                = result.startDate.getDate() + '/'
+                                = result.startDate.getMonth() + 1 + '/'
+                                = result.startDate.getFullYear()
+                            input.hidden(name="startDate" value=`${result.startDate}`)
                         p
                             span До дата: 
-                            strong '11/1/2016'
-                            //- enter end date here
+                            strong
+                                = result.endDate.getDate() + '/'
+                                = result.endDate.getMonth() + 1 + '/'
+                                = result.endDate.getFullYear()
+                            input.hidden(name="endDate" value=`${result.endDate}`)
                         h3.color-success Изпрати съобщение на собственика
                         textarea(rows="4" cols="50" name="message")
                     button.btn.btn-success.btn-lg
