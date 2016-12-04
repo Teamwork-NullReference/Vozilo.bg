@@ -8,7 +8,6 @@ $(function () {
                 }
             })
             .then(function () {
-                console.log('2');
                 window.location.replace('/');
             });
 

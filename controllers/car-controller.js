@@ -2,6 +2,7 @@
 'use strict';
 
 const mapper = require('../utils/mapper');
+const carValidator = require('./validation/car-validator');
 
 const START_YEAR = 1980;
 const MAX_DAYS_PER_MONTH = 31;
@@ -75,9 +76,13 @@ module.exports = function ({
                         return data.getUserByUsername(car.owner.username);
                     }
 
-                    return res.status(404).send('There is not such car');
+                    return Promise.resolve(null);
                 })
                 .then(user => {
+                    if (!user) {
+                        return res.status(404).send('There is not such car');
+                    }
+
                     carDetails.owner.receivedReviews = user.receivedReviews;
 
                     return res.status(200).render('car/details', {
@@ -125,69 +130,47 @@ module.exports = function ({
                 .redirect('/sign-in');
         },
         rentCar(req, res) {
-            let user = req.user;
-            if (user) {
-                let {
-                    startDate,
-                    endDate,
-                    message,
-                    carId
-                } = req.body;
-                return data.getCarById(carId)
-                    .then((car) => {
-                        let carProjection = {
-                            id: car._id,
-                            brand: car.brand,
-                            model: car.model
-                        };
-                        let carOwner = {
-                            username: car.owner.username,
-                            imageUrl: car.owner.imageUrl
-                        };
-                        let renter = {
-                            username: user.username,
-                            imageUrl: user.picture
-                        };
-                        let messages = [{
-                            text: message,
-                            date: new Date(),
-                            sender: user.username
-                        }];
-                        let rentalInfo = {
-                            startDate,
-                            endDate,
-                            status: 'Pending'
-                        };
+            let user = req.user,
+                { startDate, endDate, message, carId } = req.body,
+                renterUserName = user.username,
+                renterImageUrl = user.picture,
+                messageText = message,
+                messageSender = user.username;
 
-                        let rentalModelInfo = {
-                            car: carProjection,
-                            carOwner,
-                            renter,
-                            messages,
-                            rentalInfo
-                        };
-
-                        return data.addRental(rentalModelInfo);
-                    })
-                    .then(() => {
-                        //TODO redirect to rentals page
-                        return res.status(200).redirect('/');
-                    })
-                    .catch(err => {
-                        return res.status(400)
-                            .render('status-codes/status-code-error', {
-                                result: {
-                                    code: 400,
-                                    err
-                                }
-                            });
-                    });
+            if (!user) {
+                return res
+                    .status(300)
+                    .redirect('/sign-in');
             }
 
-            //TODO redirect to error page when implemented
-            return res
-                .status(300)
-                .redirect('/sign-in');
+            return data.getCarById(carId)
+                .then((car) => {
+                    return carValidator.validateRental({ user, car, startDate, endDate });
+                })
+                .then(() => {
+                    return data.addRental({
+                        startDate,
+                        endDate,
+                        messageText,
+                        carId,
+                        renterUserName,
+                        renterImageUrl,
+                        messageSender
+                    });
+                })
+                .then(() => {
+                    //TODO redirect to rentals page
+                    return res.status(200).redirect('/');
+                })
+                .catch(err => {
+                    return res.status(400)
+                        .render('status-codes/status-code-error', {
+                            result: {
+                                code: 400,
+                                err
+                            }
+                        });
+                });
         }
     };
 };

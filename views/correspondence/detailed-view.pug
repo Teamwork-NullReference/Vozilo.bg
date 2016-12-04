@@ -42,7 +42,7 @@ block body-content
                                 div.col-md-8
                                     span= message.text
                                 div.col-md-3
-                                    span= message.date
+                                    span= message.date.toLocaleString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
 
             div.col-md-3
                 img(src=`${result.renter.imageUrl}`, "User image")

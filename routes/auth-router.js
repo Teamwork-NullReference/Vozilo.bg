@@ -15,7 +15,6 @@ module.exports = function({ app, controllers }) {
         .get('/sign-up', controller.getSignUpForm)
         .get('/sign-in', controller.getSignInForm)
         .get('/auth/google', controller.getSgnInGoogle)
-        // .get('/login/github/callback', controller.getSgnInGoogle)
         .get('/auth/google/callback',
             passport.authenticate('google', { failureRedirect: '/login' }),
             (req, res) => {
