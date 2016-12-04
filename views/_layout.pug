@@ -3,10 +3,9 @@ html(lang='en')
 head
     meta(charset='UTF-8')
     title Возило.бг
-    //- inject:bootstrap
-    link(rel='stylesheet', href='/static/bower_components/bootstrap/dist/css/bootstrap.css')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css')
      //- endinject
-    link(rel='stylesheet', href='/static/bower_components/font-awesome/css/font-awesome.css')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css')
     link(rel='stylesheet', href='/static/styles/main.css')
     //- inject:fontAwesome 
     link(rel='icon' type='image/png' href='/static/favicon.ico')
@@ -14,10 +13,10 @@ head
     
     block custom-styles
     //- inject:jquery
-    script(src='/static/bower_components/jquery/dist/jquery.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js')
      //- endinject
     //- inject:bootstrapJsCdn
-    script(src='/static/bower_components/bootstrap/dist/js/bootstrap.js')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
      //- endinject
     
     script(src='/static/scripts/json-requester.js')
