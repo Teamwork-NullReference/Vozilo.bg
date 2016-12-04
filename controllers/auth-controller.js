@@ -44,9 +44,9 @@ module.exports = function({ data, hashGenerator, validator }) {
 
             data.createUser(newUser)
                 .then(
-                    () => {
-                        res.redirect('/auth/sign-in');
-                    })
+                () => {
+                    res.redirect('/auth/sign-in');
+                })
                 .catch(err => {
                     return res.status(400)
                         .render('status-codes/status-code-error', {

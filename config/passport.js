@@ -13,7 +13,7 @@ module.exports= function (app, data) {
     const Strategy = new LocalStratey((username, password, done) => {
         data.findUserByCredentials(username, hash(password))
             .then(user => {
-                if (user) {
+                if (user&&!user.isDeleted) {
                     return done(null, user);
                 }
 

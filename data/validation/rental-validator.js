@@ -5,11 +5,8 @@ const MESSAGE_LENGTH = 'Съобщението трябва да бъде меж
     MESSAGE_MIN_LENGTH = 2,
     MESSAGE_MAX_LENGTH = 2000;
 
-module.exports = function(validator) {
+module.exports = function (validator) {
     return {
-        validateRental() {
-            return Promise.resolve(true);
-        },
         validateMessage(message) {
             return new Promise((resolve, reject) => {
                 message.text = validator.escapeProhibitedChars(message.text);
