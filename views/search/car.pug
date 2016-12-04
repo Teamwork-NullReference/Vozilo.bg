@@ -30,7 +30,7 @@ block body-content
                                  div.col-md-6.car-details
                                      a(href=`/user/${car.owner.username}`)
                                         img.img-circle(src=`${car.owner.imageUrl}`)
-                                        span.username.ellipsis-text= car.owner.firstName + car.owner.lastName
+                                        span.username.ellipsis-text= car.owner.firstName + ' ' + car.owner.lastName
                                  div.col-md-3.price.car-details
                                     span
                                         strong.amount.ellipsis-text= car.price.perDay 
