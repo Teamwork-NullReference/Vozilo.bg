@@ -8,9 +8,10 @@
 .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }*/
 
 .ui-autocomplete {
-    background: #EEEEEE;
-    border-radius: 20px;
-    font-size: 14px;
+    background: ghostwhite;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    font-size: 20px;
     list-style-type: none;
 }
 

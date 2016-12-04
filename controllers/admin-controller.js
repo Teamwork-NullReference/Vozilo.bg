@@ -13,7 +13,7 @@ module.exports = function(data) {
                 let user = req.user;
                 let pattern = req.query.pattern || '';
                 let query;
-                if (+req.query.page < 1) {
+                if (Number(req.query.page) < 1) {
                     query = 1;
                 }
                 else {
@@ -21,7 +21,7 @@ module.exports = function(data) {
                 }
                 let page = Number(query || DEFAULT_PAGE);
                 data.getUsers({ pattern, page, pageSize: PAGE_SIZE })
-                    .then((result => {
+                    .then(result => {
                         let {
                             users,
                             count
@@ -55,7 +55,7 @@ module.exports = function(data) {
                             user,
                             params: { pattern, page, pages: 0 }
                         });
-                    }))
+                    })
                     .catch(err => {
                         res.status(404)
                             .send(err);
@@ -74,7 +74,6 @@ module.exports = function(data) {
             if (req.user && ((req.user.role && req.user.role.indexOf('admin') >= 0))) {
                 data.filterUsers(req.body.adminSearch)
                     .then((result) => {
-                        console.log(result);
                         return res.render('admin/list', {
                             result: { user: req.user },
                             model: result
@@ -89,6 +88,35 @@ module.exports = function(data) {
                     }
                 });
             }
+        },
+        deleteUser(req, res) {
+            let userToDelete = req.body.username;
+            if (req.user && ((req.user.role && req.user.role.indexOf('admin') >= 0)) && req.user !== userToDelete) {
+
+                data.deleteUser(userToDelete)
+                    .then(() => {
+                        return res.status(202).send({ status: 'ok' });
+
+                    });
+            }
+            else {
+                res.status(401).send({ status: 'nok' });
+            }
+
+        },
+        restoreUser(req, res) {
+            let userToRestore = req.body.username;
+            if (req.user && ((req.user.role && req.user.role.indexOf('admin') >= 0)) && req.user !== userToRestore) {
+                data.restoreUser(userToRestore)
+                    .then(() => {
+                        return res.status(202).send({ status: 'ok' });
+
+                    });
+            }
+            else {
+                res.status(401).send({ status: 'nok' });
+            }
+
         }
     };
 };
