@@ -43,7 +43,7 @@ describe('car-controller tests:', () => {
             return res;
         });
 
-        let controller = require('./../../controllers/car-controller')(data);
+        let controller = require('./../../controllers/car-controller')({ data });
         controller.loadCreateCarForm(req, res);
     });
 
@@ -66,7 +66,7 @@ describe('car-controller tests:', () => {
             done();
         });
 
-        let controller = require('./../../controllers/car-controller')(data);
+        let controller = require('./../../controllers/car-controller')({ data });
         controller.loadCreateCarForm(req, res);
     });
 
@@ -89,7 +89,7 @@ describe('car-controller tests:', () => {
             done();
         });
 
-        let controller = require('./../../controllers/car-controller')(data);
+        let controller = require('./../../controllers/car-controller')({ data });
         controller.loadCreateCarForm(req, res);
     });
 
@@ -112,7 +112,7 @@ describe('car-controller tests:', () => {
             done();
         });
 
-        let controller = require('./../../controllers/car-controller')(data);
+        let controller = require('./../../controllers/car-controller')({ data });
         controller.loadCreateCarForm(req, res);
     });
 
@@ -135,7 +135,7 @@ describe('car-controller tests:', () => {
             done();
         });
 
-        let controller = require('./../../controllers/car-controller')(data);
+        let controller = require('./../../controllers/car-controller')({ data });
         controller.loadCreateCarForm(req, res);
     });
 });

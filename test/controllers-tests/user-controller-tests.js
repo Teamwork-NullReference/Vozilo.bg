@@ -65,7 +65,7 @@ describe('user-controller-tests:', () => {
             }
         };
 
-        let controller = require('./../../controllers/user-controller')(data);
+        let controller = require('./../../controllers/user-controller')({ data });
         controller.getDetailedUser(req, res);
     });
 
@@ -85,7 +85,7 @@ describe('user-controller-tests:', () => {
             }
         };
 
-        let controller = require('./../../controllers/user-controller')(data);
+        let controller = require('./../../controllers/user-controller')({ data });
         controller.getDetailedUser(req, res);
     });
 
@@ -105,7 +105,7 @@ describe('user-controller-tests:', () => {
             }
         };
 
-        let controller = require('./../../controllers/user-controller')(data);
+        let controller = require('./../../controllers/user-controller')({ data });
         controller.getDetailedUser(req, res);
     });
 
@@ -125,7 +125,7 @@ describe('user-controller-tests:', () => {
             }
         };
 
-        let controller = require('./../../controllers/user-controller')(data);
+        let controller = require('./../../controllers/user-controller')({ data });
         controller.getDetailedUser(req, res);
     });
 
@@ -144,7 +144,7 @@ describe('user-controller-tests:', () => {
             }
         };
 
-        let controller = require('./../../controllers/user-controller')(data);
+        let controller = require('./../../controllers/user-controller')({ data });
         controller.getDetailedUser(req, res);
     });
 
@@ -163,7 +163,7 @@ describe('user-controller-tests:', () => {
             }
         };
 
-        let controller = require('./../../controllers/user-controller')(data);
+        let controller = require('./../../controllers/user-controller')({ data });
         controller.getDetailedUser(req, res);
     });
 
@@ -182,7 +182,7 @@ describe('user-controller-tests:', () => {
             }
         };
 
-        let controller = require('./../../controllers/user-controller')(data);
+        let controller = require('./../../controllers/user-controller')({ data });
         controller.getDetailedUser(req, res);
     });
 
@@ -201,7 +201,7 @@ describe('user-controller-tests:', () => {
             }
         };
 
-        let controller = require('./../../controllers/user-controller')(data);
+        let controller = require('./../../controllers/user-controller')({ data });
         controller.getDetailedUser(req, res);
     });
 
@@ -220,7 +220,7 @@ describe('user-controller-tests:', () => {
             }
         };
 
-        let controller = require('./../../controllers/user-controller')(data);
+        let controller = require('./../../controllers/user-controller')({ data });
         controller.getDetailedUser(req, res);
     });
 
@@ -239,7 +239,7 @@ describe('user-controller-tests:', () => {
             }
         };
 
-        let controller = require('./../../controllers/user-controller')(data);
+        let controller = require('./../../controllers/user-controller')({ data });
         controller.getDetailedUser(req, res);
     });
 
@@ -258,7 +258,7 @@ describe('user-controller-tests:', () => {
             }
         };
 
-        let controller = require('./../../controllers/user-controller')(data);
+        let controller = require('./../../controllers/user-controller')({ data });
         controller.getDetailedUser(req, res);
     });
 
@@ -277,7 +277,7 @@ describe('user-controller-tests:', () => {
             }
         };
 
-        let controller = require('./../../controllers/user-controller')(data);
+        let controller = require('./../../controllers/user-controller')({ data });
         controller.getDetailedUser(req, res);
     });
 
@@ -296,7 +296,7 @@ describe('user-controller-tests:', () => {
             }
         };
 
-        let controller = require('./../../controllers/user-controller')(data);
+        let controller = require('./../../controllers/user-controller')({ data });
         controller.getDetailedUser(req, res);
     });
 
@@ -315,7 +315,7 @@ describe('user-controller-tests:', () => {
             }
         };
 
-        let controller = require('./../../controllers/user-controller')(data);
+        let controller = require('./../../controllers/user-controller')({ data });
         controller.getDetailedUser(req, res);
     });
 });
