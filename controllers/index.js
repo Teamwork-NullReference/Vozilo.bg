@@ -4,7 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 
-module.exports = function(data) {
+module.exports = function({ data, hashGenerator, validator }) {
 
     let controllers = {};
 
@@ -12,7 +12,7 @@ module.exports = function(data) {
         .filter(x => x.includes('-controller'))
         .forEach(file => {
             let controllerModule =
-                require(path.join(__dirname, file))(data);
+                require(path.join(__dirname, file))({ data, hashGenerator, validator });
 
             controllers[file.substring(0, file.indexOf('-'))] = controllerModule;
         });

@@ -4,12 +4,12 @@
 const express = require('express');
 const passport = require('passport');
 
-module.exports = function ({
+module.exports = function({
     app,
-    data
+    controllers
 }) {
 
-    let controller = require('../controllers/car-controller')(data);
+    let controller = controllers.car;
 
     let router = new express.Router();
 

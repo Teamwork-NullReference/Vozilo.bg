@@ -6,7 +6,7 @@ const DEFAULT_PAGE = 1,
 // NEWEST_USERS_COUNT = 5;
 
 
-module.exports = function(data) {
+module.exports = function({ data }) {
     return {
         getAdminPage(req, res) {
             if (req.user && ((req.user.role && req.user.role.indexOf('admin') >= 0))) {
@@ -15,8 +15,7 @@ module.exports = function(data) {
                 let query;
                 if (+req.query.page < 1) {
                     query = 1;
-                }
-                else {
+                } else {
                     query = req.query.page;
                 }
                 let page = Number(query || DEFAULT_PAGE);
@@ -60,8 +59,7 @@ module.exports = function(data) {
                         res.status(404)
                             .send(err);
                     });
-            }
-            else {
+            } else {
                 res.status(401).render('unauthorized', {
                     result: {
                         user: req.user
@@ -81,8 +79,7 @@ module.exports = function(data) {
                         });
 
                     });
-            }
-            else {
+            } else {
                 res.status(401).render('unauthorized', {
                     result: {
                         user: req.user

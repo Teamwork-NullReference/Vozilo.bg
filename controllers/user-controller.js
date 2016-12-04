@@ -2,7 +2,7 @@
 'use strict';
 const mapper = require('./../utils/mapper');
 
-module.exports = function (data) {
+module.exports = function({ data }) {
     return {
         getDetailedUser(req, res) {
             let username = req.params.username;
