@@ -111,6 +111,7 @@ module.exports = function ({
         addCarToUser(user, car) {
             return this.getUserById(user._id)
                 .then(u => {
+                    console.log('user', u);
                     u.cars.push({
                         brand: car.brand,
                         model: car.model,

@@ -1,7 +1,7 @@
 mixin car-search-form(city, startDate, endDate)
     form(method="GET", action="/search/car")
         div.form-group
-            divinput.form-control(type="text" name="city" placeholder='Търси по град' value=`${city || ''}`)
+            input.form-control(type="text" name="city" value=`${city || ''}`)
             div.input-group.input-daterange(data-provide='datepicker' data-date-format='yyyy-mm-dd')
                 input.form-control(type='text' name='startDate' placeholder='Начална дата' value=`${startDate || ''}`)
                 span.input-group-addon до
