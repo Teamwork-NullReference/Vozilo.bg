@@ -19,18 +19,19 @@ block body-content
                 div.col-md-2.text-center <span>Date</span>
         div.row
             div.col-md-12
-            each correspondence in result.correspondences                
+            each correspondence in result.correspondences
+                - var message = correspondence.messages[0];
                 a.row.correspondence-link(href=`messages/${correspondence._id}`)
-                    if correspondence.messages.reverse()[0].sender === correspondence.renter.username
+                    if message.sender === correspondence.renter.username
                         div.col-md-2
                             span= `${correspondence.renter.username}`
                         div.col-md-1  
                             div.circle-avatar
                                 img.img-circle(src=`${correspondence.renter.imageUrl}`, "User image")
                         div.col-md-7
-                            span= correspondence.messages.reverse()[0].text
+                            span= message.text
                         div.col-md-2
-                            span= correspondence.messages.reverse()[0].date.toLocaleString('bg-BG')
+                            span= message.date.toLocaleString('bg-BG', { hour12: false })
                     else
                         div.col-md-2
                             span= `${correspondence.carOwner.username}`
@@ -38,6 +39,6 @@ block body-content
                             div.circle-avatar
                                 img.img-circle(src=`${correspondence.carOwner.imageUrl}`, "User image")
                         div.col-md-7
-                            span= correspondence.messages.reverse()[0].text
+                            span= message.text
                         div.col-md-2
-                            span= correspondence.messages.reverse()[0].date.toLocaleString('bg-BG')
+                            span= message.date.toLocaleString('bg-BG', { hour12: false })
