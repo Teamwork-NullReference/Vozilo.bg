@@ -36,14 +36,16 @@ module.exports = function ({
                     }, {
                         'renter.username': username
                     }]
-
+                }, {
+                    messages: { $slice: -1 }
                 })
-                .select('car carOwner renter messages')
+                .select('-updatedAt -createdAt -rentalInfo -car -__v')
                 .exec((err, result) => {
                     if (err) {
                         return reject(err);
                     }
 
+                    console.log(result);
                     return resolve(result);
                 });
             });
