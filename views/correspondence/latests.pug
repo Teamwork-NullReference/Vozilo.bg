@@ -21,15 +21,26 @@ block body-content
         div.row
             div.col-md-12
             each correspondence in result.correspondences                
-                a.row.correspondence-link(href=`messages/${correspondence.id}`)                      
-                    div.col-md-2
-                        span= `${correspondence.sender.firstName} ${correspondence.sender.lastName}`
-                    div.col-md-1
-                        div.circle-avatar
-                            img.img-circle(src=`${correspondence.sender.pictureUrl}`, "User image")
-                    div.col-md-5
-                        span= correspondence.message.text
-                    div.col-md-2
-                        span= correspondence.message.datetime
-                    div.col-md-2
-                        span= `${correspondence.sender.address.city}, ${correspondence.sender.address.street}`
+                a.row.correspondence-link(href=`messages/${correspondence._id}`)
+                    if correspondence.messages.reverse()[0].sender === correspondence.renter.username
+                        div.col-md-2
+                            span= `${correspondence.renter.username}`
+                        div.col-md-1  
+                            div.circle-avatar
+                                img.img-circle(src=`${correspondence.renter.imageUrl}`, "User image")
+                        div.col-md-5
+                            span= correspondence.messages.reverse()[0].text
+                        div.col-md-2
+                            span= correspondence.messages.reverse()[0].date.toLocaleString('bg-BG')
+                    else
+                        div.col-md-2
+                            span= `${correspondence.car.owner.firstName} ${correspondence.car.owner.lastName}`
+                        div.col-md-1  
+                            div.circle-avatar
+                                img.img-circle(src=`${correspondence.carOwner.imageUrl}`, "User image")
+                        div.col-md-5
+                            span= correspondence.messages.reverse()[0].text
+                        div.col-md-2
+                            span= correspondence.messages.reverse()[0].date.toLocaleString('bg-BG')
+                        div.col-md-2
+                            span= `${correspondence.car.owner.city}`

@@ -21,7 +21,7 @@ block body-content
                 li(id="fifth-tab")
                     a(href="/user/" + result.userDetails.username + "/update") Промени профила
         div(id="prfile-info" class="profile-tab")
-            h2(class="text-center")
+            h2(class="text-center" id="username")
                 != result.userDetails.username 
             h3(class="text-center")
                 | Рейтинг: 
@@ -65,8 +65,8 @@ block body-content
                 strong
                     | Шофьорски опит: 
                 != result.userDetails.drivingExpInYears
-            if result.allowMessagesAndComment
-                div(class="clear-both margin text-center" id="profile-btns")
+            div(class="clear-both margin text-center" id="profile-btns")            
+                if result.allowMessagesAndComment
                     a(href="#" class="btn btn-success" id="add-comment") Коментирай
                     div(class="modal fade" id="comments-modal" role="dialog")
                             div(class="modal-dialog")
@@ -90,8 +90,12 @@ block body-content
                                                 | Изпрати коментара
                                         button(class="btn" data-dismiss="modal" aria-hidden="true" id="close-modal")
                                             | Затвори
-                    a(href="#" class="btn btn-success") Изпрати съобщение
-                    a(href="#" class="btn btn-success") Добави рейтинг                 
+                if result.isAdmin  
+                            label(for="rating-select" class="btn btn-success margin-left-fiftheen") Рейтинг
+                            select(class="form-control margin-left-fiftheen" id="rating-select")
+                                -for (var i = 0; i <= 5; ++i) 
+                                        option(value= i)
+                                            != i              
         div(id="user-cars" class="profile-tab hidden")
             each car in result.userDetails.cars
                 div(class="car-preview")
@@ -163,6 +167,4 @@ block body-content
         //-                             span(class="label label-info")
         //-                                | Очаква отговор
         //-                     a(class="btn btn-primary" href="#")
-        //-                         | Кореспонденция - link pls
-                        
-                        
+        //-                         | Кореспонденция - link pls                   

@@ -1,8 +1,12 @@
 /* globals module */
 'use strict';
 const mapper = require('./../utils/mapper');
+const commonValidator = require('./validation/common-validator');
+const DATES_RESERVED = 'Колата е заета за избраните дати';
 
-module.exports = function({ data }) {
+module.exports = function({
+    data
+}) {
     return {
         getDetailedUser(req, res) {
             let username = req.params.username;
@@ -19,14 +23,18 @@ module.exports = function({ data }) {
 
                     let extraInfoAllowed = false;
                     let allowMessagesAndComment = false;
+                    let isAdmin = false;
 
                     if (req.user) {
                         if (!(username === req.user.username)) {
                             allowMessagesAndComment = true;
                         }
 
-                        if (username === req.user.username ||
-                            (req.user.role && req.user.role.indexOf('admin') >= 0)) {
+                        if (req.user.role && req.user.role.indexOf('admin') >= 0) {
+                            isAdmin = true;
+                        }
+
+                        if (username === req.user.username || isAdmin) {
                             extraInfoAllowed = true;
                         }
                     }
@@ -38,7 +46,8 @@ module.exports = function({ data }) {
                             user: req.user,
                             userDetails: user,
                             extraInfoAllowed,
-                            allowMessagesAndComment
+                            allowMessagesAndComment,
+                            isAdmin
                         }
                     });
                 })
@@ -157,41 +166,95 @@ module.exports = function({ data }) {
                 });
         },
         getRentalsInfo(req, res) {
-            return res.status(200).render('rentals', {
-                result: [{
-                    brand: 'Tesla',
-                    model: 'Model X',
-                    carOwner: 'Pesho',
-                    renter: 'Gosho',
-                    startDate: new Date(2016, 12, 1),
-                    endDate: new Date(2016, 12, 4),
-                    status: 'Pending'
-                }, {
-                    brand: 'VW',
-                    model: 'Caddy',
-                    carOwner: 'fafa',
-                    renter: 'Dodo',
-                    startDate: new Date(2016, 12, 1),
-                    endDate: new Date(2016, 12, 4),
-                    status: 'Canceled'
-                }, {
-                    brand: 'Peugeot',
-                    model: '405',
-                    carOwner: 'The Rock',
-                    renter: 'Stone Cold Steve Ostine',
-                    startDate: new Date(2016, 12, 1),
-                    endDate: new Date(2016, 12, 4),
-                    status: 'Active'
-                }, {
-                    brand: 'Laborgini',
-                    model: 'Diablo',
-                    carOwner: 'Pamy666',
-                    renter: 'peshkata',
-                    startDate: new Date(2016, 12, 1),
-                    endDate: new Date(2016, 12, 4),
-                    status: 'Finished'
-                }]
-            });
+            data.getRentalsByUsername(req.user.username)
+                .then(rentals => {
+                    return res.status(200).render('rentals', {
+                        result: {
+                            user: req.user,
+                            rentals
+                        }
+                    });
+                });
+        },
+        updateRentalsInfo(req, res) {
+            let body = req.body.rentalInfo.split(','),
+                status = body[0],
+                carId = body[1],
+                rentalId = body[2];
+            let rentalDates = {};
+            let carDates;
+            let newStatus;
+
+            if (status === 'approve') {
+                data.getRentalDates(rentalId)
+                    .then(dates => {
+                        rentalDates = dates;
+                        return data.getDatesFromCalendar(carId);
+                    })
+                    .then(dates => {
+                        carDates = dates;
+                        return commonValidator.validateDatesAvailability({
+                            startDate: rentalDates.rentalInfo.startDate,
+                            endDate: rentalDates.rentalInfo.endDate,
+                            availability: carDates[0].availability
+                        });
+
+                    })
+                    .then(() => {
+                        console.log('update car availability');
+                        return data.updateCarAvailability(carId, rentalDates.rentalInfo.startDate, rentalDates.rentalInfo.endDate);
+                    })
+                    .then(() => {
+                        newStatus = 'Active';
+                        console.log('status change to Active');
+                        return data.changeRentalStatus(rentalId, newStatus);
+                    })
+                    .then(() => {
+                        res.status(200).redirect(`/user/${req.user.username}/rentals`);
+                    })
+                    .catch(err => {
+                        if (err === DATES_RESERVED) {
+                            console.log('not available');
+                            newStatus = 'Not Available';
+                            data.changeRentalStatus(rentalId, newStatus)
+                                .then(() => {
+                                    res.status(200).redirect(`/user/${req.user.username}/rentals`);
+                                });
+                        } else {
+                            res.status(400).render('status-codes/status-code-error', {
+                                result: {
+                                    code: 400,
+                                    err
+                                }
+                            });
+                        }
+                    });
+            } else if (status === 'disapprove') {
+                newStatus = 'Canceled';
+                data.changeRentalStatus(rentalId, newStatus)
+                    .then(() => {
+                        res.status(200).redirect(`/user/${req.user.username}/rentals`);
+                    });
+            }
+        },
+        setRating(req, res) {
+            if (!req.user || req.user.role.indexOf('admin') < 0) {
+                return res.status(401).render('unauthorized');
+            }
+
+            let username = req.params.username;
+            let rating = req.body.rating;
+            data.getUserByUsername(username)
+                .then(user => {
+                    user.userRating = rating;
+                    return data.updateUser(user);
+                })
+                .then(() => {
+                    res.status(200).send({ rating });
+                })
+                .catch(err => {
+                    res.status(400).send(err);
+                });
         }
     };
 };

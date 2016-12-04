@@ -1,48 +1,61 @@
 extends _layout
 
+block custom-scripts
+    script(src='/static/scripts/change-rental-status.js')
+
+   
+
 block body-content
     div.container
         div.row.background.text-center
-            div.col-md-12
-                br
-                h1.color-dark-success Всички наеми на коли
+            div.col-lg-12.col-md-12
+                h1.color-dark-success.margin-top-30 Всички наеми на коли
                 table.table.table-striped
                     thead
-                    each rental in result
-                        tr
-                            td
-                                span 
-                                    = rental.brand + ' '
-                                span
-                                    = rental.model
-                            td
-                                span От:
-                                    strong 
-                                        = rental.startDate.getDate() + '/'
-                                        = rental.startDate.getMonth() + '/'
-                                        = rental.startDate.getFullYear()
-                                br
-                                span До: 
+                    form(method='POST' action='/user/' + result.user.usernmae + '/rentals')
+                        input.hidden.rental-info(name='rentalInfo')
+                        each rental in result.rentals
+                            tr.rental-row(rentalId= rental._id carId= rental.car.id)
+                                td
+                                    a(href='/car/' + rental.car.id)
+                                        span 
+                                            = rental.car.brand + ' '
+                                        span
+                                            = rental.car.model
+                                td
+                                    span От:
+                                        strong 
+                                            = rental.rentalInfo.startDate.getDate() + '/'
+                                            = rental.rentalInfo.startDate.getMonth() + '/'
+                                            = rental.rentalInfo.startDate.getFullYear()
+                                    br
+                                    span До: 
+                                        strong
+                                            = rental.rentalInfo.endDate.getDate() + '/'
+                                            = rental.rentalInfo.endDate.getMonth() + '/'
+                                            = rental.rentalInfo.endDate.getFullYear()
+                                td
+                                    span Собственик: 
+                                        a(href='/user/' + rental.carOwner.username)
+                                            strong
+                                                = rental.carOwner.username
+                                    br
+                                    span Наемател: 
+                                        a(href='/user/' + rental.renter.username)
+                                            strong
+                                                = rental.renter.username
+                                td
+                                    span Статус: 
                                     strong
-                                        = rental.endDate.getDate() + '/'
-                                        = rental.endDate.getMonth() + '/'
-                                        = rental.endDate.getFullYear()
-                            td
-                                span Собственик: 
-                                    a(href='/user/' + rental.carOwner)
-                                        strong
-                                            = rental.carOwner
-                                br
-                                span Наемател: 
-                                    a(href='/user/' + rental.renter)
-                                        strong
-                                            = rental.renter
-                            td
-                                span Статус: 
-                                strong
-                                    = rental.status
-                            td
-                                a.btn.btn-success(href='#') Потвърди
-                            td  
-                                a.btn.btn-danger(href='#') Откажи
+                                        = rental.rentalInfo.status
+                                if rental.rentalInfo.status === 'Pending'
+                                    td
+                                        button.btn.btn-success.approve Потвърди
+                                    td  
+                                        button.btn.btn-danger.disapprove Откажи
+                                else
+                                    td
+                                        button.btn.btn-success(disabled) Потвърди
+                                    td  
+                                        button.btn.btn-danger(disabled) Откажи
                             

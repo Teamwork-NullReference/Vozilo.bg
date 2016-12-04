@@ -13,7 +13,7 @@ function getDatesFromRange(startDate, endDate) {
     return result;
 }
 
-module.exports = function({
+module.exports = function ({
     models,
     validator
 }) {
@@ -99,8 +99,8 @@ module.exports = function({
         getDatesFromCalendar(id) {
             let promise = new Promise((resolve, reject) => {
                 Car.find({
-                    _id: id
-                })
+                        _id: id
+                    })
                     .select('availability')
                     .exec((err, dates) => {
                         if (err) {
@@ -115,9 +115,9 @@ module.exports = function({
         },
         addCar(user, carInfo) {
             return carValidator.validate({
-                carInfo,
-                validator
-            })
+                    carInfo,
+                    validator
+                })
                 .then(() => {
                     return new Promise((resolve, reject) => {
                         let brand = carInfo.brand,
@@ -201,6 +201,50 @@ module.exports = function({
             car.requests.push(requestInfo.id);
 
             return dataUtils.save(car);
+        },
+        updateCarAvailability(id, startDate, endDate) {
+            console.log('enter update car availability', startDate, endDate);
+            return this.getCarById(id)
+                .then(car => {
+                    let datesToRemove = getDatesFromRange(startDate, endDate);
+                    console.log(car.availability);
+                    for (let date of car.availability) {
+                        if (date.isAvailable) {
+                            for (let removeDate of datesToRemove) {
+                                if (date.date.toString() === removeDate.toString()) {
+                                    date.isAvailable = false;
+                                }
+                            }
+                        }
+                    }
+
+                    return dataUtils.update(car);
+                });
+
+            //     Car.update({
+            //         '_id': id,
+            //         '$and': [{
+            //             'availability.date': {
+            //                 '$gte': startDate
+            //             }
+            //         }, {
+            //             'availability.date': {
+            //                 '$lte': endDate
+            //             }
+            //         }]
+            //     }, {
+            //         '$set': {
+            //             'availability.$.isAvailable': false
+            //         }
+            //     })
+            //         .exec((err, result) => {
+            //             if (err) {
+            //                 return reject(err);
+            //             }
+
+            //             return resolve(result);
+            //         });
+            // });
         }
     };
 };

@@ -1,4 +1,4 @@
-/* globals $ document */
+/* globals $ document location jsonRequester */
 'use strict';
 
 $(document).ready(function() {
@@ -24,5 +24,17 @@ $(document).ready(function() {
         e.preventDefault();
         $('.profile-tab').addClass('hidden');
         $('#user-requests').removeClass('hidden');
+    });
+
+    $('#rating-select').change(function() {
+        var username = $('#username').text();
+        var rating = $('select option:selected').val();
+        jsonRequester.put('/user/' + username + '/rating', { data: { rating } })
+            .then(() => {
+                location.reload();
+            })
+            .catch(err => {
+                console.log(err);
+            });
     });
 });
