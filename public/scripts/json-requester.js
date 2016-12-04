@@ -17,11 +17,9 @@ var jsonRequester = (function() {
                 headers: headers,
                 data: JSON.stringify(data),
                 success: function(res) {
-                    console.log(res);
                     resolve(res);
                 },
                 error: function(err) {
-                    console.log(err);
                     reject(err);
                 }
             });
