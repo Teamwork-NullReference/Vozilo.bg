@@ -184,7 +184,10 @@ block body-content
                                 h4.color-success Коментари
                         
                                 div.text-center
-                                    a.btn.btn-success.btn-comment#add-comment(href="#") Коментирай
+                                    if result.user
+                                        if result.user.username !== result.carDetails.owner.username
+                                            a.btn.btn-success.btn-comment#add-comment(href="#") Коментирай
+
                                     div.modal.fade#comments-modal(role="dialog")
                                             div.modal-dialog
                                                 div.modal-content

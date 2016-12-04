@@ -93,8 +93,7 @@ module.exports = function({ data }) {
                         return res.status(202).send({ status: 'ok' });
 
                     });
-            }
-            else {
+            } else {
                 res.status(401).send({ status: 'nok' });
             }
 
@@ -107,8 +106,7 @@ module.exports = function({ data }) {
                         return res.status(202).send({ status: 'ok' });
 
                     });
-            }
-            else {
+            } else {
                 res.status(401).send({ status: 'nok' });
             }
 

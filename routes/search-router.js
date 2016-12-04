@@ -2,7 +2,6 @@
 'use strict';
 
 const express = require('express');
-// const passport = require('passport');
 
 module.exports = function({ app, controllers }) {
     let searchController = controllers.search;

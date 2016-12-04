@@ -1,10 +1,15 @@
 /* globals module */
 'use strict';
-const mapper = require('./../utils/mapper');
-const commonValidator = require('./validation/common-validator');
-const DATES_RESERVED = 'Колата е заета за избраните дати';
+const mapper = require('./../utils/mapper'),
+    commonValidator = require('./validation/common-validator'),
+    DATES_RESERVED = 'Колата е заета за избраните дати',
+    STATUS_NOT_AVAILABLE = 'Not Available',
+    IS_APPROVED = 'approve',
+    STATUS_ACTIVE = 'Active',
+    STATUS_CANCELED = 'Canceled',
+    IS_DISAPPROVE = 'disapprove';
 
-module.exports = function({
+module.exports = function ({
     data
 }) {
     return {
@@ -121,7 +126,11 @@ module.exports = function({
                     res.redirect('/user/' + user.username);
                 })
                 .catch(err => {
-                    console.log(err);
+                    res.status(400).render('bad-request', {
+                        result: {
+                            err
+                        }
+                    });
                 });
         },
         addComment(req, res) {
@@ -150,8 +159,11 @@ module.exports = function({
                     res.status(200).send(comment);
                 })
                 .catch(err => {
-                    console.log(err);
-                    res.status(400).send(err);
+                    res.status(400).render('bad-request', {
+                        result: {
+                            err
+                        }
+                    });
                 });
         },
         getFilteredUsernamesJson(req, res) {
@@ -185,7 +197,7 @@ module.exports = function({
             let carDates;
             let newStatus;
 
-            if (status === 'approve') {
+            if (status === IS_APPROVED) {
                 data.getRentalDates(rentalId)
                     .then(dates => {
                         rentalDates = dates;
@@ -201,12 +213,10 @@ module.exports = function({
 
                     })
                     .then(() => {
-                        console.log('update car availability');
                         return data.updateCarAvailability(carId, rentalDates.rentalInfo.startDate, rentalDates.rentalInfo.endDate);
                     })
                     .then(() => {
-                        newStatus = 'Active';
-                        console.log('status change to Active');
+                        newStatus = STATUS_ACTIVE;
                         return data.changeRentalStatus(rentalId, newStatus);
                     })
                     .then(() => {
@@ -214,8 +224,7 @@ module.exports = function({
                     })
                     .catch(err => {
                         if (err === DATES_RESERVED) {
-                            console.log('not available');
-                            newStatus = 'Not Available';
+                            newStatus = STATUS_NOT_AVAILABLE;
                             data.changeRentalStatus(rentalId, newStatus)
                                 .then(() => {
                                     res.status(200).redirect(`/user/${req.user.username}/rentals`);
@@ -228,8 +237,8 @@ module.exports = function({
                             });
                         }
                     });
-            } else if (status === 'disapprove') {
-                newStatus = 'Canceled';
+            } else if (status === IS_DISAPPROVE) {
+                newStatus = STATUS_CANCELED;
                 data.changeRentalStatus(rentalId, newStatus)
                     .then(() => {
                         res.status(200).redirect(`/user/${req.user.username}/rentals`);
@@ -249,7 +258,9 @@ module.exports = function({
                     return data.updateUser(user);
                 })
                 .then(() => {
-                    res.status(200).send({ rating });
+                    res.status(200).send({
+                        rating
+                    });
                 })
                 .catch(err => {
                     res.status(400).send(err);
