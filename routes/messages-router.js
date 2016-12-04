@@ -3,12 +3,12 @@
 
 const express = require('express');
 
-module.exports = function({ app, data }) {
-    let controller = require('../controllers/messages-controller')(data);
+module.exports = function({ app, controllers }) {
+    let controller = controllers.messages;
 
     let router = new express.Router();
 
-    // router.get('/:username/messages/:correspondenceId', controller.getCorrespondenceDetails);
+    router.get('/:username/messages/:correspondenceId', controller.getCorrespondenceDetails);
 
     router.get('/:username/messages', controller.getLatestMessages);
 

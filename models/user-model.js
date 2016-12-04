@@ -53,35 +53,6 @@ module.exports = modelRegistrator.register('User', {
         type: String
         // match: passwordRegex
     },
-    correspondentions: [
-        {
-            id: String
-        }
-    ],
-    rentalRequests: [{
-        startRentalDate: {
-            type: Date,
-            required: true
-        },
-        endRentalDate: {
-            type: Date,
-            required: true
-        },
-        car: {
-            id: String,
-            imageUrl: String
-        },
-        owner: {
-            username: String,
-            imageUrl: String
-        },
-        status: {
-            type: String,
-            required: true,
-            enum: ['Pending', 'Active', 'Canceled', 'Finished']
-        },
-        correspondentionId: String
-    }],
     role: [String],
     isDeleted: Boolean
 });

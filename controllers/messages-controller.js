@@ -1,7 +1,7 @@
 /* globals module */
 'use strict';
 
-module.exports = function (data) {
+module.exports = function ({ data }) {
     return {
         getLatestMessages(req, res) {
             let username = req.params.username;
@@ -16,21 +16,23 @@ module.exports = function (data) {
                         });
                     }
 
-                    let viewMessagesAllowed = false;
+                    let isAuthorizedUser = false;
 
                     if (req.user &&
                         req.user.role &&
                         (req.user.role.indexOf('admin') >= 0 || username === req.user.username)) {
-                        viewMessagesAllowed = true;
+                        isAuthorizedUser = true;
                     }
 
-                    if (viewMessagesAllowed) {
-                        res.status(200).render('correspondence/latests', {
-                            // TODO: get last messages of any correspondence, sorted by date
+                    if (isAuthorizedUser) {
+                        // TODO: get last messages of any correspondence, sorted by date
+                        // return data.getFilteredCars({ city, startDate, endDate, page, pageSize })
+
+                        return Promise.resolve({
                             result: {
                                 user: req.user,
                                 correspondences: [{
-                                    id: '987695786562394763292386',
+                                    id: '5843ef4e57b02e238cf56f32',
                                     sender: {
                                         firstName: 'Dwayne',
                                         lastName: 'Johnson',
@@ -46,7 +48,7 @@ module.exports = function (data) {
                                     }
                                 },
                                 {
-                                    id: '7686399347679246789345',
+                                    id: '5843ef4e57b02e238cf56f32',
                                     sender: {
                                         firstName: 'Mad',
                                         lastName: 'Marks',
@@ -63,20 +65,72 @@ module.exports = function (data) {
                                 }]
                             }
                         });
-                    } else {
-                        res.status(401).render('unauthorized', {
+                    }
+
+                    // user is unauthorized
+                    res.status(401).render('unauthorized', {
+                        result: {
+                            user: req.user
+                        }
+                    });
+
+                    return Promise.reject(`User: ${username} is unauthorized.`);
+                })
+                .then((latestCorrespondences) => {
+                    res.status(200).render('correspondence/latests', latestCorrespondences);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+        getCorrespondenceDetails(req, res) {
+            let username = req.params.username;
+            data.getUserByUsername(username)
+                .then(user => {
+
+                    if (user === null || typeof user === 'undefined') {
+                        return res.render('profile/user-not-found', {
                             result: {
                                 user: req.user
                             }
                         });
                     }
-                })
-                .catch(() => {
-                    return res.render('profile/user-not-found', {
+
+                    let isAuthorizedUser = false;
+
+                    if (req.user &&
+                        req.user.role &&
+                        (req.user.role.indexOf('admin') >= 0 || username === req.user.username)) {
+                        isAuthorizedUser = true;
+                    }
+
+                    if (isAuthorizedUser) {
+                        const rentalId = req.params.correspondenceId;
+                        return data.getRentalById(rentalId);
+                    }
+
+                    // user is unauthorized
+                    res.status(401).render('unauthorized', {
                         result: {
                             user: req.user
                         }
                     });
+
+                    return Promise.reject(`User: ${username} is unauthorized.`);
+                })
+                .then((correspondenceDetails) => {
+                    res.status(200).render('correspondence/detailed-view', {
+                        result: {
+                            user: req.user,
+                            car: correspondenceDetails.car,
+                            carOwner: correspondenceDetails.carOwner,
+                            renter: correspondenceDetails.renter,
+                            messages: correspondenceDetails.messages
+                        }
+                    });
+                })
+                .catch((error) => {
+                    console.log(error);
                 });
         }
     };

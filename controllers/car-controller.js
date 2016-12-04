@@ -12,7 +12,7 @@ const MAX_DAYS_PER_MONTH = 31;
 //     return new Date(y, m, 0).getDate();
 // }
 
-module.exports = function(data) {
+module.exports = function({ data }) {
     return {
         loadCreateCarForm(req, res) {
             data.getAllBrands()
@@ -39,7 +39,6 @@ module.exports = function(data) {
             let carInfo = req.body;
             data.addCar(user, carInfo)
                 .then(car => {
-                    console.log('car controller');
                     return data.addCarToUser(user, car);
                 })
                 .then(() => {
@@ -47,7 +46,6 @@ module.exports = function(data) {
                         .redirect('/');
                 })
                 .catch(err => {
-                    console.log('controller catch');
                     return res.status(400)
                         .render('status-codes/status-code-error', {
                             result: {
@@ -98,14 +96,76 @@ module.exports = function(data) {
                 });
         },
         loadRentCarForm(req, res) {
-            let user = req.user;
+            let user = req.user,
+                carId = req.params.id;
             if (user) {
                 return res
                     .status(200)
                     .render('car/rent-form', {
                         result: {
-                            user: mapper.map(req.user, 'username', 'role', 'email', 'firstName', 'lastName')
+                            user: mapper.map(req.user, 'username', 'role', 'email', 'firstName', 'lastName'),
+                            carId
                         }
+                    });
+            }
+
+            //TODO redirect to error page when implemented
+            return res
+                .status(300)
+                .redirect('/sign-in');
+        },
+        rentCar(req, res) {
+            let user = req.user;
+            if (user) {
+                let { startDate, endDate, message, carId } = req.body;
+                return data.getCarById(carId)
+                    .then((car) => {
+                        let carProjection = {
+                            id: car._id,
+                            brand: car.brand,
+                            model: car.model
+                        };
+                        let carOwner = {
+                            username: car.owner.username,
+                            imageUrl: car.owner.imageUrl
+                        };
+                        let renter = {
+                            username: user.username,
+                            imageUrl: user.picture
+                        };
+                        let messages = [{
+                            text: message,
+                            date: new Date(),
+                            sender: user.username
+                        }];
+                        let rentalInfo = {
+                            startDate,
+                            endDate,
+                            status: 'Pending'
+                        };
+
+                        let rentalModelInfo = {
+                            car: carProjection,
+                            carOwner,
+                            renter,
+                            messages,
+                            rentalInfo
+                        };
+
+                        return data.addRental(rentalModelInfo);
+                    })
+                    .then(() => {
+                        //TODO redirect to rentals page
+                        return res.status(200).redirect('/');
+                    })
+                    .catch(err => {
+                        return res.status(400)
+                            .render('status-codes/status-code-error', {
+                                result: {
+                                    code: 400,
+                                    err
+                                }
+                            });
                     });
             }
 

@@ -1,10 +1,10 @@
 /* globals module */
 
-module.exports = function ({
+module.exports = function({
     app,
-    data
+    controllers
 }) {
-    let controller = require('../controllers/home-controller')(data);
+    let controller = controllers.home;
 
     app.get('/', controller.home);
 };

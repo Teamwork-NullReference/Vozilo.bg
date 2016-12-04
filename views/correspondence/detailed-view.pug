@@ -1,0 +1,52 @@
+extends ../_layout
+
+block custom-styles
+    link(rel="stylesheet", href="/static/styles/user-messages.css")
+
+block body-content
+    div.container
+        div.row
+            div.col-md-12
+                h2(class="text-center")
+                    | Кореспонденция
+                br
+
+        div.row
+            div.col-md-12
+        div.row
+            div.col-md-9
+                div.row
+                    div.col-md-12
+                        div.row
+                            div.col-md-1
+                                div.circle-avatar
+                                    img.img-circle(src=`${result.user.picture}`, "User image")
+                            div.col-md-10
+                                textarea(class="form-control" id="inputBody" rows="6")
+                        div.row
+                            div.col-md-1
+                            div.col-md-2
+                                button(class="btn btn-success btn-sm" title="Send Message") Send Message
+                        div.row
+                            br
+                        div.row
+                            div.col-md-12
+                        each message in result.messages
+                            div.row
+                                div.col-md-1
+                                    div.circle-avatar
+                                        if message.sender === result.renter.username
+                                            img.img-circle(src=`${result.renter.imageUrl}`, "User image")
+                                        else
+                                            img.img-circle(src=`${result.carOwner.imageUrl}`, "User image")
+                                div.col-md-8
+                                    span= message.text
+                                div.col-md-3
+                                    span= message.date.toLocaleString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+
+            div.col-md-3
+                img(src=`${result.renter.imageUrl}`, "User image")
+            div.row
+                div.col-md-9
+                div.col-md-3
+                    span= `${result.renter.username}`

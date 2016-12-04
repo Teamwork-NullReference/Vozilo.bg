@@ -2,13 +2,12 @@
 'use strict';
 
 const express = require('express');
-const passport = require('passport'),
-    hashGenerator= require('./../utils/hashGenerator'),
-    validator= require('./../utils/validator');
+const passport = require('passport');
 
-module.exports = function ({ app, data }) {
 
-    let controller = require('../controllers/auth-controller')(data, hashGenerator, validator);
+module.exports = function({ app, controllers }) {
+
+    let controller = controllers.auth;
 
     let router = new express.Router();
 
@@ -17,16 +16,16 @@ module.exports = function ({ app, data }) {
         .get('/sign-in', controller.getSignInForm)
         .get('/auth/google', controller.getSgnInGoogle)
         .get('/auth/google/callback',
-             passport.authenticate('google', { failureRedirect: '/login' }),
-             (req, res) => {
-                 res.redirect('/');
-             }
-            )
+            passport.authenticate('google', { failureRedirect: '/login' }),
+            (req, res) => {
+                res.redirect('/');
+            }
+        )
         .post('/sign-up', controller.signUp)
         .post('/sign-in',
             passport.authenticate('local', { failureRedirect: '/auth/sign-in' }),
             (req, res) => res.redirect('/')
-            )
+        )
         .post('/sign-out', controller.signOut);
 
     app.use('/auth', router);

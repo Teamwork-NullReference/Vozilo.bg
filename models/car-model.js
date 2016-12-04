@@ -61,27 +61,6 @@ module.exports = modelRegistrator.register('Car', {
         mp3Player: Boolean,
         electricWindows: Boolean
     },
-    history: [{
-        startRentalDate: {
-            type: Date,
-            required: true
-        },
-        endRentalDate: {
-            type: Date,
-            required: true
-        },
-        renterUsername: {
-            type: String,
-            required: true
-        },
-        renterImage: String,
-        givenRating: Number,
-        status: {
-            type: String,
-            required: true,
-            enum: ['Pending', 'Active', 'Canceled', 'Finished']
-        }
-    }],
     owner: {
         username: String,
         imageUrl: String,

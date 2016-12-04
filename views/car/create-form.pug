@@ -10,140 +10,137 @@ block custom-scripts
     script(src="/static/scripts/validators/create-car.js")
 
 block body-content
-    .container
-        .row#create-car-container
-            .col-lg-12.col-lg-offset-2.col-md-12.col-md-offset-2.col-sm-6.col-xs-6
-                form.row(action='/car/create' method='POST' )
-                    .col-lg-12.col-lg-offset-2.col-md-12.col-md-offset-1.col-sm-12.col-xs-6.col-xs-offset-2
-                        h1.text-center Регистрирайте вашата кола
-                        #form-create-car
-                            .form-group
-                                .dropdown
-                                    label.label-create-car(for='brand') Бранд
-                                    select.form-control#brand(name='brand')
-                                        option
-                                        each brand in result.brands
-                                            option(name='brand' value= brand.brand)
-                                                = brand.brand
-                                
-                            .form-group                                         
-                                .dropdown
-                                    label.label-create-car(for='model') Модел
-                                    select.form-control#model(name='model')
-                                      
-                            .form-group
-                                label.label-create-car(for='year') Година
-                                select.form-control#year(name='year')
-                                    - for (var i = result.startDate; i <= result.endDate; ++i) {
-                                        option(class='model-option' name='year')
-                                            = i
-                                    - }
-
-                            .form-group
-                                label.label-create-car#registrationNumber(for='registrationNumber') Регистрационен номер
-                                input.form-control(type='text'  name='registrationNumber')
-                            .form-group
-                                label.label-create-car(for='picture') Снимка
-                                input.form-control(type='text' name='picture')
-                            .form-group
-                                label.label-create-car#hp(for='hp') Мощност (к.с.)
-                                input.form-control(type='text' name='hp')
-                            .form-group
-                                label.label-create-car#fuel(for='fuelType') Тип на гориво
-                                select.form-control(name='fuelType')
-                                    each fuel in ['Бензин', 'Дизел', 'Газ', 'Електричество']
-                                        option(name='fuelType' value= fuel)
-                                            = fuel
-                            .form-group
-                                label.label-create-car(for='fuelConsumption') Консумация на гориво на 100 км
-                                input.form-control(type='text'  name='fuelConsumption')
-
-                            .form-group
-                                label.label-create-car(for='seats') Брой седалки
-                                select.form-control(name='seats')
-                                    each seat in ['2', '3', '4', '5','6','7+']
-                                        option(name='seats' value= seat)
-                                            = seat
+    .container.background
+        form.row.color-dark-success#car-creation-form(action='/car/create' method='POST' )
+            .col-lg-12.col-lg-offset-6.col-md-12.col-md-offset-3.col-sm-12.col-xs-8.col-xs-offset-2
+                h1.text-center Регистрирайте вашата кола
+                #form-create-car
+                    .form-group
+                        .dropdown
+                            label(for='brand') Бранд
+                            select.form-control#brand(name='brand')
+                                option
+                                each brand in result.brands
+                                    option(name='brand' value= brand.brand)
+                                        = brand.brand
                         
-                            .form-group
-                                label.label-create-car(for='distancePassed') Пробег(км)
-                                input.form-control#distance(type='text'  name='distancePassed')
-                            .form-group
-                                label.label-create-car(for='startDate') Дати през които колата ще се отдава под наем
-                                .input-group.input-daterange(data-provide='datepicker' data-date-format='yyyy-mm-dd')
-                                    input.form-control#startDate(type='text' name='startDate')
-                                    span.input-group-addon до
-                                    input.form-control#endDate(type='text' name='endDate')
-                                    
-                            .form-group
-                                label.label-create-car(for='shortInfo') Кратка информация за колата
-                                textarea.form-control(rows='2' type='text' name='shortInfo')
+                    .form-group                                         
+                        .dropdown
+                            label(for='model') Модел
+                            select.form-control#model(name='model')
+                                
+                    .form-group
+                        label(for='year') Година
+                        select.form-control#year(name='year')
+                            - for (var i = result.startDate; i <= result.endDate; ++i)
+                                option(class='model-option' name='year')
+                                    = i
 
-                            .form-group
-                                label.label-create-car(for='price') Цена
-                                .row.font-size-09
-                                    .col-md-6
-                                        .row
-                                            .col-md-4
-                                                label.label-create-car.font-size-09(for='perDay') на ден
-                                            .col-md-8
-                                                input.form-control#perDay(type='text' name='perDay')
-                                    .col-md-6
-                                        .row
-                                            .col-md-4
-                                                label.label-create-car.font-size-09(for='perWeek') на седмица
-                                            .col-md-8
-                                                input.form-control#perWeek(type='text' name='perWeek')
-                            hr                   
-                            .form-group
-                                label.label-create-car Изисквания към наематели
-                                .row.font-size-09
-                                    .col-md-4
-                                        .row
-                                            .col-md-6
-                                                label.label-create-car.font-size-09(for='leastAge') минамална възраст
-                                            .col-md-6
-                                                input.form-control#age(type='text' name='leastAge')
-                                    .col-md-4
-                                        .row
-                                            .col-md-6
-                                                label.label-create-car.font-size-09(for='drivingExperience') години шофьорски опит
-                                            .col-md-6
-                                                input.form-control#experience(type='text' name='drivingExperience')
-                                    .col-md-4
-                                        .row
-                                            .col-md-6
-                                                label.label-create-car.font-size-09(for='minimumRentalPeriod') минимални дни на наемане
-                                            .col-md-6
-                                                input.form-control#rentalPeriod(type='text' name='minimumRentalPeriod')
-                                   
-                                    .text-center.font-size-09
-                                        label.checkbox-inline
-                                            input(type='checkbox' value='true' name='smokingAllowed')  
-                                            | пушенето позволено
-                                        label.checkbox-inline
-                                            input(type='checkbox' value='true' name='animalsAllowed')  
-                                            | животни позволени
-                            hr
-                            .form-group
-                                 label.label-create-car Екстри
-                                 .text-center.font-size-09
-                                    label.checkbox-inline
-                                        input(type='checkbox' value='true' name='airCondition')  
-                                        | климатик
-                                    label.checkbox-inline
-                                        input(type='checkbox' value='true' name='GPS')  
-                                        | GPS
-                                    label.checkbox-inline
-                                        input(type='checkbox' value='true' name='winterTiers')  
-                                        | зимни гуми
-                                    label.checkbox-inline
-                                        input(type='checkbox' value='true' name='mp3Player')  
-                                        | mp3 player
-                                    label.checkbox-inline
-                                        input(type='checkbox' value='true' name='electricWindows')  
-                                        | ел. стъкла
+                    .form-group
+                        label#registrationNumber(for='registrationNumber') Регистрационен номер
+                        input.form-control(type='text'  name='registrationNumber')
+                    .form-group
+                        label(for='picture') Снимка
+                        input.form-control(type='text' name='picture')
+                    .form-group
+                        label#hp(for='hp') Мощност (к.с.)
+                        input.form-control(type='text' name='hp')
+                    .form-group
+                        label#fuel(for='fuelType') Тип на гориво
+                        select.form-control(name='fuelType')
+                            each fuel in ['Бензин', 'Дизел', 'Газ', 'Електричество']
+                                option(name='fuelType' value= fuel)
+                                    = fuel
+                    .form-group
+                        label(for='fuelConsumption') Консумация на гориво на 100 км
+                        input.form-control(type='text'  name='fuelConsumption')
 
+                    .form-group
+                        label(for='seats') Брой седалки
+                        select.form-control(name='seats')
+                            each seat in ['2', '3', '4', '5','6','7+']
+                                option(name='seats' value= seat)
+                                    = seat
+                
+                    .form-group
+                        label(for='distancePassed') Пробег(км)
+                        input.form-control#distance(type='text'  name='distancePassed')
+                    .form-group
+                        label(for='startDate') Дати през които колата ще се отдава под наем
+                        .input-group.input-daterange(data-provide='datepicker' data-date-format='yyyy-mm-dd')
+                            input.form-control#startDate(type='text' name='startDate')
+                            span.input-group-addon до
+                            input.form-control#endDate(type='text' name='endDate')
                             
-                            .form-group
-                            button.submit-btn.btn.btn-success Добави кола
+                    .form-group
+                        label(for='shortInfo') Кратка информация за колата
+                        textarea.form-control(rows='2' type='text' name='shortInfo')
+
+                    .form-group
+                        label(for='price') Цена
+                        .row.font-size-09
+                            .col-md-6
+                                .row
+                                    .col-md-4
+                                        label.font-size-09(for='perDay') на ден
+                                    .col-md-8
+                                        input.form-control#perDay(type='text' name='perDay')
+                            .col-md-6
+                                .row
+                                    .col-md-4
+                                        label.font-size-09(for='perWeek') на седмица
+                                    .col-md-8
+                                        input.form-control#perWeek(type='text' name='perWeek')
+                    hr                   
+                    .form-group
+                        label Изисквания към наематели
+                        .row
+                            .col-md-4
+                                .row
+                                    .col-md-6
+                                        label.font-size-09(for='leastAge') минамална възраст
+                                    .col-md-6
+                                        input.form-control#age(type='text' name='leastAge')
+                            .col-md-4
+                                .row
+                                    .col-md-6
+                                        label.font-size-09(for='drivingExperience') години шофьорски опит
+                                    .col-md-6
+                                        input.form-control#experience(type='text' name='drivingExperience')
+                            .col-md-4
+                                .row
+                                    .col-md-6
+                                        label.font-size-09(for='minimumRentalPeriod') минимални дни на наемане
+                                    .col-md-6
+                                        input.form-control#rentalPeriod(type='text' name='minimumRentalPeriod')
+                            
+                            .text-center.font-size-09
+                                label.checkbox-inline
+                                    input(type='checkbox' value='true' name='smokingAllowed')  
+                                    | пушенето позволено
+                                label.checkbox-inline
+                                    input(type='checkbox' value='true' name='animalsAllowed')  
+                                    | животни позволени
+                    hr
+                    .form-group
+                            label Екстри
+                            .text-center
+                                label.checkbox-inline
+                                    input(type='checkbox' value='true' name='airCondition')  
+                                    | климатик
+                                label.checkbox-inline
+                                    input(type='checkbox' value='true' name='GPS')  
+                                    | GPS
+                                label.checkbox-inline
+                                    input(type='checkbox' value='true' name='winterTiers')  
+                                    | зимни гуми
+                                label.checkbox-inline
+                                    input(type='checkbox' value='true' name='mp3Player')  
+                                    | mp3 player
+                                label.checkbox-inline
+                                    input(type='checkbox' value='true' name='electricWindows')  
+                                    | ел. стъкла
+
+                    
+                    .form-group
+                    button.submit-btn.btn.btn-success Добави кола

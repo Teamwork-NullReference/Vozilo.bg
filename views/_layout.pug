@@ -6,62 +6,75 @@ head
     link(rel='stylesheet', href='/static/bower_components/bootstrap/dist/css/bootstrap.css')
     link(rel='stylesheet', href='/static/bower_components/font-awesome/css/font-awesome.css')
     link(rel='stylesheet', href='/static/styles/main.css')
-    link(rel="icon" type="image/png" href="/static/favicon.ico")
+    link(rel='icon' type='image/png' href='/static/favicon.ico')
     block custom-styles
 
-    script(src="/static/bower_components/jquery/dist/jquery.js")
-    script(src="/static/bower_components/bootstrap/dist/js/bootstrap.js")
-    script(src="/static/scripts/json-requester.js")
-    script(src="/static/scripts/main.js")
+    script(src='/static/bower_components/jquery/dist/jquery.js')
+    script(src='/static/bower_components/bootstrap/dist/js/bootstrap.js')
+    script(src='/static/scripts/json-requester.js')
+    script(src='/static/scripts/main.js')
     
     block custom-scripts
     
     block head-content
 body
     header.container
-        nav.navbar.navbar-fixed-top.navbar-collapse
-            div.navbar-header
-                button.navbar-toggle.collapsed(type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false")
-                    span.sr-only Toggle navigation
-                    span.icon-bar
-                    span.icon-bar
-                    span.icon-bar
-                a.navbar-brand.logo-font-size(href='/')
-                    i.fa.fa-car.logo-img-color(aria-hidden="true")
-                    span.logo-font-color  Vozilo
-            div.collapse.navbar-collapse(id='bs-example-navbar-collapse-1')
-                ul.nav.navbar-nav
-                    li  
-                        a(href='/') Начало
+        div
+            nav.navbar.navbar-fixed-top.navbar-collapse
+                div.navbar-header
+                    button.navbar-toggle.collapsed(type='button' data-toggle='collapse' data-target='#bs-example-navbar-collapse-1' aria-expanded='false')
+                        span.sr-only Toggle navigation
+                    a.navbar-brand.logo-font-size(href='/')
+                        i.fa.fa-car.logo-img-color(aria-hidden='true')
+                        span.logo-font-color  Vozilo
+                div.collapse.navbar-collapse(id='bs-example-navbar-collapse-1')
+                    ul.nav.navbar-nav
+                        li  
+                            a(href='/') Начало
 
-                    if result.user
-                        li
-                            a(href=`/user/${result.user.username}`) Моят профил
-                        li
-                            a(href=`/user/${result.user.username}/messages`) Съобщения
-                        li
-                            a(href='/car/create') Добави кола
-                        if result.user.role=='admin'
+                        if result.user
                             li
-                                a(href='/admin') Администратор
-                    else
-                        li
-                            a(href='/car/create') Добави кола
-                        li
-                            a(href='/auth/sign-in') Вход
-                        li
-                            a(href='/auth/sign-up') Регистрация
-                ul.nav.navbar-nav.navbar-right
-                    if result.user
-                        li(id='btn-sign-out')
-                            a(href='#' id='btn-sign-out') Изход
+                                a(href=`/user/${result.user.username}`) Моят профил
+                            li
+                                a(href=`/user/${result.user.username}/messages`) Съобщения
+                            li
+                                a(href='/car/create') Добави кола
+                            if result.user.role=='admin'
+                                li
+                                    a(href='/admin') Администратор
+                        else
+                            li
+                                a(href='/car/create') Добави кола
+                            li
+                                a(href='/auth/sign-in') Вход
+                            li
+                                a(href='/auth/sign-up') Регистрация
+
+                            li
+                                //- a(href='/user/' = result.user._id + '/rentals') Наеми
+                                a(href='/user/rentals') Наеми
+                                
+                    ul.nav.navbar-nav.navbar-right
+                        if result.user
+                            li(id='btn-sign-out')
+                                a(href='#' id='btn-sign-out') Изход
+        
     main
-        block body-content
+       block body-content
 
     footer.footer
-        div.container
+        div.container.footer-content
             .row
-                .col-md-4.col-md-offset-4.col-sm-6
+                .col-md-4
+                    div.fb-btns
+                        span#fb-share.fb-like(
+                            data-href='http://vozilo.herokuapp.com/'
+                            data-layout='standard'
+                            data-action='like'
+                            data-size='large'
+                            data-show-faces='true'
+                            data-share='true')
+                .col-md-4.col-sm-6
                     h4 За фирмата
                     ul.list-unstyled
                         li

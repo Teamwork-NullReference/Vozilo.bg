@@ -19,7 +19,7 @@ const profile = [
     config.GOOGLECREDENTIALS_PROFILE_EMAIL
 ];
 
-module.exports = function (data, createHash, validator) {
+module.exports = function({ data, hashGenerator, validator }) {
     return {
         signUp(req, res) {
             let newUser = {};
@@ -40,7 +40,7 @@ module.exports = function (data, createHash, validator) {
                         }
                     });
             }
-            newUser.password = createHash(req.body.password);
+            newUser.password = hashGenerator(req.body.password);
 
             data.createUser(newUser)
                 .then(

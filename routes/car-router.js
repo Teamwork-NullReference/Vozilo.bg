@@ -4,12 +4,12 @@
 const express = require('express');
 const passport = require('passport');
 
-module.exports = function ({
+module.exports = function({
     app,
-    data
+    controllers
 }) {
 
-    let controller = require('../controllers/car-controller')(data);
+    let controller = controllers.car;
 
     let router = new express.Router();
 
@@ -30,9 +30,7 @@ module.exports = function ({
         //     res.send('It works!');
         // })
         .get('/:id/rent', controller.loadRentCarForm)
-        .post('/:id/rent', (req, res) => {
-            res.send('renting post!');
-        });
+        .post('/:id/rent', controller.rentCar);
 
     app.use('/car', router);
 
