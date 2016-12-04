@@ -3,8 +3,6 @@ extends _layout
 block custom-scripts
     script(src='/static/scripts/change-rental-status.js')
 
-   
-
 block body-content
     div.container
         div.row.background.text-center
@@ -12,7 +10,7 @@ block body-content
                 h1.color-dark-success.margin-top-30 Всички наеми на коли
                 table.table.table-striped
                     thead
-                    form(method='POST' action='/user/' + result.user.usernmae + '/rentals')
+                    form(method='POST' action='/user/' + result.user.username + '/rentals')
                         input.hidden.rental-info(name='rentalInfo')
                         each rental in result.rentals
                             tr.rental-row(rentalId= rental._id carId= rental.car.id)
@@ -48,14 +46,19 @@ block body-content
                                     span Статус: 
                                     strong
                                         = rental.rentalInfo.status
-                                if rental.rentalInfo.status === 'Pending'
-                                    td
-                                        button.btn.btn-success.approve Потвърди
-                                    td  
-                                        button.btn.btn-danger.disapprove Откажи
+                                
+                                if rental.carOwner.username === result.user.username
+                                    if rental.rentalInfo.status === 'Pending'
+                                        td
+                                            button.btn.btn-success.approve Потвърди
+                                        td  
+                                            button.btn.btn-danger.disapprove Откажи
+                                    else
+                                        td
+                                            button.btn.btn-success(disabled) Потвърди
+                                        td  
+                                            button.btn.btn-danger(disabled) Откажи
                                 else
                                     td
-                                        button.btn.btn-success(disabled) Потвърди
-                                    td  
-                                        button.btn.btn-danger(disabled) Откажи
+                                    td
                             

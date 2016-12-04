@@ -84,7 +84,6 @@ module.exports = function ({
                     }
 
                     carDetails.owner.receivedReviews = user.receivedReviews;
-
                     return res.status(200).render('car/details', {
                         result: {
                             user: req.user,
