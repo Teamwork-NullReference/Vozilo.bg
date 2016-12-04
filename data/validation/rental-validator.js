@@ -3,7 +3,7 @@
 
 module.exports = function(validator) {
     return {
-        validateCorrespondence() {
+        validateRental() {
             return Promise.resolve(true);
         },
         validateMessage() {

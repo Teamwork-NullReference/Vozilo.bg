@@ -14,12 +14,12 @@ module.exports = function({ config, validator }) {
     let User = require('../models/user-model');
     let Car = require('../models/car-model');
     let CarBrandDetail = require('../models/car-brand-model');
-    let Correspondence = require('../models/correspondence-model');
+    let Rental = require('../models/rental-model');
     let models = {
         User,
         Car,
         CarBrandDetail,
-        Correspondence
+        Rental
     };
 
     let data = {};

@@ -12,75 +12,6 @@ const MAX_DAYS_PER_MONTH = 31;
 //     return new Date(y, m, 0).getDate();
 // }
 
-function addRentalRequest({ data, user, startDate, endDate, carProjection, owner }) {
-    let rentalRequestInfo = {
-        startRentalDate: startDate,
-        endRentalDate: endDate,
-        car: carProjection,
-        owner,
-        status: 'Pending'
-    };
-
-    return data.addRentalRequest(user, rentalRequestInfo);
-}
-
-function createNewCorrespondence({ data, startDate, endDate, message, carId, user }) {
-    let owner,
-        sender,
-        carProjection;
-
-    return data.getCarById(carId)
-        .then((car) => {
-            carProjection = {
-                id: car._id,
-                imageUrl: car.picture
-            };
-            owner = {
-                username: car.owner.username,
-                imageUrl: car.owner.imageUrl
-            };
-            sender = {
-                username: user.username,
-                imageUrl: user.picture
-            };
-            let correspondenceInfo = {
-                car: carProjection,
-                owner,
-                messages: {
-                    sender,
-                    receiver: owner,
-                    text: message,
-                    date: new Date()
-                }
-            };
-
-            return data.addCorrespondence(correspondenceInfo, sender, owner);
-        })
-        .then(() => {
-            return addRentalRequest({ data, user, startDate, endDate, carProjection, owner });
-        });
-}
-
-// function addMessageToCorrespondence({ data, startDate, endDate, message, carId, user, correspondence }) {
-//     return data.getCarById(carId)
-//         .then((car) => {
-//             let messageObj = {
-//                 sender: user
-//             };
-//             data.addMessageToCorrespondence(messageObj, correspondence._id)
-//                 .then((correspondence) => {
-//                     addRentalRequest({ data, user, startDate, endDate, carProjection, owner })
-//                         .then((res) => {
-//                             if (!user.correspondences.contains(correspondence._id)) {
-//                                 return data.addCorrespondenceToUser(user, correspondence._id);
-//                             }
-
-//                             return Promise.resolve(res);
-//                         });
-//                 });
-//         });
-// }
-
 module.exports = function(data) {
     return {
         loadCreateCarForm(req, res) {
@@ -189,33 +120,54 @@ module.exports = function(data) {
             let user = req.user;
             if (user) {
                 let { startDate, endDate, message, carId } = req.body;
-                console.log('Here');
-                data.getCorrespondenceByCarId(carId)
-                    .then((correspondence) => {
-                        if (correspondence.length) {
-                            addMessageToCorrespondence({ startDate, endDate, message, carId })
-                                .catch(err => {
-                                    return res.status(400)
-                                        .render('status-codes/status-code-error', {
-                                            result: {
-                                                code: 400,
-                                                err
-                                            }
-                                        });
-                                });
-                        } else {
-                            createNewCorrespondence({ data, startDate, endDate, message, carId, user, correspondence })
-                                .catch(err => {
-                                    console.log('controller catch');
-                                    return res.status(400)
-                                        .render('status-codes/status-code-error', {
-                                            result: {
-                                                code: 400,
-                                                err
-                                            }
-                                        });
-                                });
-                        }
+                return data.getCarById(carId)
+                    .then((car) => {
+                        let carProjection = {
+                            id: car._id,
+                            brand: car.brand,
+                            model: car.model
+                        };
+                        let carOwner = {
+                            username: car.owner.username,
+                            imageUrl: car.owner.imageUrl
+                        };
+                        let renter = {
+                            username: user.username,
+                            imageUrl: user.picture
+                        };
+                        let messages = [{
+                            text: message,
+                            date: new Date(),
+                            sender: user.username
+                        }];
+                        let rentalInfo = {
+                            startDate,
+                            endDate,
+                            status: 'Pending'
+                        };
+
+                        let rentalModelInfo = {
+                            car: carProjection,
+                            carOwner,
+                            renter,
+                            messages,
+                            rentalInfo
+                        };
+
+                        return data.addRental(rentalModelInfo);
+                    })
+                    .then(() => {
+                        //TODO redirect to rentals page
+                        return res.status(200).redirect('/');
+                    })
+                    .catch(err => {
+                        return res.status(400)
+                            .render('status-codes/status-code-error', {
+                                result: {
+                                    code: 400,
+                                    err
+                                }
+                            });
                     });
             }
 
