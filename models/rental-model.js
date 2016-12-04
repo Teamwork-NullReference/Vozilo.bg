@@ -43,7 +43,7 @@ module.exports = modelRegistrator.register('Rental', {
         status: {
             type: String,
             required: true,
-            enum: ['Pending', 'Active', 'Canceled', 'Finished']
+            enum: ['Pending', 'Active', 'Canceled', 'Finished', 'Not Available']
         }
     }
 });
