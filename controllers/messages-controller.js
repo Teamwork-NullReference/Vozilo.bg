@@ -16,17 +16,19 @@ module.exports = function (data) {
                         });
                     }
 
-                    let viewMessagesAllowed = false;
+                    let isAuthorizedUser = false;
 
                     if (req.user &&
                         req.user.role &&
                         (req.user.role.indexOf('admin') >= 0 || username === req.user.username)) {
-                        viewMessagesAllowed = true;
+                        isAuthorizedUser = true;
                     }
 
-                    if (viewMessagesAllowed) {
-                        res.status(200).render('correspondence/latests', {
-                            // TODO: get last messages of any correspondence, sorted by date
+                    if (isAuthorizedUser) {
+                        // TODO: get last messages of any correspondence, sorted by date
+                        // return data.getFilteredCars({ city, startDate, endDate, page, pageSize })
+
+                        return Promise.resolve({
                             result: {
                                 user: req.user,
                                 correspondences: [{
@@ -63,28 +65,28 @@ module.exports = function (data) {
                                 }]
                             }
                         });
-                    } else {
-                        res.status(401).render('unauthorized', {
-                            result: {
-                                user: req.user
-                            }
-                        });
                     }
-                })
-                .catch(() => {
-                    return res.render('profile/user-not-found', {
+
+                    // user is unauthorized
+                    res.status(401).render('unauthorized', {
                         result: {
                             user: req.user
                         }
                     });
+
+                    return Promise.reject(`User: ${username} is unauthorized.`);
+                })
+                .then((latestCorrespondences) => {
+                    res.status(200).render('correspondence/latests', latestCorrespondences);
+                })
+                .catch((error) => {
+                    console.log(error);
                 });
         },
         getCorrespondenceDetails(req, res) {
-            console.log('1.');
             let username = req.params.username;
             data.getUserByUsername(username)
                 .then(user => {
-                    console.log('2.');
                     if (user === null || typeof user === 'undefined') {
                         return res.render('profile/user-not-found', {
                             result: {
@@ -93,18 +95,19 @@ module.exports = function (data) {
                         });
                     }
 
-                    let viewCorrespondenceDetailsAllowed = false;
+                    let isAuthorizedUser = false;
 
                     if (req.user &&
                         req.user.role &&
                         (req.user.role.indexOf('admin') >= 0 || username === req.user.username)) {
-                        viewCorrespondenceDetailsAllowed = true;
+                        isAuthorizedUser = true;
                     }
 
-                    if (viewCorrespondenceDetailsAllowed) {
+                    if (isAuthorizedUser) {
+                        // TODO: get details for selected correspondence
+                        // return data.getFilteredCars({ city, startDate, endDate, page, pageSize })
 
-                        res.status(200).render('correspondence/detailed-view', {
-                            // TODO: get details for selected correspondence
+                        return Promise.resolve({
                             result: {
                                 user: req.user,
                                 car: {
@@ -138,20 +141,22 @@ module.exports = function (data) {
                                 ]
                             }
                         });
-                    } else {
-                        res.status(401).render('unauthorized', {
-                            result: {
-                                user: req.user
-                            }
-                        });
                     }
-                })
-                .catch(() => {
-                    return res.render('profile/user-not-found', {
+
+                    // user is unauthorized
+                    res.status(401).render('unauthorized', {
                         result: {
                             user: req.user
                         }
                     });
+
+                    return Promise.reject(`User: ${username} is unauthorized.`);
+                })
+                .then((correspondenceDetails) => {
+                    res.status(200).render('correspondence/detailed-view', correspondenceDetails);
+                })
+                .catch((error) => {
+                    console.log(error);
                 });
         }
     };
