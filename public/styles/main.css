@@ -2,6 +2,7 @@ body {
     background-color: #eee;
 }
 
+
 /*.fb-btns{
     margin-left: 
 }*/
@@ -15,7 +16,7 @@ body {
     color: gold
 }
 
-.logo-font-size{
+.logo-font-size {
     font-size: 1.5em;
 }
 
@@ -46,7 +47,6 @@ form {
     background: #575b5b;
     height: 70px;
     padding-top: 5px;
-    padding-right: 10px;
 }
 
 .navbar-collapse a {
@@ -97,11 +97,13 @@ form {
 .footer {
     background: #575b5b;
     padding-top: 20px;
-    clear: both;
-    position: relative;
-    z-index: 10;
     margin-top: 3em;
 }
+
+
+/*.footer-content{
+    margin-top: 20px;
+}*/
 
 footer ul {
     padding-bottom: 20px;
@@ -299,4 +301,17 @@ footer li a {
 .request-info {
     margin: 10px 20px;
     float: left;
+}
+
+
+/* Car rental */
+
+.car-rental-row {
+    margin-bottom: 2em;
+    padding: 10px;
+    border: 4px solid #ccc;
+}
+
+.table>tbody>tr>td {
+    vertical-align: middle;
 }

@@ -11,7 +11,7 @@ block custom-scripts
 
 block body-content
     .container.background
-        form.row.color-dark-success(action='/car/create' method='POST' )
+        form.row.color-dark-success#car-creation-form(action='/car/create' method='POST' )
             .col-lg-12.col-lg-offset-6.col-md-12.col-md-offset-3.col-sm-12.col-xs-8.col-xs-offset-2
                 h1.text-center Регистрирайте вашата кола
                 #form-create-car
@@ -32,10 +32,9 @@ block body-content
                     .form-group
                         label(for='year') Година
                         select.form-control#year(name='year')
-                            - for (var i = result.startDate; i <= result.endDate; ++i) {
+                            - for (var i = result.startDate; i <= result.endDate; ++i)
                                 option(class='model-option' name='year')
                                     = i
-                            - }
 
                     .form-group
                         label#registrationNumber(for='registrationNumber') Регистрационен номер
@@ -95,7 +94,7 @@ block body-content
                     hr                   
                     .form-group
                         label Изисквания към наематели
-                        .row.font-size-09
+                        .row
                             .col-md-4
                                 .row
                                     .col-md-6
@@ -125,22 +124,22 @@ block body-content
                     hr
                     .form-group
                             label Екстри
-                            .text-center.font-size-09
-                            label.checkbox-inline
-                                input(type='checkbox' value='true' name='airCondition')  
-                                | климатик
-                            label.checkbox-inline
-                                input(type='checkbox' value='true' name='GPS')  
-                                | GPS
-                            label.checkbox-inline
-                                input(type='checkbox' value='true' name='winterTiers')  
-                                | зимни гуми
-                            label.checkbox-inline
-                                input(type='checkbox' value='true' name='mp3Player')  
-                                | mp3 player
-                            label.checkbox-inline
-                                input(type='checkbox' value='true' name='electricWindows')  
-                                | ел. стъкла
+                            .text-center
+                                label.checkbox-inline
+                                    input(type='checkbox' value='true' name='airCondition')  
+                                    | климатик
+                                label.checkbox-inline
+                                    input(type='checkbox' value='true' name='GPS')  
+                                    | GPS
+                                label.checkbox-inline
+                                    input(type='checkbox' value='true' name='winterTiers')  
+                                    | зимни гуми
+                                label.checkbox-inline
+                                    input(type='checkbox' value='true' name='mp3Player')  
+                                    | mp3 player
+                                label.checkbox-inline
+                                    input(type='checkbox' value='true' name='electricWindows')  
+                                    | ел. стъкла
 
                     
                     .form-group

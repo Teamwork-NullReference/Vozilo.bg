@@ -2,7 +2,7 @@
 'use strict';
 const mapper = require('./../utils/mapper');
 
-module.exports = function(data) {
+module.exports = function (data) {
     return {
         getDetailedUser(req, res) {
             let username = req.params.username;
@@ -66,7 +66,7 @@ module.exports = function(data) {
                     let updateAllowed = false;
 
                     if (req.user && ((req.user.role && req.user.role.indexOf('admin') >= 0) ||
-                        username === req.user.username)) {
+                            username === req.user.username)) {
                         updateAllowed = true;
                     }
 
@@ -158,8 +158,43 @@ module.exports = function(data) {
                     res.status(200)
                         .send(usernames);
                 });
+        },
+        getRentalsInfo(req, res) {
+            return res.status(200).render('rentals', {
+                result: [{
+                    brand: 'Tesla',
+                    model: 'Model X',
+                    carOwner: 'Pesho',
+                    renter: 'Gosho',
+                    startDate: new Date(2016, 12, 1),
+                    endDate: new Date(2016, 12, 4),
+                    status: 'Pending'
+                }, {
+                    brand: 'VW',
+                    model: 'Caddy',
+                    carOwner: 'fafa',
+                    renter: 'Dodo',
+                    startDate: new Date(2016, 12, 1),
+                    endDate: new Date(2016, 12, 4),
+                    status: 'Canceled'
+                }, {
+                    brand: 'Peugeot',
+                    model: '405',
+                    carOwner: 'The Rock',
+                    renter: 'Stone Cold Steve Ostine',
+                    startDate: new Date(2016, 12, 1),
+                    endDate: new Date(2016, 12, 4),
+                    status: 'Active'
+                }, {
+                    brand: 'Laborgini',
+                    model: 'Diablo',
+                    carOwner: 'Pamy666',
+                    renter: 'peshkata',
+                    startDate: new Date(2016, 12, 1),
+                    endDate: new Date(2016, 12, 4),
+                    status: 'Finished'
+                }]
+            });
         }
-
-
     };
 };
