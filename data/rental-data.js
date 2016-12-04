@@ -2,10 +2,13 @@
 'use strict';
 
 const dataUtils = require('./utils/data-utils');
-
-module.exports = function ({ models, validator }) {
+module.exports = function ({
+    models,
+    validator
+}) {
     let {
-        Rental
+        Rental,
+        Car
     } = models;
 
     const rentalValidator = require('./validation/rental-validator')(validator);
@@ -13,7 +16,9 @@ module.exports = function ({ models, validator }) {
     return {
         getRentalById(rentalId) {
             return new Promise((resolve, reject) => {
-                Rental.findOne({ '_id': rentalId }, (err, rental) => {
+                Rental.findOne({
+                    '_id': rentalId
+                }, (err, rental) => {
                     if (err) {
                         return reject(err);
                     }
@@ -23,9 +28,58 @@ module.exports = function ({ models, validator }) {
             });
         },
         addRental(rentalInfo) {
-            return rentalValidator.validateRental(rentalInfo)
+            return rentalValidator.validateMessage(rentalInfo.messageText)
                 .then(() => {
-                    let rental = new Rental(rentalInfo);
+                    return new Promise((resolve, reject) => {
+                        Car.findById(rentalInfo.carId, (err, car) => {
+                            if (err) {
+                                return reject(err);
+                            }
+
+                            return resolve(car);
+                        });
+                    });
+                })
+                .then((car) => {
+                    let {
+                        startDate,
+                        endDate,
+                        messageText,
+                        renterUserName,
+                        renterImageUrl,
+                        messageSender
+                    } = rentalInfo,
+                    carProjection = {
+                            id: car._id,
+                            brand: car.brand,
+                            model: car.model
+                        },
+                        carOwner = {
+                            username: car.owner.username,
+                            imageUrl: car.owner.imageUrl
+                        },
+                        renter = {
+                            username: renterUserName,
+                            imageUrl: renterImageUrl
+                        },
+                        messages = [{
+                            text: messageText,
+                            date: new Date(),
+                            sender: messageSender
+                        }],
+                        info = {
+                            startDate,
+                            endDate,
+                            status: 'Pending'
+                        };
+
+                    let rental = new Rental({
+                        car: carProjection,
+                        carOwner,
+                        renter,
+                        messages,
+                        rentalInfo: info
+                    });
 
                     return dataUtils.save(rental);
                 });
@@ -39,6 +93,36 @@ module.exports = function ({ models, validator }) {
                     rental.messages.push(message);
 
                     return dataUtils.save(rental);
+                });
+        },
+        getRentalsByUsername(username) {
+            return new Promise((resolve, reject) => {
+                Rental.find({
+                        $or: [{
+                            'carOwner.username': username
+                        }, {
+                            'renter.username': username
+                        }]
+
+                    })
+                    .select('car rentalInfo carOwner renter')
+                    .exec((err, result) => {
+                        if (err) {
+                            return reject(err);
+                        }
+                        return resolve(result);
+                    });
+            });
+        },
+        changeRentalStatus(newStatus, carId, rentalId) {
+            this.getRentalById(rentalId)
+                .then(rental => {
+                    if (newStatus === 'disapprove') { //const
+                        rental.rentalInfo.status = newStatus;
+                        return dataUtils.update(rental);
+                    } else if (newStatus === 'approve') {
+
+                    }
                 });
         }
     };

@@ -324,3 +324,7 @@ footer li a {
 .margin-left-fiftheen {
     margin-left: 15px;
 }
+
+.hidden {
+    display: none;
+}

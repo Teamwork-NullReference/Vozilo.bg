@@ -12,8 +12,9 @@ module.exports = function({ app, controllers }) {
 
     router
         .get('/filter/:pattern', controller.getFilteredUsernamesJson)
-        .get('/rentals', controller.getRentalsInfo)
         .get('/:username', controller.getDetailedUser)
+        .get('/:username/rentals', controller.getRentalsInfo)
+        .post('/:username/rentals', controller.updateRentalsInfo)
         .get('/:username/update', controller.getUpdateUserForm)
         .post('/:username/update', controller.updateUserInfo)
         .put('/:username/rating', controller.setRating);
