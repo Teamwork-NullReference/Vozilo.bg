@@ -46,6 +46,7 @@ module.exports = function ({
 
         },
         craeteCar(req, res) {
+            console.log('create car');
             let user = req.user;
             let carInfo = req.body;
             data.addCar(user, carInfo)
@@ -57,6 +58,7 @@ module.exports = function ({
                         .redirect('/');
                 })
                 .catch(err => {
+                    console.log('here');
                     return res.status(400)
                         .render('bad-request', {
                             result: {
