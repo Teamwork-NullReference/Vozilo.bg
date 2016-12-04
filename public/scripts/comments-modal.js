@@ -41,25 +41,23 @@ function addCommentsToElement(data, elementSelector) {
     $('#close-modal').click();
 }
 
-$(document).ready(function() {
-    $('#add-comment').click(function() {
+$(document).ready(function () {
+    $('#add-comment').click(function () {
         $('#comments-modal').modal();
     });
 
-    $('#modal-success').click(function() {
+    $('#modal-success').click(function () {
         var recipient = $('#recipient-username').val(),
             content = $('#content-area').val(),
             options = {
-                data: {
-                    content
-                }
+                data: { content: content }
             };
 
         jsonRequester.post('/user/' + recipient + '/comments', options)
-            .then(data => {
+            .then(function (data) {
                 addCommentsToElement(data, '#user-reviews');
             })
-            .catch(err => {
+            .catch(function (err) {
                 console.log(err);
             });
     });
