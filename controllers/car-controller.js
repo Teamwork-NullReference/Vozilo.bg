@@ -6,12 +6,6 @@ const carValidator = require('./validation/car-validator');
 
 const START_YEAR = 1980;
 const MAX_DAYS_PER_MONTH = 31;
-// function getLastDateOfMonth(currentDate) {
-//     let date = currentDate,
-//         y = date.getFullYear(),
-//         m = date.getMonth();
-//     return new Date(y, m, 0).getDate();
-// }
 
 module.exports = function({
     data
@@ -28,7 +22,6 @@ module.exports = function({
 
             data.getAllBrands()
                 .then(brands => {
-
                     return res.status(200)
                         .render('car/create-form', {
                             result: {
@@ -58,9 +51,8 @@ module.exports = function({
                 })
                 .catch(err => {
                     return res.status(400)
-                        .render('status-codes/status-code-error', {
+                        .render('bad-request', {
                             result: {
-                                code: 400,
                                 err
                             }
                         });
@@ -165,9 +157,8 @@ module.exports = function({
                 })
                 .catch(err => {
                     return res.status(400)
-                        .render('status-codes/status-code-error', {
+                        .render('bad-request', {
                             result: {
-                                code: 400,
                                 err
                             }
                         });

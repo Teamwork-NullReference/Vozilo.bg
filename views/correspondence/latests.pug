@@ -4,41 +4,43 @@ block custom-styles
     link(rel="stylesheet", href="/static/styles/user-messages.css")
 
 block body-content
-    div.container
-        div.row
+    div.container.background
+        div.row.margin-top-30
             div.col-md-12
-                h2(class="text-center")
+                h1.color-dark-success(class="text-center")
                     | Съобщения
-                br
 
+        div.row.margin-top-30.color-success
+            div.col-md-2.text-center 
+                strong Потребител
+            div.col-md-1.text-center
+                strong Профилна снимка
+            div.col-md-7.text-center 
+                strong Последно съобщение
+            div.col-md-2.text-center 
+                strong Дата
         div.row
             div.col-md-12
-                div.col-md-2.text-center <span>User</span>
-                div.col-md-1.text-center <span>Image</span>
-                div.col-md-5.text-center <span>Message</span>
-                div.col-md-2.text-center <span>Date</span>
-                div.col-md-2.text-center <span>Address</span>    
-        div.row
-            div.col-md-12
-            each correspondence in result.correspondences                
-                a.row.correspondence-link(href=`messages/${correspondence._id}`)
-                    if correspondence.messages.reverse()[0].sender === correspondence.renter.username
-                        div.col-md-2
-                            span= `${correspondence.renter.username}`
-                        div.col-md-1  
-                            div.circle-avatar
-                                img.img-circle(src=`${correspondence.renter.imageUrl}`, "User image")
-                        div.col-md-5
-                            span= correspondence.messages.reverse()[0].text
-                        div.col-md-2
-                            span= correspondence.messages.reverse()[0].date.toLocaleString('bg-BG')
-                    else
-                        div.col-md-2
-                            span= `${correspondence.carOwner.username}`
-                        div.col-md-1  
-                            div.circle-avatar
-                                img.img-circle(src=`${correspondence.carOwner.imageUrl}`, "User image")
-                        div.col-md-5
-                            span= correspondence.messages.reverse()[0].text
-                        div.col-md-2
-                            span= correspondence.messages.reverse()[0].date.toLocaleString('bg-BG')
+                each correspondence in result.correspondences
+                    - var message = correspondence.messages[0];
+                    a.row.correspondence-link.text-center(href=`messages/${correspondence._id}`)
+                        if message.sender === correspondence.renter.username
+                            div.col-md-2
+                                span= `${correspondence.renter.username}`
+                            div.col-md-1  
+                                div.circle-avatar
+                                    img.img-circle(src=`${correspondence.renter.imageUrl}`, "User image")
+                            div.col-md-7
+                                span= message.text
+                            div.col-md-2
+                                span= message.date.toLocaleString('bg-BG', { hour12: false })
+                        else
+                            div.col-md-2
+                                span= `${correspondence.carOwner.username}`
+                            div.col-md-1  
+                                div.circle-avatar
+                                    img.img-circle(src=`${correspondence.carOwner.imageUrl}`, "User image")
+                            div.col-md-7
+                                span= message.text
+                            div.col-md-2
+                                span= message.date.toLocaleString('bg-BG', { hour12: false })

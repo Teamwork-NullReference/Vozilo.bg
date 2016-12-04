@@ -4,16 +4,13 @@ block custom-styles
     link(rel="stylesheet", href="/static/styles/user-messages.css")
 
 block body-content
-    div.container
-        div.row
+    div.container.background
+        div.row.margin-top-30
             div.col-md-12
-                h2(class="text-center")
+                h1.color-dark-success(class="text-center")
                     | Кореспонденция
-                br
 
-        div.row
-            div.col-md-12
-        div.row
+        div.row.row.margin-top-30
             div.col-md-9
                 div.row
                     div.col-md-12
@@ -22,7 +19,7 @@ block body-content
                                 div.col-md-1
                                     div.circle-avatar
                                         img.img-circle(src=`${result.user.picture}`, "User image")
-                                div.col-md-10
+                                div.col-md-10.col-sm-8.col-xs-6
                                     textarea(class="form-control" rows="6" name="inputData")
                             div.row
                                 div.col-md-1
@@ -33,7 +30,7 @@ block body-content
                         div.row
                             div.col-md-12
                         each message in result.messages
-                            div.row
+                            div.row.correspondence-link
                                 div.col-md-1
                                     div.circle-avatar
                                         if message.sender === result.renter.username
@@ -43,12 +40,14 @@ block body-content
                                 div.col-md-8
                                     span= message.text
                                 div.col-md-3
-                                    span= message.date.toLocaleString('en-US', { hour12: false })
+                                    span= message.date.toLocaleString('bg-BG', { hour12: false })
             
             div.col-md-3
                 if result.user.username === result.carOwner.username                                   
-                    img#renter-img-id(src=`${result.renter.imageUrl}`, "User image")
-                    p= `${result.renter.username}`
+                    img#renter-img-id(src=`${result.renter.imageUrl}`, "User image")                    
+                    a.row(href=`/user/${result.renter.username}`)
+                        span= `${result.renter.username}`
                 else
                     img#car-owner-img-id(src=`${result.carOwner.imageUrl}`, "User image")
-                    p= `${result.carOwner.username}`
+                    a.row(href=`/user/${result.carOwner.username}`)
+                        span= `${result.carOwner.username}`

@@ -1,13 +1,14 @@
 /* globals module */
 'use strict';
 
-module.exports = function ({ data }) {
+module.exports = function ({
+    data
+}) {
     return {
         getLatestMessages(req, res) {
             let username = req.params.username;
             data.getUserByUsername(username)
                 .then(user => {
-
                     if (user === null || typeof user === 'undefined') {
                         return res.render('profile/user-not-found', {
                             result: {
@@ -28,7 +29,6 @@ module.exports = function ({ data }) {
                         return data.getLastMessagesByUsername(username);
                     }
 
-                    // user is unauthorized
                     res.status(401).render('unauthorized', {
                         result: {
                             user: req.user
@@ -47,8 +47,12 @@ module.exports = function ({ data }) {
 
                     return Promise.resolve();
                 })
-                .catch((error) => {
-                    console.log(error);
+                .catch((err) => {
+                    res.status(400).render('bad-request', {
+                        result: {
+                            err
+                        }
+                    });
                 });
         },
         getCorrespondenceDetails(req, res) {
@@ -77,7 +81,6 @@ module.exports = function ({ data }) {
                         return data.getRentalById(rentalId);
                     }
 
-                    // user is unauthorized
                     res.status(401).render('unauthorized', {
                         result: {
                             user: req.user
@@ -100,8 +103,12 @@ module.exports = function ({ data }) {
 
                     return Promise.resolve();
                 })
-                .catch((error) => {
-                    console.log(error);
+                .catch((err) => {
+                    res.status(400).render('bad-request', {
+                        result: {
+                            err
+                        }
+                    });
                 });
         },
         sendMessage(req, res) {
@@ -136,7 +143,6 @@ module.exports = function ({ data }) {
                         return data.addMessageToRental(rentalId, message);
                     }
 
-                    // user is unauthorized
                     res.status(401).render('unauthorized', {
                         result: {
                             user: req.user
@@ -148,11 +154,8 @@ module.exports = function ({ data }) {
                 .then(() => {
                     return res.status(300).redirect(`${rentalId}`);
                 })
-                .catch((error) => {
-                    console.log(error);
-
+                .catch(() => {
                     if (req.body.inputData || req.body.inputData.length === 0) {
-                        // stop post request and then redirect to get route
                         res.end();
                         res.status(300).redirect(`${rentalId}`);
                     }

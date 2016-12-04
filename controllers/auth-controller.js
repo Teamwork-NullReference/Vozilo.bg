@@ -3,7 +3,6 @@
 const passport = require('passport');
 const PASWORD_DOES_NOT_MATCH = 'Паролата трябва да бъде минимум 8 символа и да съдържа цифри и латински букви';
 
-
 let config = {};
 if (process.env.ENV_MODE === 'PRODUCTION') {
     config.GOOGLECREDENTIALS_PROFILE_LOGIN = process.env.GOOGLECREDENTIALS_PROFILE_LOGIN;
@@ -33,9 +32,8 @@ module.exports = function({ data, hashGenerator, validator }) {
 
             if (!validator.validatePassword(req.body.password)) {
                 return res.status(400)
-                    .render('status-codes/status-code-error', {
+                    .render('bad-request', {
                         result: {
-                            code: 400,
                             err: PASWORD_DOES_NOT_MATCH
                         }
                     });
@@ -49,9 +47,8 @@ module.exports = function({ data, hashGenerator, validator }) {
                 })
                 .catch(err => {
                     return res.status(400)
-                        .render('status-codes/status-code-error', {
+                        .render('bad-request', {
                             result: {
-                                code: 400,
                                 err
                             }
                         });
@@ -67,9 +64,6 @@ module.exports = function({ data, hashGenerator, validator }) {
                     user: req.user
                 }
             });
-            // .catch(err => {
-            //     return res.status(500).send(err);
-            // });
         },
         getSignInForm(req, res) {
             return res.status(200).render('authentication/sign-in', {
@@ -77,9 +71,6 @@ module.exports = function({ data, hashGenerator, validator }) {
                     user: req.user
                 }
             });
-            // .catch(err => {
-            //     return res.status(500).send(err);
-            // });
         },
         getSgnInGoogle(req, res, next) {
             const auth = passport.authenticate('google', {
