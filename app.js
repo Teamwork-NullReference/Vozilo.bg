@@ -11,13 +11,16 @@ if (process.env.ENV_MODE === 'PRODUCTION') {
     config.PORT = connectionStrings.port;
 }
 
-let validator = require('./utils/validator');
+const hashGenerator = require('./utils/hashGenerator');
+const validator = require('./utils/validator');
 
-let data = require('./data')({ config, validator });
+const data = require('./data')({ config, validator });
 
 const app = require('./config/application')(data);
 
-require('./routes')({ app, data });
+const controllers = require('./controllers')({ data, hashGenerator, validator });
+
+require('./routes')({ app, data, controllers });
 
 app.listen(config.PORT, () => {
     console.log(`it works on: localhost:${config.PORT}`);

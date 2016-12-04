@@ -1,7 +1,7 @@
 /* globals module */
 'use strict';
 
-module.exports = function (data) {
+module.exports = function({ data }) {
     return {
         getCarModels(req, res) {
             data.getModels(req.query.brand)

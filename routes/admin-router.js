@@ -1,9 +1,9 @@
 const express = require('express');
 
 
-module.exports = function ({ app, data }) {
+module.exports = function({ app, controllers }) {
     let router = new express.Router();
-    let controller = require('../controllers/admin-controller')(data);
+    let controller = controllers.admin;
 
     router
         .post('/search', controller.filterUsers)

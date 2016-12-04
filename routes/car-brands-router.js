@@ -3,12 +3,12 @@
 
 const express = require('express');
 
-module.exports = function ({
+module.exports = function({
     app,
-    data
+    controllers
 }) {
 
-    let controller = require('../controllers/car-brands-controller')(data);
+    let controller = controllers.carbrands;
 
     let router = new express.Router();
 

@@ -1,7 +1,7 @@
 /* globals module */
 'use strict';
 
-module.exports = function (data) {
+module.exports = function({ data }) {
     return {
         getLatestMessages(req, res) {
             let username = req.params.username;
@@ -32,37 +32,38 @@ module.exports = function (data) {
                             result: {
                                 user: req.user,
                                 correspondences: [{
-                                    id: '987695786562394763292386',
-                                    sender: {
-                                        firstName: 'Dwayne',
-                                        lastName: 'Johnson',
-                                        pictureUrl: 'https://images-na.ssl-images-amazon.com/images/M/MV5BMTkyNDQ3NzAxM15BMl5BanBnXkFtZTgwODIwMTQ0NTE@._V1_UX214_CR0,0,214,317_AL_.jpg',
-                                        address: {
-                                            city: 'София',
-                                            street: 'Цариградско шосе 123'
+                                        id: '987695786562394763292386',
+                                        sender: {
+                                            firstName: 'Dwayne',
+                                            lastName: 'Johnson',
+                                            pictureUrl: 'https://images-na.ssl-images-amazon.com/images/M/MV5BMTkyNDQ3NzAxM15BMl5BanBnXkFtZTgwODIwMTQ0NTE@._V1_UX214_CR0,0,214,317_AL_.jpg',
+                                            address: {
+                                                city: 'София',
+                                                street: 'Цариградско шосе 123'
+                                            }
+                                        },
+                                        message: {
+                                            text: 'Are you talking to me?',
+                                            datetime: '30.12.2016 14:00'
                                         }
                                     },
-                                    message: {
-                                        text: 'Are you talking to me?',
-                                        datetime: '30.12.2016 14:00'
-                                    }
-                                },
-                                {
-                                    id: '7686399347679246789345',
-                                    sender: {
-                                        firstName: 'Mad',
-                                        lastName: 'Marks',
-                                        pictureUrl: 'http://i.imgur.com/y7Hm9.jpg',
-                                        address: {
-                                            city: 'София',
-                                            street: 'Цариградско шосе 100'
+                                    {
+                                        id: '7686399347679246789345',
+                                        sender: {
+                                            firstName: 'Mad',
+                                            lastName: 'Marks',
+                                            pictureUrl: 'http://i.imgur.com/y7Hm9.jpg',
+                                            address: {
+                                                city: 'София',
+                                                street: 'Цариградско шосе 100'
+                                            }
+                                        },
+                                        message: {
+                                            text: 'Ще наема колата за един месец. Каква ще е отстъпката?',
+                                            datetime: '3.12.2016 15:00'
                                         }
-                                    },
-                                    message: {
-                                        text: 'Ще наема колата за един месец. Каква ще е отстъпката?',
-                                        datetime: '3.12.2016 15:00'
                                     }
-                                }]
+                                ]
                             }
                         });
                     }
@@ -122,8 +123,7 @@ module.exports = function (data) {
                                     username: 'Ivan Banev',
                                     imageUrl: 'https://pp.vk.me/c417619/v417619498/1d63/ox2bocn6EwI.jpg'
                                 },
-                                messages: [
-                                    {
+                                messages: [{
                                         sender: 'Ivan Banev',
                                         text: 'Искам да наема колата за празниците. От 22.12.2016 до 03.01.2017',
                                         date: '03.12.2016 18:11'
