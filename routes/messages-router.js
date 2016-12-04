@@ -8,7 +8,7 @@ module.exports = function({ app, data }) {
 
     let router = new express.Router();
 
-    // router.get('/:username/messages/:correspondenceId', controller.getCorrespondenceDetails);
+    router.get('/:username/messages/:correspondenceId', controller.getCorrespondenceDetails);
 
     router.get('/:username/messages', controller.getLatestMessages);
 
