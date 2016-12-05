@@ -20,12 +20,6 @@ $(document).ready(function() {
         $('#user-reviews').removeClass('hidden');
     });
 
-    $('#forth-tab a').click(function(e) {
-        e.preventDefault();
-        $('.profile-tab').addClass('hidden');
-        $('#user-requests').removeClass('hidden');
-    });
-
     $('#rating-select').change(function() {
         var username = $('#username').text();
         var rating = $('select option:selected').val();

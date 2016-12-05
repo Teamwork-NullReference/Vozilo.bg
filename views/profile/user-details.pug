@@ -16,8 +16,6 @@ block body-content
             li(id="third-tab")
                 a(href="#" data-toggle="tab") Получени коментари
             if result.extraInfoAllowed
-                li(id="forth-tab")
-                    a(href="#" data-toggle="tab") Направени заявки
                 li(id="fifth-tab")
                     a(href="/user/" + result.userDetails.username + "/update") Промени профила
         div(id="prfile-info" class="profile-tab")
@@ -128,43 +126,3 @@ block body-content
                     div(class="panel-body")
                         span
                            != review.content
-        //- TODO Remove
-        //- div(id="user-requests" class="profile-tab hidden")
-        //-     each request in result.userDetails.rentalRequests
-        //-             div(class="request-container")
-        //-                 a(href="/car/" + request.car.id)
-        //-                     img(class="car-pic-preview img-rounded" src=request.car.imageUrl)
-        //-                 div(class="request-info")
-        //-                     strong
-        //-                         | Собственик: 
-        //-                         a(href="/user/" + request.owner.username)
-        //-                             != request.owner.username
-        //-                     br
-        //-                     strong
-        //-                         | Начална дата: 
-        //-                     != request.startRentalDate.getDate() + '-'
-        //-                     != request.startRentalDate.getMonth() + 1 + '-'
-        //-                     != request.startRentalDate.getFullYear()
-        //-                     br
-        //-                     strong
-        //-                         | Крайна дата: 
-        //-                     != request.endRentalDate.getDate() + '-'
-        //-                     != request.endRentalDate.getMonth() + 1 + '-'
-        //-                     != request.endRentalDate.getFullYear()
-        //-                     h4
-        //-                         strong
-        //-                             | Статус: 
-        //-                         if request.status == "Finished"
-        //-                             span(class="label label-success")
-        //-                                | Приключен
-        //-                         else if request.status == "Canceled"
-        //-                             span(class="label label-danger")
-        //-                                | Отказан
-        //-                         else if request.status == "Active"
-        //-                             span(class="label label-primary")
-        //-                                | Активен
-        //-                         else if request.status == "Pending"
-        //-                             span(class="label label-info")
-        //-                                | Очаква отговор
-        //-                     a(class="btn btn-primary" href="#")
-        //-                         | Кореспонденция - link pls                   

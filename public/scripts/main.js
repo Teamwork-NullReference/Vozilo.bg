@@ -3,10 +3,10 @@
 $(function () {
     $('#btn-sign-out').click(function () {
         jsonRequester.send('post', '/sign-out', {
-                options: {
-                    action: 'logout'
-                }
-            })
+            options: {
+                action: 'logout'
+            }
+        })
             .then(function () {
                 window.location.replace('/');
             });
@@ -23,10 +23,12 @@ $(function () {
         js.id = id;
         js.src = '//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7';
         fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+    } (document, 'script', 'facebook-jssdk'));
 
-    window.fbAsyncInit = function () { // this gets triggered when FB object gets initialized
+    // this gets triggered when FB object gets initialized
+    window.fbAsyncInit = function () {
         console.log('FB Object initiated');
-        FB.XFBML.parse(); // now we can safely call parse method
+        // now we can safely call parse method
+        FB.XFBML.parse();
     };
 });

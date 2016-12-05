@@ -1,7 +1,7 @@
  /* globals $ */
  'use strict';
 
- $().ready(function(){
+ $().ready(function() {
 
      $('#signupForm').validate({
          rules: {

@@ -2,8 +2,9 @@
 
 $(function () {
     var monthNames = ['Януари', 'Февруари', 'Март', 'Април', 'Май', 'Юни',
-        'Юли', 'Август', 'Септември', 'Октомври', 'Ноември', 'Декември'
-    ];
+            'Юли', 'Август', 'Септември', 'Октомври', 'Ноември', 'Декември'
+        ],
+        id;
 
     function getMonthAndYear() {
         var month = parseInt($('#calendar').attr('month'), 10);
@@ -30,16 +31,18 @@ $(function () {
     }
 
     function drawCalendar(month, year, carAvalabilityDates) {
+        var table, tBody, tHead, days, tr, i, j, td, checkDate, checkYear, checkMonth, calendar;
+
         if ($('#calendar')) {
             $('#calendar').remove();
         }
 
-        var table = $('<table>')
+        table = $('<table>')
             .attr('id', 'calendar')
             .attr('month', month)
             .attr('year', year);
-        var tBody = $('<tbody>');
-        var tHead = $('<thead>')
+        tBody = $('<tbody>');
+        tHead = $('<thead>')
             .append($('<tr>')
                 .append($('<th>').html(monthNames[month] + ' ' + year)
                     .addClass('text-center')
@@ -47,15 +50,15 @@ $(function () {
                     .attr('colspan', 7)))
             .appendTo(table);
 
-        var days = getFirstAndLastDaysOfCurrentMonth(year, month);
+        days = getFirstAndLastDaysOfCurrentMonth(year, month);
 
-        var tr = $('<tr>');
-        for (var i = days.firstDay; i <= days.lastDay; i += 1) {
-            var td = $('<td>').html(i);
-            for (var j = 0; j < carAvalabilityDates.length; j += 1) {
-                var checkDate = new Date(carAvalabilityDates[j]).getDate();
-                var checkYear = new Date(carAvalabilityDates[j]).getFullYear();
-                var checkMonth = new Date(carAvalabilityDates[j]).getMonth();
+        tr = $('<tr>');
+        for (i = days.firstDay; i <= days.lastDay; i += 1) {
+            td = $('<td>').html(i);
+            for (j = 0; j < carAvalabilityDates.length; j += 1) {
+                checkDate = new Date(carAvalabilityDates[j]).getDate();
+                checkYear = new Date(carAvalabilityDates[j]).getFullYear();
+                checkMonth = new Date(carAvalabilityDates[j]).getMonth();
                 if (i === parseInt(checkDate, 10) && parseInt(checkYear, 10) === year && parseInt(checkMonth, 10) === month) {
                     td.addClass('car-available');
                 }
@@ -70,11 +73,11 @@ $(function () {
 
         tBody.append(tr);
         tBody.appendTo(table);
-        var calendar = $('#calendar-container');
+        calendar = $('#calendar-container');
         calendar.append(table);
     }
 
-    var id = $('#car-details').attr('carId');
+    id = $('#car-details').attr('carId');
 
     function getAvailabilityFromCurrentMonth(month, year) {
         var url = '/car/' + id + '/calendar?month=' + month + '&year=' + year;

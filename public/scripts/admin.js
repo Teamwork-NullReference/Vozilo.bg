@@ -14,9 +14,10 @@ $(document).ready(function () {
     });
 
     $('.delete').click(function (e) {
+        var user, options;
         e.preventDefault();
-        var user = e.target.parentElement.parentElement.id;
-        var options = { data: { username: user } };
+        user = e.target.parentElement.parentElement.id;
+        options = { data: { username: user } };
         jsonRequester.send('post', '/admin/delete', options)
             .then(function (res) {
                 if (res.status === 'ok') {
@@ -29,27 +30,18 @@ $(document).ready(function () {
     });
 
     $('.restore').click(function (e) {
+        var user, options;
         e.preventDefault();
-        var user = e.target.parentElement.parentElement.id;
-        var options = { data: { username: user } };
+        user = e.target.parentElement.parentElement.id;
+        options = { data: { username: user } };
         jsonRequester.send('post', '/admin/restore', options)
             .then(function (res) {
                 if (res.status === 'ok') {
                     window.location.replace('/admin');
-                }
-                else {
+                } else {
                     console.log('Error');
                     window.location.replace('/admin');
                 }
             });
     });
-
-
-
-
-
-
-
-
-
 });
