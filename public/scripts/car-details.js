@@ -35,12 +35,12 @@ $(function () {
     countDates(startDate, endDate);
 
     $('#start-date').on('change', function () {
-        startDate = new Date($('select[name=start-date]').val());
+        startDate = new Date($('#start-date').val());
         countDates(startDate, endDate);
     });
 
     $('#end-date').on('change', function () {
-        endDate = new Date($('select[name=end-date]').val());
+        endDate = new Date($('#end-date').val());
         countDates(startDate, endDate);
     });
 
