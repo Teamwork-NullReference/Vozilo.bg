@@ -1,10 +1,5 @@
 /* globals module require Promise */
 
-// const dataUtils = require("./utils/data-utils"),
-//         mapper = require("../utils/mapper");
-
-// const MIN_PATTERN_LENGTH = 3;
-
 module.exports = function({ models, validator }) {
     let { User } = models;
 

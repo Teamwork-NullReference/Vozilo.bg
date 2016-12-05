@@ -10,7 +10,6 @@ module.exports = function({ config, validator }) {
 
     mongoose.connect(config.MONGOLAB_URI);
 
-    // let models = require('./../models'); // not working
     let User = require('../models/user-model');
     let Car = require('../models/car-model');
     let CarBrandDetail = require('../models/car-brand-model');

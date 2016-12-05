@@ -18,13 +18,6 @@ module.exports = function ({ models, validator }) {
 
                         resolve(res);
                     });
-                // CarBrandDetail.find((err, res) => {
-                //     if (err) {
-                //         return reject(err);
-                //     }
-
-                //     return resolve(res);
-                // });
             });
         },
         getModels(brand) {

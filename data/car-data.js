@@ -13,7 +13,7 @@ function getDatesFromRange(startDate, endDate) {
     return result;
 }
 
-module.exports = function ({
+module.exports = function({
     models,
     validator
 }) {
@@ -99,8 +99,8 @@ module.exports = function ({
         getDatesFromCalendar(id) {
             let promise = new Promise((resolve, reject) => {
                 Car.find({
-                        _id: id
-                    })
+                    _id: id
+                })
                     .select('availability')
                     .exec((err, dates) => {
                         if (err) {
@@ -115,9 +115,9 @@ module.exports = function ({
         },
         addCar(user, carInfo) {
             return carValidator.validate({
-                    carInfo,
-                    validator
-                })
+                carInfo,
+                validator
+            })
                 .then(() => {
                     return new Promise((resolve, reject) => {
                         let brand = carInfo.brand,
