@@ -16,14 +16,14 @@ TODO
 	- Create car Form - Galin
 	- Car Search page - George
 	- User page - 100yo
-		if own page -> update profile button
+		if own page -> 100yo
 	- Update profile form/page - TODO
 	- User Messages page/box (Button in navigation menu) all users last msg- Miro 
 	- User Messages page - All messages with user - Miro
 	- Send Message To User page - Pop up in Car Details and User Details - TODO
 	
 	- Booking page - Stoyan
-	- Admin page - ? 
+	- Admin page - Stoyan
 		*delete users
 
 - Unit tests - 100yo

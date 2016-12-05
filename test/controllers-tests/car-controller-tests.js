@@ -52,11 +52,6 @@ describe('car-controller tests:', () => {
             user: mockedUser
         };
 
-        let res = {
-            status: {},
-            render: null
-        };
-
         sandbox.stub(res, 'render', () => {
             // do nothing
         });
@@ -74,11 +69,6 @@ describe('car-controller tests:', () => {
     it('loadCreateCarForm should return right view', done => {
         let req = {
             user: mockedUser
-        };
-
-        let res = {
-            status: null,
-            render: null
         };
 
         sandbox.stub(res, 'status', () => {
@@ -99,11 +89,6 @@ describe('car-controller tests:', () => {
             user: mockedUser
         };
 
-        let res = {
-            status: null,
-            render: null
-        };
-
         sandbox.stub(res, 'status', () => {
             return res;
         });
@@ -122,11 +107,6 @@ describe('car-controller tests:', () => {
             user: mockedUser
         };
 
-        let res = {
-            status: null,
-            render: null
-        };
-
         sandbox.stub(res, 'status', () => {
             return res;
         });
@@ -143,11 +123,6 @@ describe('car-controller tests:', () => {
     it('loadCreateCarForm should return result with endDate current year', done => {
         let req = {
             user: mockedUser
-        };
-
-        let res = {
-            status: null,
-            render: null
         };
 
         sandbox.stub(res, 'status', () => {

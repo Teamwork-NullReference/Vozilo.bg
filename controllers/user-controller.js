@@ -9,7 +9,7 @@ const mapper = require('./../utils/mapper'),
     STATUS_CANCELED = 'Canceled',
     IS_DISAPPROVE = 'disapprove';
 
-module.exports = function ({
+module.exports = function({
     data
 }) {
     return {
@@ -78,10 +78,16 @@ module.exports = function ({
                     }
 
                     let updateAllowed = false;
+                    let isAdmin = false;
 
-                    if (req.user && ((req.user.role && req.user.role.indexOf('admin') >= 0) ||
-                            username === req.user.username)) {
-                        updateAllowed = true;
+                    if (req.user) {
+                        if (req.user.role && req.user.role.indexOf('admin') >= 0) {
+                            isAdmin = true;
+                        }
+
+                        if (username === req.user.username || isAdmin) {
+                            updateAllowed = true;
+                        }
                     }
 
                     if (updateAllowed) {

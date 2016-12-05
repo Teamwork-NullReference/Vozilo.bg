@@ -76,7 +76,7 @@ module.exports = function({
                 validator
             })
                 .then(() => {
-                    return new Promise((resolve, reject) => {
+                    return new Promise((resolve) => {
                         let newUser = new User({
                             firstName: user.firstName,
                             lastName: user.lastName,

@@ -1,6 +1,6 @@
 /* globals module require Promise */
 
-module.exports = function({ models, validator }) {
+module.exports = function({ models }) {
     let { User } = models;
 
     return {

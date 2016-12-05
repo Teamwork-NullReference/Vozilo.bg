@@ -1,7 +1,7 @@
 /* globals module */
 'use strict';
 
-module.exports = function ({ models, validator }) {
+module.exports = function({ models }) {
     let {
         CarBrandDetail
     } = models;

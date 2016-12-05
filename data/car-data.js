@@ -119,7 +119,7 @@ module.exports = function({
                 validator
             })
                 .then(() => {
-                    return new Promise((resolve, reject) => {
+                    return new Promise((resolve) => {
                         let brand = carInfo.brand,
                             model = carInfo.model,
                             year = parseInt(carInfo.year, 10),
