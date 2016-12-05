@@ -48,6 +48,7 @@ module.exports = function ({
                     return Promise.resolve();
                 })
                 .catch((err) => {
+                    res.end();
                     res.status(400).render('bad-request', {
                         result: {
                             err
@@ -104,6 +105,7 @@ module.exports = function ({
                     return Promise.resolve();
                 })
                 .catch((err) => {
+                    res.end();
                     res.status(400).render('bad-request', {
                         result: {
                             err
