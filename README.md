@@ -4,8 +4,7 @@
 
 ##[Live](https://vozilo.herokuapp.com/)
 
-# TODO
-[Video](link)
+##[Video](https://www.youtube.com/watch?v=DSXiJ7jMbos&feature=youtu.be)
 
 # Team-NullReference Members (alphabetically)
 
