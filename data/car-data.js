@@ -26,7 +26,7 @@ module.exports = function({
             let promise = new Promise((resolve, reject) => {
                 Car.find({}, (err, res) => {
                     if (err) {
-                        reject(err);
+                        return reject(err);
                     }
 
                     resolve(res);
@@ -87,7 +87,7 @@ module.exports = function({
                     _id: id
                 }, (err, res) => {
                     if (err) {
-                        reject(err);
+                        return reject(err);
                     }
 
                     resolve(res);
@@ -104,7 +104,7 @@ module.exports = function({
                     .select('availability')
                     .exec((err, dates) => {
                         if (err) {
-                            reject(err);
+                            return reject(err);
                         }
 
                         resolve(dates);

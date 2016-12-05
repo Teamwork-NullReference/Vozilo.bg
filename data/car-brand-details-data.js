@@ -13,7 +13,7 @@ module.exports = function({ models }) {
                     .select('brand')
                     .exec((err, res) => {
                         if (err) {
-                            reject(err);
+                            return reject(err);
                         }
 
                         resolve(res);
@@ -28,7 +28,7 @@ module.exports = function({ models }) {
                     .select('models.model')
                     .exec((err, res) => {
                         if (err) {
-                            reject(err);
+                            return reject(err);
                         }
 
                         resolve(res);

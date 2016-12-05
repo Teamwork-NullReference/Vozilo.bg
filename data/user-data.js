@@ -17,7 +17,7 @@ module.exports = function({
             let promise = new Promise((resolve, reject) => {
                 User.find({}, (err, res) => {
                     if (err) {
-                        reject(err);
+                        return reject(err);
                     }
 
                     resolve(res);
@@ -32,7 +32,7 @@ module.exports = function({
                     options
                 }, (err, res) => {
                     if (err) {
-                        reject(err);
+                        return reject(err);
                     }
 
                     resolve(res);
@@ -47,7 +47,7 @@ module.exports = function({
                     _id: id
                 }, (err, res) => {
                     if (err) {
-                        reject(err);
+                        return reject(err);
                     }
 
                     resolve(res);
@@ -62,8 +62,9 @@ module.exports = function({
                     username
                 }, (err, res) => {
                     if (err) {
-                        reject(err);
+                        return reject(err);
                     }
+
                     resolve(res);
                 });
             });
@@ -188,8 +189,9 @@ module.exports = function({
                     .limit(filterLimit)
                     .exec((err, res) => {
                         if (err) {
-                            reject(err);
+                            return reject(err);
                         }
+
                         resolve(res);
                     });
             });
@@ -199,8 +201,9 @@ module.exports = function({
                 User.update({ username }, { isDeleted: true },
                     function(err, numberAffected, rawResponse) {
                         if (err) {
-                            reject(err);
+                            return reject(err);
                         }
+
                         resolve(rawResponse);
                     });
             });
@@ -210,8 +213,9 @@ module.exports = function({
                 User.update({ username }, { isDeleted: false },
                     function(err, numberAffected, rawResponse) {
                         if (err) {
-                            reject(err);
+                            return reject(err);
                         }
+
                         resolve(rawResponse);
                     });
             });
